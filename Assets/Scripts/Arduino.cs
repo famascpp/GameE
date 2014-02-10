@@ -1,23 +1,23 @@
 ﻿using UnityEngine;
 using System.Collections;
-using System.IO.Ports;
+//using System.IO.Ports;
 
 public class Arduino : MonoBehaviour {
 	
-	private static SerialPort sp = new SerialPort("COM7",9600);
+//	private static SerialPort sp = new SerialPort("COM7",9600);
 	private string myData;
 	private static int i;
 	
 	// Use this for initialization
 	void Start () {
-		sp.Parity = System.IO.Ports.Parity.None;
-		sp.DataBits = 8;
-		sp.StopBits = System.IO.Ports.StopBits.One;
+//		sp.Parity = System.IO.Ports.Parity.None;
+//		sp.DataBits = 8;
+//		sp.StopBits = System.IO.Ports.StopBits.One;
 		//sp.NewLine = "\r\n";
 		
 		i = 32;
 		myData = "1";
-		OpenConnection();
+//		OpenConnection();
 	}
 	
 	// Update is called once per frame
@@ -31,29 +31,29 @@ public class Arduino : MonoBehaviour {
 		
 		if(i!=0) Debug.Log(i);
 		*/
-		StartCoroutine(arduino());
+//		StartCoroutine(arduino());
 	}
 	
-	public IEnumerator arduino(){
-		while(sp.IsOpen){
-			myData = sp.ReadLine();
-			if(int.TryParse(myData,out i))
-				i = int.Parse(myData);
-			else
-				i = -1;
+//	public IEnumerator arduino(){
+//		while(sp.IsOpen){
+//			myData = sp.ReadLine();
+//			if(int.TryParse(myData,out i))
+//				i = int.Parse(myData);
+//			else
+//				i = -1;
 			
-			if(i!=0) Debug.Log(i);
+//			if(i!=0) Debug.Log(i);
 			
-			yield return 0;
-		}
-	}
-	
+//			yield return 0;
+//		}
+//	}
+
 	void OnApplicationQuit()
 	{
-		sp.Close();
+//		sp.Close();
 	}
 	
-	void OpenConnection(){
+/*	void OpenConnection(){
 		if(sp != null){
 			if(sp.IsOpen){
 				sp.Close();
@@ -71,4 +71,5 @@ public class Arduino : MonoBehaviour {
 	public static int GetPin () {
 		return i;
 	}
+	*/
 }

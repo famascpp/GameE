@@ -6,8 +6,8 @@ public static class InputA {
 
 	// 拍手情報.
 	public static bool GetHand () {
-
-		return true;
+		if(1 == HAND) return true;
+		return false;
 	}
 	
 	// 肩タッチ情報.
