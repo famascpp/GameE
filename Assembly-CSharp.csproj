@@ -48,6 +48,8 @@
   <ItemGroup>
      <Compile Include="Assets\Scripts\Arduino.cs" />
      <Compile Include="Assets\Scripts\InputA.cs" />
+     <Compile Include="Assets\Scripts\MusicText.cs" />
+     <Compile Include="Assets\Scripts\Title.cs" />
      <Compile Include="Assets\Scripts\test.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
