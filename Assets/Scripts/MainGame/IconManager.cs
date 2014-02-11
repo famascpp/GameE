@@ -6,24 +6,22 @@ public class IconManager : MonoBehaviour {
 
 	public const int iconMax = 7;
 
+	public const int cursorMax = 2;
+
 	public Texture[] iconTex = new Texture[iconMax];
 
 	public GameObject iconPrefab;
 
 	Icon[] icon = new Icon[iconMax];
-	public Icon[] getIcon{
-		get{ return icon; }
-	}
-
 	public Icon getIconE( IconEnum ie )
 	{
 		return icon[(int)ie];
 	}
 
-	public Texture cursorTex;
-	Icon cursor;
-	public Icon getCursor{
-		get{ return cursor; }
+	public Texture[] cursorTex = new Texture[cursorMax];
+	Icon[] cursor = new Icon[cursorMax];
+	public Icon getCursor( int i ){
+		return cursor[i];
 	}
 
 	// Use this for initialization
@@ -61,17 +59,26 @@ public class IconManager : MonoBehaviour {
 			icon[i].depthLayer = 1;
 		}
 
-		//カーソル作成.
-		obj = Instantiate(
-			iconPrefab,
-			new Vector3(0.0f,0.0f,0.0f),
-			Quaternion.identity
-			) as GameObject;
-		
-		cursor = obj.GetComponent<Icon>();
-		cursor.icon = cursorTex;
-		cursor.scale = scale;
-		cursor.gameObject.name = "cursor";
+		for( int i = 0 ; i < cursorMax ; i++ )
+		{
+			//カーソル作成.
+			obj = Instantiate(
+				iconPrefab,
+				new Vector3(-0.1f + 0.2f*(float)i,0.0f,0.0f),
+				Quaternion.identity
+				) as GameObject;
+			
+			cursor[i] = obj.GetComponent<Icon>();
+			cursor[i].icon = cursorTex[i];
+			cursor[i].scale = scale;
+			cursor[i].gameObject.name = "cursor" + i;
+
+			if( i % 2 == 1 )
+			{
+				cursor[i].scale *= -1;	
+			}
+
+		}
 
 	}
 	

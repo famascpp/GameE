@@ -10,6 +10,7 @@ public enum IconEnum
 	rHip,
 	lKnee,
 	rKnee,
+	Max,
 }
 
 public class MusicText {
