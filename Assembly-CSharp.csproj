@@ -58,6 +58,7 @@
      <Compile Include="Assets\Scripts\Title.cs" />
      <Compile Include="Assets\Scripts\TitleMusic.cs" />
      <Compile Include="Assets\Scripts\test.cs" />
+     <None Include="Assets\Resources\music\test\test.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
