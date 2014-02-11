@@ -54,6 +54,7 @@
      <Compile Include="Assets\Scripts\MainGame\MusicText.cs" />
      <Compile Include="Assets\Scripts\MainGame\main.cs" />
      <Compile Include="Assets\Scripts\Title.cs" />
+     <Compile Include="Assets\Scripts\TitleMusic.cs" />
      <Compile Include="Assets\Scripts\test.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

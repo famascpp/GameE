@@ -6,8 +6,8 @@ public class Arduino : MonoBehaviour {
 	
 	private static SerialPort sp = new SerialPort("COM7",9600);
 	private string myData;
-	private static int i;
-	
+	private int i;
+
 	// Use this for initialization
 	void Start () {
 		sp.Parity = System.IO.Ports.Parity.None;
@@ -35,15 +35,18 @@ public class Arduino : MonoBehaviour {
 	}
 	
 	public IEnumerator arduino(){
+
 		while(sp.IsOpen){
 			myData = sp.ReadLine();
-			if(int.TryParse(myData,out i))
-				i = int.Parse(myData);
-			else
-				i = -1;
-			
-			if(i!=0) Debug.Log(i);
-			
+			if(myData != "0"){
+				if(int.TryParse(myData,out i)){
+				}
+			}else{
+				//i = 0;
+			}
+
+			//if(i!=0) Debug.Log(i);
+
 			yield return 0;
 		}
 	}
@@ -68,8 +71,18 @@ public class Arduino : MonoBehaviour {
 		}
 	}
 
-	public static int GetPin () {
-		return i;
+	public void SetPin ( int num ){
+		i = num;
+	}
+	public int GetPin () {
+		int n = i;
+		i = 0;
+		Debug.Log("GetPin:"+n);
+		
+		return n;
 	}
 
+	void OnGUI(){
+		//GUI.Label(new Rect(0,0,100,100),GetPin().ToString());
+	}
 }
