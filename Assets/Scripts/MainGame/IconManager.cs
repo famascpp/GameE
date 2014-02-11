@@ -15,34 +15,34 @@ public class IconManager : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 
+		int[] dispos = {0,1,3,5,6,4,2};
+		float length = 0.4f;
+		float scale = 0.1f;
 
-		int[] dispos = {0,2,4,6,5,3,1};
-
-		//アイコン配置
+		//アイコン配置.
 		for( int i = 0 ; i < iconMax ; i++ )
 		{
 			float x,y;
 			float ang = ( ( Mathf.PI * 2.0f ) / (float)iconMax ) * (float)i + Mathf.PI / 2.0f;
-			float length = 0.3f;
-
 			x = Mathf.Cos( ang ) * length;
 			y = Mathf.Sin( ang ) * length;
 
-			Object obj;
+			GameObject obj;
 
 			obj = Instantiate(
 				iconPrefab,
 				new Vector3(x,y,0.0f),
 				Quaternion.identity
-				);
+				) as GameObject;
 
-			icon[dispos[i]] = (Icon)obj;
+			icon[dispos[i]] = obj.GetComponent<Icon>();
 		}
 
 		//テクスチャ貼り付け.
 		for( int i = 0 ; i < iconMax ; i++ )
 		{
 			icon[i].icon = iconTex[i];
+			icon[i].scale = scale;
 		}
 	}
 	
