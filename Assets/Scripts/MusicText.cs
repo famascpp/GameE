@@ -1,15 +1,13 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class MusicText : MonoBehaviour {
+public class MusicText {
 
-	// Use this for initialization
-	void Start () {
-	
+	public TextAsset musicScore;
+
+	public void Load(string textPath)
+	{
+		musicScore = Resources.Load<TextAsset>("textPath");
 	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
+
 }
