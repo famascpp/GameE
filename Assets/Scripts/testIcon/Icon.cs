@@ -6,7 +6,7 @@ public class Icon : MonoBehaviour {
 
 	public Texture icon;
 
-	public float scale = 0.2f;
+	public float scale = 0.1f;
 
 	// Use this for initialization
 	void Start () {
@@ -27,16 +27,9 @@ public class Icon : MonoBehaviour {
 			Vector2 pos = new Vector2(this.transform.position.x,this.transform.position.y);
 			pos.y = 1-pos.y;	//yの上下反転.
 
-			//0.5を中心に.
-			pos.x += 0.5f;
-			pos.y -= 0.5f;
-
-
-
-
 			Rect texRect = new Rect(
-				Screen.width * pos.x - size.x / 2.0f, 
-				Screen.height * pos.y - size.y / 2.0f,
+				Screen.width / 2.0f + Screen.height * pos.x - size.x / 2.0f, 
+				-Screen.height  / 2.0f + Screen.height * pos.y - size.y / 2.0f,
 				size.x,
 				size.y
 			);

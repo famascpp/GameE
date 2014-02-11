@@ -52,6 +52,7 @@
      <Compile Include="Assets\Scripts\Title.cs" />
      <Compile Include="Assets\Scripts\test.cs" />
      <Compile Include="Assets\Scripts\testIcon\Icon.cs" />
+     <Compile Include="Assets\Scripts\testIcon\IconManager.cs" />
      <Compile Include="Assets\Scripts\testIcon\main.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

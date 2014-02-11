@@ -1,6 +1,17 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+enum Marker
+{
+	hand = 0,
+	lShoulder,
+	rShoulder,
+	lHip,
+	rHip,
+	lKnee,
+	rKnee,
+}
+
 public class MusicText {
 
 	public TextAsset musicScore;
