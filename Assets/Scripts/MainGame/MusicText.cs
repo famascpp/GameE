@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-enum Marker
+public enum IconEnum
 {
 	hand = 0,
 	lShoulder,

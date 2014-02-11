@@ -10,14 +10,30 @@ public class IconManager : MonoBehaviour {
 
 	public GameObject iconPrefab;
 
-	public Icon[] icon = new Icon[iconMax];
+	Icon[] icon = new Icon[iconMax];
+	public Icon[] getIcon{
+		get{ return icon; }
+	}
+
+	public Icon getIconE( IconEnum ie )
+	{
+		return icon[(int)ie];
+	}
+
+	public Texture cursorTex;
+	Icon cursor;
+	public Icon getCursor{
+		get{ return cursor; }
+	}
 
 	// Use this for initialization
 	void Start () {
+		GUI.depth = 1;
 
 		int[] dispos = {0,1,3,5,6,4,2};
 		float length = 0.4f;
 		float scale = 0.1f;
+		GameObject obj;
 
 		//アイコン配置.
 		for( int i = 0 ; i < iconMax ; i++ )
@@ -26,8 +42,6 @@ public class IconManager : MonoBehaviour {
 			float ang = ( ( Mathf.PI * 2.0f ) / (float)iconMax ) * (float)i + Mathf.PI / 2.0f;
 			x = Mathf.Cos( ang ) * length;
 			y = Mathf.Sin( ang ) * length;
-
-			GameObject obj;
 
 			obj = Instantiate(
 				iconPrefab,
@@ -43,7 +57,22 @@ public class IconManager : MonoBehaviour {
 		{
 			icon[i].icon = iconTex[i];
 			icon[i].scale = scale;
+			icon[i].gameObject.name = "icon"+i+""+((IconEnum)i).ToString();
+			icon[i].depthLayer = 1;
 		}
+
+		//カーソル作成.
+		obj = Instantiate(
+			iconPrefab,
+			new Vector3(0.0f,0.0f,0.0f),
+			Quaternion.identity
+			) as GameObject;
+		
+		cursor = obj.GetComponent<Icon>();
+		cursor.icon = cursorTex;
+		cursor.scale = scale;
+		cursor.gameObject.name = "cursor";
+
 	}
 	
 	// Update is called once per frame

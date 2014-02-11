@@ -8,6 +8,8 @@ public class Icon : MonoBehaviour {
 
 	public float scale = 0.1f;
 
+	public int depthLayer = 0;
+
 	// Use this for initialization
 	void Start () {
 	
@@ -20,6 +22,7 @@ public class Icon : MonoBehaviour {
 
 	void OnGUI()
 	{
+		GUI.depth = depthLayer;
 		if( icon )
 		{
 			Vector2 size = new Vector2( Screen.height * scale , Screen.height * scale);

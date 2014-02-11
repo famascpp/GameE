@@ -48,10 +48,11 @@
   <ItemGroup>
      <Compile Include="Assets\Scripts\Arduino.cs" />
      <Compile Include="Assets\Scripts\InputA.cs" />
+     <Compile Include="Assets\Scripts\MainGame\GameManager.cs" />
      <Compile Include="Assets\Scripts\MainGame\Icon.cs" />
      <Compile Include="Assets\Scripts\MainGame\IconManager.cs" />
+     <Compile Include="Assets\Scripts\MainGame\MusicText.cs" />
      <Compile Include="Assets\Scripts\MainGame\main.cs" />
-     <Compile Include="Assets\Scripts\MusicText.cs" />
      <Compile Include="Assets\Scripts\Title.cs" />
      <Compile Include="Assets\Scripts\test.cs" />
   </ItemGroup>
