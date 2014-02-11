@@ -50,6 +50,7 @@
      <Compile Include="Assets\Scripts\InputA.cs" />
      <Compile Include="Assets\Scripts\MusicText.cs" />
      <Compile Include="Assets\Scripts\Title.cs" />
+     <Compile Include="Assets\Scripts\TitleMusic.cs" />
      <Compile Include="Assets\Scripts\test.cs" />
      <Compile Include="Assets\Scripts\testIcon\Icon.cs" />
      <Compile Include="Assets\Scripts\testIcon\IconManager.cs" />

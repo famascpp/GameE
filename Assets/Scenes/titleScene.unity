@@ -88,8 +88,9 @@ GameObject:
   - 81: {fileID: 74131097}
   - 114: {fileID: 74131102}
   - 114: {fileID: 74131096}
+  - 114: {fileID: 74131103}
   m_Layer: 0
-  m_Name: Main Camera
+  m_Name: mainCamera
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -180,3 +181,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   backgroundTexture: {fileID: 2800000, guid: 722322e8c0ae088448599a293bf7b681, type: 3}
   startTexture: {fileID: 2800000, guid: c314e61f239483442837244fac2f6885, type: 3}
+--- !u!114 &74131103
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 74131095}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1156474b81ef7d04baa810779a699813, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  music: {fileID: 8300000, guid: 7f2b54ad0ef9bf340ac95a93b4e613a8, type: 3}

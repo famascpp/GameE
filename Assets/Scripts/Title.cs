@@ -1,10 +1,13 @@
-﻿
-using UnityEngine;
+﻿using UnityEngine;
 using System.Collections;
 
 public class Title : MonoBehaviour {
 	public Texture backgroundTexture; // 背景画像（未定）.
 	public Texture startTexture; // スタートロゴ画像（未定）.
+	private Arduino arduino;
+	private GameObject camera;
+	private bool drawUserGuideFlag = false; // true:操作説明画像表示.
+
 	// ロゴの構造体.
 	struct Logo{
 		public static Texture texture;
@@ -17,16 +20,19 @@ public class Title : MonoBehaviour {
 			Logo.h = Logo.texture.height;
 		}
 	}
-
+	void Start () {
+		camera = GameObject.FindWithTag("MainCamera");
+		arduino = camera.GetComponent<Arduino>();
+	}
 
 	void Update () {
 		UserGuide(); // 操作説明に遷移.
 	}
 
 	private void UserGuide () {
-		if( InputA.GetHand() ){ // 拍手したら.
+		if( InputA.GetArduinoState(arduino.GetPin(), InputA.HAND) ){ // 拍手したら.
 			/*操作説明表示.*/
-			Debug.Log("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+			drawUserGuideFlag = true;
 		}
 	}
 
@@ -59,10 +65,21 @@ public class Title : MonoBehaviour {
 				startTexture);
 		}
 	}
+	void DrawUserGuide () {
+		if(drawUserGuideFlag){
+			if(Event.current.type == EventType.Repaint){
+				Graphics.DrawTexture(
+					new Rect(0, 0,
+				         Screen.width, Screen.height),
+					startTexture);
+			}
+		}
+	}
 	void OnGUI () {
 		DrawBackground (); // 背景画像（未定）貼り付け.
 		DrawTitleLogo ();  // タイトルロゴ貼り付け.
 		DrawStartLogo ();  // 背景画像（未定）貼り付け.
+		DrawUserGuide ();  // 操作説明（未定）貼り付け.
 	}
 	
 }
