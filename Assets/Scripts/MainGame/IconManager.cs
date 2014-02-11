@@ -50,13 +50,15 @@ public class IconManager : MonoBehaviour {
 			icon[dispos[i]] = obj.GetComponent<Icon>();
 		}
 
-		//テクスチャ貼り付け.
+		MusicScore canonLock = new MusicScore("music/test/test");
+		//テクスチャ貼り付けとその他設定.
 		for( int i = 0 ; i < iconMax ; i++ )
 		{
 			icon[i].icon = iconTex[i];
 			icon[i].scale = scale;
 			icon[i].gameObject.name = "icon"+i+""+((IconEnum)i).ToString();
 			icon[i].depthLayer = 1;
+			icon[i].setScore(canonLock.getScoreCol(i));
 		}
 
 		for( int i = 0 ; i < cursorMax ; i++ )

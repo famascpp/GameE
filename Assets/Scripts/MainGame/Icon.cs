@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 [ExecuteInEditMode]
 public class Icon : MonoBehaviour {
@@ -10,6 +11,8 @@ public class Icon : MonoBehaviour {
 
 	public int depthLayer = 0;
 
+	int[][] score;
+
 	// Use this for initialization
 	void Start () {
 	
@@ -17,7 +20,10 @@ public class Icon : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-
+		if( score != null )
+		{
+			Debug.Log(score);
+		}
 	}
 
 	void OnGUI()
@@ -40,4 +46,20 @@ public class Icon : MonoBehaviour {
 			GUI.DrawTexture(texRect,icon);
 		}
 	}
+
+	public void setScore(List<List<int>> score)
+	{
+		this.score = new int[score.Count][];
+		for( int i = 0 ; i < score.Count ; i++ )
+		{
+			this.score[i] = new int[score[i].Count];
+			for( int j = 0 ; j < score[i].Count ; j++ )
+			{
+				int a = score[i][j];
+				this.score[i][j] = a;
+			}
+		}
+	}
+
+	
 }
