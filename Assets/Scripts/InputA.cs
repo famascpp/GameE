@@ -20,7 +20,7 @@ public static class InputA {
 	
 	// 拍手情報.
 	public static bool GetHand () {
-		if(Arduino.GetPin() == HAND){
+		if(ReadArduino.GetPin() == HAND){
 			return true;
 		}
 		return false;
@@ -28,31 +28,31 @@ public static class InputA {
 	
 	// 肩タッチ情報.
 	public static bool GetShoulderL () {
-		if(Arduino.GetPin() == SHOULDER_L) return true;
+		if(ReadArduino.GetPin() == SHOULDER_L) return true;
 		return false;
 	}
 	public static bool GetShoulderR () {
-		if(Arduino.GetPin() == SHOULDER_R) return true;
+		if(ReadArduino.GetPin() == SHOULDER_R) return true;
 		return false;
 	}
 	
 	// 腰のタッチ情報.
 	public static bool GetWaistL () {
-		if(Arduino.GetPin() == WAIST_L) return true;
+		if(ReadArduino.GetPin() == WAIST_L) return true;
 		return false;
 	}
 	public static bool GetWaistR () {
-		if(Arduino.GetPin() == WAIST_R) return true;
+		if(ReadArduino.GetPin() == WAIST_R) return true;
 		return false;
 	}
 	
 	// 膝のタッチ情報.
 	public static bool GetKneeL () {
-		if(Arduino.GetPin() == KNEE_L) return true;
+		if(ReadArduino.GetPin() == KNEE_L) return true;
 		return false;
 	}
 	public static bool GetKneeR () {
-		if(Arduino.GetPin() == KNEE_R) return true;
+		if(ReadArduino.GetPin() == KNEE_R) return true;
 		return false;
 	}
  }

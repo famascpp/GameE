@@ -2,31 +2,37 @@
 using System.Collections;
 
 public class Title : MonoBehaviour {
-	public Texture backgroundTexture; // 背景画像（未定）.
+	public Texture backgroundTexture; // 背景画像.
+	public Texture userGuideTexture1; // 注意画像.
 	public Texture startTexture; // スタートロゴ画像（未定）.
-	private Arduino arduino;
-	private GameObject camera;
 	private bool drawUserGuideFlag = false; // true:操作説明画像表示.
 
 	// ロゴの構造体.
 	struct Logo{
 		public static Texture texture;
 		public static float x, w, y, h;
+		public static float vy;
+		public static float POSITION_Y;
 		static Logo(){
 			Logo.texture = Resources.Load<Texture>("Textures/title");
 			Logo.x = Screen.width/2-Logo.texture.width/2;
 			Logo.w = Logo.texture.width;
-			Logo.y = Screen.height/2-Logo.texture.height/2-100;
+			Logo.POSITION_Y = Screen.height/2-Logo.texture.height/2-100;
+			Logo.y = Logo.POSITION_Y;
 			Logo.h = Logo.texture.height;
+			Logo.vy = 1.0f;
 		}
 	}
 	void Start () {
-		camera = GameObject.FindWithTag("MainCamera");
-		arduino = camera.GetComponent<Arduino>();
+
 	}
 
 	void Update () {
 		UserGuide(); // 操作説明に遷移.
+
+		if(Logo.POSITION_Y+10.0f <= Logo.y) Logo.vy = -1.0f;
+		if(Logo.POSITION_Y-10.0f >= Logo.y) Logo.vy = +1.0f;
+		Logo.y += Logo.vy;
 	}
 
 	private void UserGuide () {
@@ -39,7 +45,7 @@ public class Title : MonoBehaviour {
 	}
 
 	void DrawBackground () {
-		// 背景画像（未定）貼り付け.
+		// 背景画像貼り付け.
 		if(Event.current.type == EventType.Repaint){
 			Graphics.DrawTexture(
 				new Rect(0, 0,
@@ -73,7 +79,7 @@ public class Title : MonoBehaviour {
 				Graphics.DrawTexture(
 					new Rect(0, 0,
 				         Screen.width, Screen.height),
-					startTexture);
+					userGuideTexture1);
 			}
 		}
 	}
