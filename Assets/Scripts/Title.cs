@@ -26,6 +26,7 @@ public class Title : MonoBehaviour {
 	private void UserGuide () {
 		if( InputA.GetHand() ){ // 拍手したら.
 			/*操作説明表示.*/
+			Debug.Log("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
 		}
 	}
 
