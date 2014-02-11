@@ -30,7 +30,9 @@ public class Title : MonoBehaviour {
 	}
 
 	private void UserGuide () {
-		if( InputA.GetArduinoState(arduino.GetPin(), InputA.HAND) ){ // 拍手したら.
+
+		//if( InputA.GetArduinoState(arduino.GetPin(), InputA.HAND) ){ // 拍手したら.
+		if( InputA.GetHand() ){ // 拍手したら.
 			/*操作説明表示.*/
 			drawUserGuideFlag = true;
 		}

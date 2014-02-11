@@ -6,7 +6,7 @@ public class Arduino : MonoBehaviour {
 	
 	private static SerialPort sp = new SerialPort("COM7",9600);
 	private string myData;
-	private int i;
+	private static int i;
 
 	// Use this for initialization
 	void Start () {
@@ -74,7 +74,7 @@ public class Arduino : MonoBehaviour {
 	public void SetPin ( int num ){
 		i = num;
 	}
-	public int GetPin () {
+	public static int GetPin () {
 		int n = i;
 		i = 0;
 		Debug.Log("GetPin:"+n);
