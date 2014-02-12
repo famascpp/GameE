@@ -17,7 +17,7 @@ public class AudioManager : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		bpm = 120;
-		beat = 4;
+		beat = 4/4;
 	}
 	
 	// Update is called once per frame
@@ -28,7 +28,8 @@ public class AudioManager : MonoBehaviour {
 	//1小節の秒数.
 	public float get1MeasureTime()
 	{
-		return ( 60.0f / bpm ) * beat;
+		float ret = ( bpm  / 60.0f ) * beat;
+		return ret;
 	}
 
 	//今何小節目？.

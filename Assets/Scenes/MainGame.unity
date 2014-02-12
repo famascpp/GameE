@@ -206,7 +206,6 @@ MonoBehaviour:
   - {fileID: 2800000, guid: 5c8c9fb6934312f4b97ebc6cf2ef0050, type: 3}
   - {fileID: 2800000, guid: 5c8c9fb6934312f4b97ebc6cf2ef0050, type: 3}
   iconPrefab: {fileID: 100000, guid: abbfcb0eb7c2f134cb5f10dfa97d6694, type: 2}
-  iconScorePrefab: {fileID: 100000, guid: 7702b780d4d0fbb4b83e5eb23370ed7b, type: 2}
   cursorTex:
   - {fileID: 2800000, guid: e754e26aa360ff14db5b6d5309eda8f3, type: 3}
   - {fileID: 2800000, guid: e754e26aa360ff14db5b6d5309eda8f3, type: 3}

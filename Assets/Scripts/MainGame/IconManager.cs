@@ -4,19 +4,19 @@ using System.Collections;
 //[ExecuteInEditMode]
 public class IconManager : MonoBehaviour {
 
-	public const int iconMax = 7;
+	public const int iconMax = (int)IconEnum.Max;
 
 	public const int cursorMax = 2;
 
 	public Texture[] iconTex = new Texture[iconMax];
 
 	public GameObject iconPrefab;
-	public GameObject iconScorePrefab;
 
 	Icon[] icon = new Icon[iconMax];
 	public Icon getIconE( IconEnum ie )
 	{
-		return icon[(int)ie];
+		int i = (int)ie;
+		return icon[i];
 	}
 
 	public Texture[] cursorTex = new Texture[cursorMax];
@@ -43,7 +43,7 @@ public class IconManager : MonoBehaviour {
 			y = Mathf.Sin( ang ) * length;
 
 			obj = Instantiate(
-				iconScorePrefab,
+				iconPrefab,
 				new Vector3(x,y,0.0f),
 				Quaternion.identity
 				) as GameObject;
@@ -51,7 +51,6 @@ public class IconManager : MonoBehaviour {
 			icon[dispos[i]] = obj.GetComponent<Icon>();
 		}
 
-		MusicScore canonLock = new MusicScore("music/test/test");
 		//テクスチャ貼り付けとその他設定.
 		for( int i = 0 ; i < iconMax ; i++ )
 		{
@@ -61,8 +60,6 @@ public class IconManager : MonoBehaviour {
 			icon[i].scale = scale;
 			icon[i].gameObject.name = strname;
 			icon[i].depthLayer = 1;
-			icon[i].GetComponent<IconScore>().setScore(canonLock.getScoreCol(i));
-			icon[i].GetComponent<IconScore>().name = strname;
 		}
 
 		for( int i = 0 ; i < cursorMax ; i++ )

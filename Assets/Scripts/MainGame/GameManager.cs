@@ -13,9 +13,11 @@ public class GameManager : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 
+		MusicScore canonLock = new MusicScore("music/test/test");
+
 		//両手初期化.
-		lHand = new HandCursor(iconMgr, iconMgr.getCursor(0) , IconEnum.hand , IconEnum.rShoulder , IconEnum.lHip,IconEnum.lKnee );
-		rHand = new HandCursor(iconMgr, iconMgr.getCursor(1) , IconEnum.hand , IconEnum.lShoulder , IconEnum.rHip,IconEnum.rKnee );
+		lHand = new HandCursor(iconMgr, iconMgr.getCursor(0) ,canonLock, IconEnum.hand , IconEnum.rShoulder , IconEnum.lHip,IconEnum.lKnee );
+		rHand = new HandCursor(iconMgr, iconMgr.getCursor(1) ,canonLock, IconEnum.hand , IconEnum.lShoulder , IconEnum.rHip,IconEnum.rKnee );
 
 	}
 
@@ -32,6 +34,9 @@ public class GameManager : MonoBehaviour {
 	void OnGUI()
 	{
 		GUI.Label( new Rect(0,0,100,100),"lhand:"+lHand.NextIcon+"\nrhand:"+rHand.NextIcon);
+
+
+
 	}
 
 

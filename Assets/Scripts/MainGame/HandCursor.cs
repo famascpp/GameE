@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class HandCursor{
 
@@ -8,9 +9,13 @@ public class HandCursor{
 	public IconEnum NextIcon{
 		get { return nextIcon; }
 	}
+	int NextIconInt;
 
 	//次のアイコンへ移動時、前回と同じアイコンだったか.
 	bool sameIcon = false;
+
+	//次のアイコンがあるかどうか.
+	bool next = false;
 
 
 	//次までの時間と減少値.
@@ -20,11 +25,12 @@ public class HandCursor{
 	Vector3 nowVec;
 	float nowAng;
 	
-	int pressButtonMax;
 	IconEnum[] pressButton;
+
+	public IconScore[] iconScore;
 	
 	//初期化.
-	public HandCursor(IconManager iconMgr,Icon cursor ,params IconEnum[] args)
+	public HandCursor(IconManager iconMgr,Icon cursor ,MusicScore mScore ,params IconEnum[] args)
 	{
 		this.nextIcon = IconEnum.Max;
 		
@@ -33,12 +39,14 @@ public class HandCursor{
 		
 		this.nowVec = Vector3.zero;
 
-		this.pressButtonMax = args.Length;
-		this.pressButton = new IconEnum[this.pressButtonMax];
-		for( int i = 0 ; i < this.pressButtonMax ; i++ )
+		this.pressButton = new IconEnum[args.Length];
+		for( int i = 0 ; i < this.pressButton.Length ; i++ )
 		{
 			this.pressButton[i] = args[i];
 		}
+
+		iconScore = new IconScore[pressButton.Length];
+		SetScore(mScore);
 
 		nextPush(iconMgr,cursor);
 	}
@@ -81,59 +89,78 @@ public class HandCursor{
 	
 	public void Update(IconManager iconMgr,Icon cursor,AudioManager audioMgr)
 	{
-		if( sameIcon ) SetSamePos(iconMgr,cursor);
-		else SetNextPos(iconMgr,cursor);
-
-		
-		nextTime -= Time.deltaTime;
-
-		//アイコンへたどり着いたら次のアイコンへ.
-		if( nextTime <= 0.0f )
-		{
-			nextTime = 0.0f;
-			//位置更新.
+		if( 0.0f <= nextTimeMax && next ){
 			if( sameIcon ) SetSamePos(iconMgr,cursor);
 			else SetNextPos(iconMgr,cursor);
 
-			//現在追っていたアイコンの譜面を更新.
-			IconScore iconScore = iconMgr.getIconE(nextIcon).gameObject.GetComponent<IconScore>();
-			if ( iconScore != null )
-			{
-				iconScore.nextPush();
-			}
+			
+			nextTime -= Time.deltaTime;
 
-			//次のアイコンへ.
-			nextPush(iconMgr,cursor);
+			//アイコンへたどり着いたら次のアイコンへ.
+			if( nextTime <= 0.0f )
+			{
+				nextTime = 0.0f;
+				//位置更新.
+				if( sameIcon ) SetSamePos(iconMgr,cursor);
+				else SetNextPos(iconMgr,cursor);
+
+				//現在追っていたアイコンの譜面を更新.
+				int nextInt = NextIconInt;
+				iconScore[nextInt].nextPush();
+
+				//次のアイコンへ.
+				nextPush(iconMgr,cursor);
+			}
 		}
 	}
 
-	void nextPush(IconManager iconMgr,Icon cursor)
+	public void nextPush(IconManager iconMgr,Icon cursor)
 	{
-		if( 1 <= this.pressButton.Length)
+		if( 1 <= iconScore.Length)
 		{
-
-			float m =  iconMgr.getIconE(this.pressButton[0]).GetComponent<IconScore>().getNextTime();
+			next = false;
+			float m =  0.0f;
 			int nm = 0;
-			for( int i = 1 ; i < this.pressButton.Length ; i++ )
+			bool first = true;	//一番最初に入れられるやつは比較なしで入れられるようにする.
+			for( int i = 0 ; i < iconScore.Length ; i++ )
 			{
-				float tm = iconMgr.getIconE(this.pressButton[i]).GetComponent<IconScore>().getNextTime();
-				if( tm < m )
-				{
-					m = tm;
-					nm = i;
+				if( iconScore[i].Next ){
+					float tm = iconScore[i].getNextTime();
+					if( tm < m || first)
+					{
+						m = tm;
+						nm = i;
+						next = true;
+						first = false;
+					}
 				}
 			}
 
-			IconEnum tNextIcon = this.pressButton[nm];
-			if( nextIcon == tNextIcon ) sameIcon = true;
+			NextIconInt = nm;
+			if( nextIcon == this.pressButton[NextIconInt] ) sameIcon = true;
 			else sameIcon = false;
-			nextIcon = tNextIcon;
-			
+			nextIcon = this.pressButton[NextIconInt];
+
+			if( m == 0.0f )
+			{
+				Debug.Log(""+m);
+			}
+
 			SetNextTime(m);
 
 			//座標設定.
 			if( sameIcon ) SetNowAng(iconMgr,cursor);
 			else SetNowVec(iconMgr,cursor);
+		}
+	}
+
+	void SetScore( MusicScore mScore )
+	{
+		for( int i = 0 ; i < this.iconScore.Length ; i++ )
+		{
+			List<List<int>> tScore = mScore.getScoreCol( this.pressButton[i] );
+			iconScore[i] = new IconScore();
+			iconScore[i].setScore( tScore );
 		}
 	}
 }

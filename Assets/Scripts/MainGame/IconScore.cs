@@ -2,10 +2,16 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class IconScore : MonoBehaviour {
+public class IconScore {
 
 	//譜面.
 	int[][] score;
+
+	//次のアイコンがあるかどうか.
+	bool next = false;
+	public bool Next{
+		get { return next; }
+	}
 	
 	//オーディオ.
 	public AudioManager audioMgr;
@@ -15,17 +21,23 @@ public class IconScore : MonoBehaviour {
 	int nextMeasureDivision;
 	int nextMeasureDivisionNum;	//１小節になんこある?.
 
-	// Use this for initialization
-	void Start () {
-	
-	}
-	
-	void Awake()
+	public void setScore(List<List<int>> score)
 	{
+		this.score = new int[score.Count][];
+		for( int i = 0 ; i < score.Count ; i++ )
+		{
+			this.score[i] = new int[score[i].Count];
+			for( int j = 0 ; j < score[i].Count ; j++ )
+			{
+				this.score[i][j] = score[i][j];
+			}
+		}
+		
+		nextPush();
+
 		GameObject obj = GameObject.Find("AudioManager");
 		audioMgr = obj.GetComponent<AudioManager>();
 	}
-	
 
 	// Update is called once per frame
 	void Update () {
@@ -36,9 +48,13 @@ public class IconScore : MonoBehaviour {
 	public void nextPush()
 	{
 		string str = "";
-		for( int i = nextMeasure + 1 ; i < this.score.Length ; i++ )
+
+		int i = nextMeasure;
+		int j = nextMeasureDivision + 1;
+
+		for(  ; i < this.score.Length ; i++ )
 		{
-			for( int j = nextMeasureDivision + 1 ; j < this.score[i].Length ; j++ )
+			for( ; j < this.score[i].Length ; j++ )
 			{
 				nextMeasureDivisionNum = this.score[i].Length;
 				if( this.score[i][j] != 0 )
@@ -46,11 +62,15 @@ public class IconScore : MonoBehaviour {
 					nextMeasure = i;
 					nextMeasureDivision = j;
 					str += "" + i + ":" + j + "\n";
+					next = true;
 					goto LOOPEND;	//多重ループ脱出用.
 				}
 			}
-			nextMeasureDivision = 0;
+			j = 0;
 		}
+
+		//譜面がもうありません.
+		next = false;
 
 		LOOPEND:;
 		Debug.Log(str);
@@ -67,32 +87,5 @@ public class IconScore : MonoBehaviour {
 			audioMgr.get1MeasureTime() * (1.0f / (float)nextMeasureDivisionNum ) * (float)nextMeasureDivision;
 	}
 
-	public void setScore(List<List<int>> score)
-	{
-		this.score = new int[score.Count][];
-		for( int i = 0 ; i < score.Count ; i++ )
-		{
-			this.score[i] = new int[score[i].Count];
-			for( int j = 0 ; j < score[i].Count ; j++ )
-			{
-				this.score[i][j] = score[i][j];
-			}
-		}
 
-		nextPush();
-	}
-
-	void OnGUI()
-	{
-		GUI.depth = 0;
-
-		Icon icon = this.GetComponent<Icon>();
-		if( icon != null )
-		{
-			Vector2 pos = icon.pos2D();
-
-			GUI.Label( new Rect( pos.x ,pos.y,100,100),""+this.getNextTime());
-		}
-	}
-	
 }
