@@ -31,6 +31,7 @@ public class GameManager : MonoBehaviour {
 
 	void OnGUI()
 	{
+		GUI.Label( new Rect(0,0,100,100),"lhand:"+lHand.NextIcon+"\nrhand:"+rHand.NextIcon);
 	}
 
 

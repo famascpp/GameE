@@ -5,6 +5,10 @@ public class HandCursor{
 
 	//次のアイコン.
 	IconEnum nextIcon;
+	public IconEnum NextIcon{
+		get { return nextIcon; }
+	}
+
 	//次のアイコンへ移動時、前回と同じアイコンだったか.
 	bool sameIcon = false;
 
@@ -22,7 +26,7 @@ public class HandCursor{
 	//初期化.
 	public HandCursor(IconManager iconMgr,Icon cursor ,params IconEnum[] args)
 	{
-		this.nextIcon = IconEnum.hand;
+		this.nextIcon = IconEnum.Max;
 		
 		this.nextTimeMax = 1.0f;
 		this.nextTime = 1.0f;
@@ -35,8 +39,8 @@ public class HandCursor{
 		{
 			this.pressButton[i] = args[i];
 		}
-		
-		SetNowVec(iconMgr,cursor);
+
+		nextPush(iconMgr,cursor);
 	}
 	
 	public void SetNowVec(IconManager iconMgr,Icon cursor)
@@ -86,26 +90,32 @@ public class HandCursor{
 		//アイコンへたどり着いたら次のアイコンへ.
 		if( nextTime <= 0.0f )
 		{
-			//アイコンピッタリの位置にする.
 			nextTime = 0.0f;
-			SetNextPos(iconMgr,cursor);
+			//位置更新.
+			if( sameIcon ) SetSamePos(iconMgr,cursor);
+			else SetNextPos(iconMgr,cursor);
+
+			//現在追っていたアイコンの譜面を更新.
+			IconScore iconScore = iconMgr.getIconE(nextIcon).gameObject.GetComponent<IconScore>();
+			if ( iconScore != null )
+			{
+				iconScore.nextPush();
+			}
 
 			//次のアイコンへ.
-			nextPush(iconMgr,cursor,audioMgr);
-			if( sameIcon ) SetNowAng(iconMgr,cursor);
-			else SetNowVec(iconMgr,cursor);
+			nextPush(iconMgr,cursor);
 		}
 	}
 
-	void nextPush(IconManager iconMgr,Icon cursor,AudioManager audioMgr)
+	void nextPush(IconManager iconMgr,Icon cursor)
 	{
 		if( 1 <= this.pressButton.Length)
 		{
+
 			float m =  iconMgr.getIconE(this.pressButton[0]).GetComponent<IconScore>().getNextTime();
 			int nm = 0;
 			for( int i = 1 ; i < this.pressButton.Length ; i++ )
 			{
-				int a = (int)this.pressButton[i];
 				float tm = iconMgr.getIconE(this.pressButton[i]).GetComponent<IconScore>().getNextTime();
 				if( tm < m )
 				{
@@ -119,8 +129,11 @@ public class HandCursor{
 			else sameIcon = false;
 			nextIcon = tNextIcon;
 			
-			SetNextTime(m - audioMgr.AudioTime);
+			SetNextTime(m);
 
+			//座標設定.
+			if( sameIcon ) SetNowAng(iconMgr,cursor);
+			else SetNowVec(iconMgr,cursor);
 		}
 	}
 }

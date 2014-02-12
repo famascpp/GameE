@@ -29,17 +29,16 @@ public class IconScore : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-		if( getNextTime() < audioMgr.AudioTime )
-			nextPush();
+		//if( getNextTime() < 0.0f ) nextPush();
 	}
 
 
-	void nextPush()
+	public void nextPush()
 	{
 		bool loop = true;
-		for( int i = nextMeasure ; i < this.score.Length && loop ; i++ )
+		for( int i = nextMeasure + 1 ; i < this.score.Length && loop ; i++ )
 		{
-			for( int j = nextMeasureDivision ; j < this.score[i].Length && loop ; j++ )
+			for( int j = nextMeasureDivision + 1 ; j < this.score[i].Length && loop ; j++ )
 			{
 				nextMeasureDivisionNum = this.score[i].Length;
 				if( this.score[i][j] != 0 )
@@ -47,12 +46,19 @@ public class IconScore : MonoBehaviour {
 					nextMeasure = i;
 					nextMeasureDivision = j;
 					loop = false;
+					break;
 				}
 			}
+			nextMeasureDivision = 0;
 		}
 	}
 
 	public float getNextTime()
+	{
+		return getNextTotalTime() - audioMgr.AudioTime;
+	}
+
+	public float getNextTotalTime()
 	{
 		return audioMgr.get1MeasureTime() * (float)nextMeasure + 
 			audioMgr.get1MeasureTime() * (1.0f / (float)nextMeasureDivisionNum ) * (float)nextMeasureDivision;
