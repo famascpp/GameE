@@ -55,11 +55,14 @@ public class IconManager : MonoBehaviour {
 		//テクスチャ貼り付けとその他設定.
 		for( int i = 0 ; i < iconMax ; i++ )
 		{
+			string strname = "icon"+i+""+((IconEnum)i).ToString();
+
 			icon[i].icon = iconTex[i];
 			icon[i].scale = scale;
-			icon[i].gameObject.name = "icon"+i+""+((IconEnum)i).ToString();
+			icon[i].gameObject.name = strname;
 			icon[i].depthLayer = 1;
 			icon[i].GetComponent<IconScore>().setScore(canonLock.getScoreCol(i));
+			icon[i].GetComponent<IconScore>().name = strname;
 		}
 
 		for( int i = 0 ; i < cursorMax ; i++ )

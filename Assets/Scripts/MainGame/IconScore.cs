@@ -35,22 +35,25 @@ public class IconScore : MonoBehaviour {
 
 	public void nextPush()
 	{
-		bool loop = true;
-		for( int i = nextMeasure + 1 ; i < this.score.Length && loop ; i++ )
+		string str = "";
+		for( int i = nextMeasure + 1 ; i < this.score.Length ; i++ )
 		{
-			for( int j = nextMeasureDivision + 1 ; j < this.score[i].Length && loop ; j++ )
+			for( int j = nextMeasureDivision + 1 ; j < this.score[i].Length ; j++ )
 			{
 				nextMeasureDivisionNum = this.score[i].Length;
 				if( this.score[i][j] != 0 )
 				{
 					nextMeasure = i;
 					nextMeasureDivision = j;
-					loop = false;
-					break;
+					str += "" + i + ":" + j + "\n";
+					goto LOOPEND;	//多重ループ脱出用.
 				}
 			}
 			nextMeasureDivision = 0;
 		}
+
+		LOOPEND:;
+		Debug.Log(str);
 	}
 
 	public float getNextTime()
@@ -72,12 +75,24 @@ public class IconScore : MonoBehaviour {
 			this.score[i] = new int[score[i].Count];
 			for( int j = 0 ; j < score[i].Count ; j++ )
 			{
-				int a = score[i][j];
-				this.score[i][j] = a;
+				this.score[i][j] = score[i][j];
 			}
 		}
 
 		nextPush();
+	}
+
+	void OnGUI()
+	{
+		GUI.depth = 0;
+
+		Icon icon = this.GetComponent<Icon>();
+		if( icon != null )
+		{
+			Vector2 pos = icon.pos2D();
+
+			GUI.Label( new Rect( pos.x ,pos.y,100,100),""+this.getNextTime());
+		}
 	}
 	
 }

@@ -20,6 +20,13 @@ public class Icon : MonoBehaviour {
 	void Update () {
 	}
 
+	public Vector2 pos2D()
+	{
+		Vector2 pos = new Vector2(this.transform.position.x,this.transform.position.y);
+		pos.y = 1-pos.y;	//yの上下反転.
+
+		return new Vector2(Screen.width / 2.0f + Screen.height * pos.x,-Screen.height  / 2.0f + Screen.height * pos.y );
+	}
 
 	void OnGUI()
 	{
@@ -28,12 +35,11 @@ public class Icon : MonoBehaviour {
 		{
 			Vector2 size = new Vector2( Screen.height * scale , Screen.height * scale);
 
-			Vector2 pos = new Vector2(this.transform.position.x,this.transform.position.y);
-			pos.y = 1-pos.y;	//yの上下反転.
+			Vector2 pos = pos2D();
 
 			Rect texRect = new Rect(
-				Screen.width / 2.0f + Screen.height * pos.x - size.x / 2.0f, 
-				-Screen.height  / 2.0f + Screen.height * pos.y - size.y / 2.0f,
+				pos.x - size.x / 2.0f, 
+				pos.y - size.y / 2.0f,
 				size.x,
 				size.y
 			);
