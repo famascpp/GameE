@@ -12,6 +12,8 @@ public class IconManager : MonoBehaviour {
 
 	public GameObject iconPrefab;
 
+	public AudioManager audioMgr;
+
 	Icon[] icon = new Icon[iconMax];
 	public Icon getIconE( IconEnum ie )
 	{
@@ -59,6 +61,7 @@ public class IconManager : MonoBehaviour {
 			icon[i].gameObject.name = "icon"+i+""+((IconEnum)i).ToString();
 			icon[i].depthLayer = 1;
 			icon[i].setScore(canonLock.getScoreCol(i));
+			icon[i].audioMgr = audioMgr;
 		}
 
 		for( int i = 0 ; i < cursorMax ; i++ )

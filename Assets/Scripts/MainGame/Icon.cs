@@ -11,7 +11,14 @@ public class Icon : MonoBehaviour {
 
 	public int depthLayer = 0;
 
+	//譜面.
 	int[][] score;
+
+	//オーディオ.
+	public AudioManager audioMgr;
+
+	//次叩くまでの時間.
+	float nextTime;
 
 	// Use this for initialization
 	void Start () {
