@@ -4,7 +4,7 @@ using System.IO.Ports;
 
 public class ReadArduino : MonoBehaviour {
 	
-	private static SerialPort sp = new SerialPort("COM7",9600);
+	private static SerialPort sp = new SerialPort("COM4",9600);
 	private string myData;
 	private static int i;
 	

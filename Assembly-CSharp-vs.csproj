@@ -39,10 +39,10 @@
 	<Reference Include="System.Core" />
 	<Reference Include="System.Xml.Linq" />
 	<Reference Include="UnityEngine">
-	  <HintPath>D:/Program Files (x86)/Unity/Editor/Data/Managed/UnityEngine.dll</HintPath>
+	  <HintPath>C:/Program Files (x86)/Unity/Editor/Data/Managed/UnityEngine.dll</HintPath>
 	</Reference>
 	<Reference Include="UnityEditor">
-	  <HintPath>D:/Program Files (x86)/Unity/Editor/Data/Managed/UnityEditor.dll</HintPath>
+	  <HintPath>C:/Program Files (x86)/Unity/Editor/Data/Managed/UnityEditor.dll</HintPath>
 	</Reference>
   </ItemGroup>
   <ItemGroup>
@@ -58,6 +58,18 @@
      <Compile Include="Assets\Scripts\Title.cs" />
      <Compile Include="Assets\Scripts\TitleMusic.cs" />
      <Compile Include="Assets\Scripts\test.cs" />
+     <Compile Include="Assets\Uniduino\Scripts\Arduino.Firmata.cs" />
+     <Compile Include="Assets\Uniduino\Scripts\Arduino.cs" />
+     <Compile Include="Assets\Uniduino\Scripts\SerialPortProxy.cs" />
+     <Compile Include="Assets\Uniduino\Scripts\UniduinoSetup.cs" />
+     <Compile Include="Assets\Uniduino\Tutorials\Analog Read\AnalogRead.cs" />
+     <Compile Include="Assets\Uniduino\Tutorials\Analog Write (PWM)\AnalogWrite.cs" />
+     <Compile Include="Assets\Uniduino\Tutorials\Blink Button\BlinkButton.cs" />
+     <Compile Include="Assets\Uniduino\Tutorials\Blink Timer\Blink.cs" />
+     <Compile Include="Assets\Uniduino\Tutorials\Digital Read\DigitalRead.cs" />
+     <Compile Include="Assets\Uniduino\Tutorials\Servo\Servo.cs" />
+     <Compile Include="Assets\Uniduino\Tutorials\Servo\ServoSlideControl.cs" />
+     <Compile Include="Assets\Uniduino\UniduinoTestPanel\UniduinoTestPanel.cs" />
      <None Include="Assets\Resources\music\test\test.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
