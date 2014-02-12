@@ -67,10 +67,12 @@ public class Title : MonoBehaviour {
 	void DrawStartLogo () {
 		// スタートロゴ（未定）貼り付け.
 		if(Event.current.type == EventType.Repaint){
+			GUIUtility.RotateAroundPivot(13.5f, new Vector2(Screen.width/2 - startTexture.width/2.8f, Screen.height/2.0f)); // 回転.
 			Graphics.DrawTexture(
-				new Rect(Screen.width/2 - startTexture.width, Screen.height/1.5f,
-			         startTexture.width*2, startTexture.height*2),
+				new Rect(Screen.width/2 - startTexture.width/2.8f, Screen.height/2.5f,
+			         startTexture.width-300, startTexture.height-600),
 				startTexture);
+			GUIUtility.RotateAroundPivot(-13.5f, new Vector2(Screen.width/2 - startTexture.width/2.8f, Screen.height/2.0f)); // 回転終了.
 		}
 	}
 	void DrawUserGuide () {
@@ -84,10 +86,11 @@ public class Title : MonoBehaviour {
 		}
 	}
 	void OnGUI () {
-		DrawBackground (); // 背景画像（未定）貼り付け.
+		DrawBackground (); // 背景画像貼り付け.
+		DrawStartLogo ();  // 背景画像貼り付け.
 		DrawTitleLogo ();  // タイトルロゴ貼り付け.
-		DrawStartLogo ();  // 背景画像（未定）貼り付け.
-		DrawUserGuide ();  // 操作説明（未定）貼り付け.
+
+		DrawUserGuide ();  // 操作説明貼り付け.
 	}
 	
 }

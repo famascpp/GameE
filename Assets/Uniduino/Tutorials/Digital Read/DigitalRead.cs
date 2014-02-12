@@ -14,13 +14,14 @@ namespace Uniduino.Examples
 		
 		public Arduino arduino;
 		
-		public int pin = 2;
+		public int pin = 4;
 		public int pinValue;
 		public int testLed = 13;
 
 		void Start () 
 		{
 			arduino = Arduino.global;
+			arduino.PortName = "COM7";
 			arduino.Log = (s) => Debug.Log("Arduino: " +s);
 			arduino.Setup(ConfigurePins);
 		}
@@ -29,6 +30,7 @@ namespace Uniduino.Examples
 		{
 			arduino.pinMode(pin, PinMode.INPUT);
 			arduino.reportDigital((byte)(pin/8), 1);
+			arduino.digitalWrite(pin, Arduino.HIGH);
 	        // set the pin mode for the test LED on your board, pin 13 on an Arduino Uno
 			arduino.pinMode(testLed, PinMode.OUTPUT);
 		}

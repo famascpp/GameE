@@ -10,14 +10,7 @@ public static class InputA {
 	public const int KNEE_L = 4;
 	public const int KNEE_R = 17;
 
-//	public static bool GetArduinoState(int pinNum, int BODY){
-//		if(pinNum == BODY){
-//			return true;
-//		}
-//		return false;
-//	}
-
-	
+	/* Arduinoの値を取得する関数郡↓ */
 	// 拍手情報.
 	public static bool GetHand () {
 		if(ReadArduino.GetPin() == HAND){

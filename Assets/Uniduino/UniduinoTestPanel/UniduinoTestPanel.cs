@@ -298,6 +298,7 @@ public class UniduinoTestPanel : MonoBehaviour {
 				if (GUILayout.Button(pc.Mode.ToString(), ui.last_pin_mode==pc.Mode ? green_button : gray_button))
 				{				
 					arduino.pinMode(pin.number, pc.mode);
+					arduino.digitalWrite(pin.number, Arduino.HIGH); // プルアップ.
 					ui.last_pin_mode = pc.Mode;
 					if (pc.Mode == PinMode.ANALOG)
 					{										
