@@ -25,12 +25,14 @@ public class AudioManager : MonoBehaviour {
 		audioTime += Time.deltaTime;
 	}
 
-	float get1MeasureTime()
+	//1小節の秒数.
+	public float get1MeasureTime()
 	{
 		return ( 60.0f / bpm ) * beat;
 	}
 
-	int getMeasure()
+	//今何小節目？.
+	public int getMeasure()
 	{
 		return (int)(audioTime / this.get1MeasureTime());
 	}

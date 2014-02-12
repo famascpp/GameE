@@ -3,12 +3,18 @@ using System.Collections;
 
 public class HandCursor{
 
+	//次のアイコン.
 	IconEnum nextIcon;
+	//次のアイコンへ移動時、前回と同じアイコンだったか.
+	bool sameIcon = false;
 
+
+	//次までの時間と減少値.
 	float nextTimeMax;
 	float nextTime;
 	
 	Vector3 nowVec;
+	float nowAng;
 	
 	int pressButtonMax;
 	IconEnum[] pressButton;
@@ -37,10 +43,30 @@ public class HandCursor{
 	{
 		nowVec = cursor.transform.position - iconMgr.getIconE(nextIcon).transform.position;
 	}
+
+	public void SetNowAng(IconManager iconMgr,Icon cursor)
+	{
+		float L = 0.1f;
+		Vector3 A = Vector3.zero;
+		Vector3 B = iconMgr.getIconE(nextIcon).transform.position;
+		
+		nowVec = (A-B).normalized * L + B;
+		
+		Vector3 Vec = B-nowVec;
+		
+		nowAng = Mathf.Atan2( Vec.y,Vec.x);
+	}
 	
 	public void SetNextPos(IconManager iconMgr,Icon cursor)
 	{
 		cursor.transform.position = nowVec * ( nextTime / nextTimeMax ) + iconMgr.getIconE(nextIcon).transform.position;
+	}
+	
+	public void SetSamePos(IconManager iconMgr,Icon cursor)
+	{
+		float L = 0.1f;
+		float tAng = nowAng + Mathf.PI * 2.0f * ( nextTime / nextTimeMax );
+		cursor.transform.position = nowVec + new Vector3( Mathf.Cos( tAng ) , Mathf.Sin( tAng ) , 0.0f ) * L ;
 	}
 	
 	void SetNextTime( float time )
@@ -49,23 +75,52 @@ public class HandCursor{
 		nextTime = time;
 	}
 	
-	public void Update(IconManager iconMgr,Icon cursor)
+	public void Update(IconManager iconMgr,Icon cursor,AudioManager audioMgr)
 	{
-		SetNextPos(iconMgr,cursor);
+		if( sameIcon ) SetSamePos(iconMgr,cursor);
+		else SetNextPos(iconMgr,cursor);
+
 		
 		nextTime -= Time.deltaTime;
-		
+
+		//アイコンへたどり着いたら次のアイコンへ.
 		if( nextTime <= 0.0f )
 		{
 			//アイコンピッタリの位置にする.
 			nextTime = 0.0f;
 			SetNextPos(iconMgr,cursor);
-			
+
 			//次のアイコンへ.
-			nextIcon = this.pressButton[Random.Range(0,this.pressButtonMax)];
+			nextPush(iconMgr,cursor,audioMgr);
+			if( sameIcon ) SetNowAng(iconMgr,cursor);
+			else SetNowVec(iconMgr,cursor);
+		}
+	}
+
+	void nextPush(IconManager iconMgr,Icon cursor,AudioManager audioMgr)
+	{
+		if( 1 <= this.pressButton.Length)
+		{
+			float m =  iconMgr.getIconE(this.pressButton[0]).GetComponent<IconScore>().getNextTime();
+			int nm = 0;
+			for( int i = 1 ; i < this.pressButton.Length ; i++ )
+			{
+				int a = (int)this.pressButton[i];
+				float tm = iconMgr.getIconE(this.pressButton[i]).GetComponent<IconScore>().getNextTime();
+				if( tm < m )
+				{
+					m = tm;
+					nm = i;
+				}
+			}
+
+			IconEnum tNextIcon = this.pressButton[nm];
+			if( nextIcon == tNextIcon ) sameIcon = true;
+			else sameIcon = false;
+			nextIcon = tNextIcon;
 			
-			SetNextTime(Random.Range(0.1f,0.5f));
-			SetNowVec(iconMgr,cursor);
+			SetNextTime(m - audioMgr.AudioTime);
+
 		}
 	}
 }

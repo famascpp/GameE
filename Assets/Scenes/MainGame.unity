@@ -109,7 +109,7 @@ Transform:
   m_PrefabInternal: {fileID: 1890255983}
   m_GameObject: {fileID: 42742473}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 5.95901604e-08, y: -1.36326396, z: 0}
+  m_LocalPosition: {x: -0, y: -1.36326408, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -206,7 +206,7 @@ MonoBehaviour:
   - {fileID: 2800000, guid: 5c8c9fb6934312f4b97ebc6cf2ef0050, type: 3}
   - {fileID: 2800000, guid: 5c8c9fb6934312f4b97ebc6cf2ef0050, type: 3}
   iconPrefab: {fileID: 100000, guid: abbfcb0eb7c2f134cb5f10dfa97d6694, type: 2}
-  audioMgr: {fileID: 11400000, guid: c5c5bd8d37cdc7144ad862d344f140bb, type: 2}
+  iconScorePrefab: {fileID: 100000, guid: 7702b780d4d0fbb4b83e5eb23370ed7b, type: 2}
   cursorTex:
   - {fileID: 2800000, guid: e754e26aa360ff14db5b6d5309eda8f3, type: 3}
   - {fileID: 2800000, guid: e754e26aa360ff14db5b6d5309eda8f3, type: 3}
@@ -337,11 +337,11 @@ Prefab:
     m_Modifications:
     - target: {fileID: 400000, guid: c5c5bd8d37cdc7144ad862d344f140bb, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 5.95901604e-08
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: c5c5bd8d37cdc7144ad862d344f140bb, type: 2}
       propertyPath: m_LocalPosition.y
-      value: -1.36326396
+      value: -1.36326408
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: c5c5bd8d37cdc7144ad862d344f140bb, type: 2}
       propertyPath: m_LocalPosition.z
@@ -396,6 +396,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   iconMgr: {fileID: 501407623}
+  audioMgr: {fileID: 42742474}
 --- !u!4 &2094210989
 Transform:
   m_ObjectHideFlags: 0

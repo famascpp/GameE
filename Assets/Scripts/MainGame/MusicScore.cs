@@ -64,8 +64,6 @@ public class MusicScore {
 			//小節が足りなければ増やす.
 			while( score[msNumCol].Count <= tMeasureNum ) score[msNumCol].Add( new List<int>() );
 
-
-			string str = "";
 			for( int i = 7 ; mst[i] != '\r' ; i+=2 )
 			{
 				try
@@ -77,8 +75,6 @@ public class MusicScore {
 					break;
 				}
 			}
-
-			int[] a = score[msNumCol][tMeasureNum].ToArray();
 
 			msNumCol++;
 			measureNum = tMeasureNum;

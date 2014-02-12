@@ -5,6 +5,8 @@ public class GameManager : MonoBehaviour {
 
 	public IconManager iconMgr;
 
+	public AudioManager audioMgr;
+
 	HandCursor lHand;
 	HandCursor rHand;
 
@@ -23,8 +25,8 @@ public class GameManager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		lHand.Update(iconMgr, iconMgr.getCursor(0));
-		rHand.Update(iconMgr, iconMgr.getCursor(1));
+		lHand.Update(iconMgr, iconMgr.getCursor(0),audioMgr);
+		rHand.Update(iconMgr, iconMgr.getCursor(1),audioMgr);
 	}
 
 	void OnGUI()

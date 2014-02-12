@@ -11,27 +11,15 @@ public class Icon : MonoBehaviour {
 
 	public int depthLayer = 0;
 
-	//譜面.
-	int[][] score;
-
-	//オーディオ.
-	public AudioManager audioMgr;
-
-	//次叩くまでの時間.
-	float nextTime;
-
 	// Use this for initialization
 	void Start () {
 	
 	}
-	
+
 	// Update is called once per frame
 	void Update () {
-		if( score != null )
-		{
-			Debug.Log(score);
-		}
 	}
+
 
 	void OnGUI()
 	{
@@ -54,19 +42,5 @@ public class Icon : MonoBehaviour {
 		}
 	}
 
-	public void setScore(List<List<int>> score)
-	{
-		this.score = new int[score.Count][];
-		for( int i = 0 ; i < score.Count ; i++ )
-		{
-			this.score[i] = new int[score[i].Count];
-			for( int j = 0 ; j < score[i].Count ; j++ )
-			{
-				int a = score[i][j];
-				this.score[i][j] = a;
-			}
-		}
-	}
 
-	
 }

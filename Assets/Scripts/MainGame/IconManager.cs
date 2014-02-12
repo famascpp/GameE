@@ -11,8 +11,7 @@ public class IconManager : MonoBehaviour {
 	public Texture[] iconTex = new Texture[iconMax];
 
 	public GameObject iconPrefab;
-
-	public AudioManager audioMgr;
+	public GameObject iconScorePrefab;
 
 	Icon[] icon = new Icon[iconMax];
 	public Icon getIconE( IconEnum ie )
@@ -44,7 +43,7 @@ public class IconManager : MonoBehaviour {
 			y = Mathf.Sin( ang ) * length;
 
 			obj = Instantiate(
-				iconPrefab,
+				iconScorePrefab,
 				new Vector3(x,y,0.0f),
 				Quaternion.identity
 				) as GameObject;
@@ -60,8 +59,7 @@ public class IconManager : MonoBehaviour {
 			icon[i].scale = scale;
 			icon[i].gameObject.name = "icon"+i+""+((IconEnum)i).ToString();
 			icon[i].depthLayer = 1;
-			icon[i].setScore(canonLock.getScoreCol(i));
-			icon[i].audioMgr = audioMgr;
+			icon[i].GetComponent<IconScore>().setScore(canonLock.getScoreCol(i));
 		}
 
 		for( int i = 0 ; i < cursorMax ; i++ )
