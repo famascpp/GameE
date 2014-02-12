@@ -42,12 +42,22 @@ public class Title : MonoBehaviour {
 
 		StartCoroutine(NowLoadingTextureChange()); // ローディングのテクスチャ切り替え.
 	}
+	
+	// ゲームスタート.
+	IEnumerator StartGame(){
+		yield return new WaitForSeconds(4.0f);
+		//Application.LoadLevel(1);
+	}
 
 	void Update () {
 
 		if(Logo.POSITION_Y+10.0f <= Logo.y) Logo.vy = -1.0f;
 		if(Logo.POSITION_Y-10.0f >= Logo.y) Logo.vy = +1.0f;
 		Logo.y += Logo.vy;
+
+		if( drawUserGuideFlag ){ // 一定時間説明画面がでたら遷移.
+			StartCoroutine( StartGame() );
+		}
 	}
 
 	public static void UserGuideFlag () {
@@ -55,8 +65,10 @@ public class Title : MonoBehaviour {
 
 		/*操作説明表示.*/
 		drawUserGuideFlag = true;
-		//Application.LoadLevel(1);
+
 	}
+
+
 
 	void DrawBackground () {
 		// 背景画像貼り付け.
