@@ -51,7 +51,6 @@ public class ReadArduino : MonoBehaviour {
 	IEnumerator LoadingCheck(){
 		yield return new WaitForSeconds(7.0f);
 
-
 		drawLoadingFlag = false; // ローディング終了.
 	
 		for(int j=0; j<NUM; j++){
