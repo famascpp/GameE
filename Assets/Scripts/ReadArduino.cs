@@ -10,6 +10,7 @@ public class ReadArduino : MonoBehaviour {
 	const int NUM = 7;
 
 	private static int i;
+	private static bool drawLoadingFlag;    // true:ローディング画面.
 
 	public Arduino arduino;
 	private int[] buttonPin = {2,3,4,17,18,19,7};
@@ -17,10 +18,21 @@ public class ReadArduino : MonoBehaviour {
 	private int analogState = 0;
 	int pinNum0 = 0, pinNum1 = 0; // 格納されているanalogPin.
 
+	public static ReadArduino instance;
+
+	void Awake () {
+		if( instance != null ){
+			GameObject.Destroy( instance );
+			return;
+		}
+		DontDestroyOnLoad( gameObject );
+		instance = this;
+	}
 	// Use this for initialization
 	void Start () {
 
 		i = 0;
+		drawLoadingFlag = true;
 
 		arduino = Arduino.global;
 		arduino.PortName = "COM4";
@@ -36,9 +48,12 @@ public class ReadArduino : MonoBehaviour {
 		}
 	}
 
-	IEnumerator Loop(){
+	IEnumerator LoadingCheck(){
 		yield return new WaitForSeconds(7.0f);
 
+
+		drawLoadingFlag = false; // ローディング終了.
+	
 		for(int j=0; j<NUM; j++){
 			buttonState[j] = arduino.digitalRead(buttonPin[j]);
 		}
@@ -46,7 +61,7 @@ public class ReadArduino : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-		StartCoroutine(Loop());
+		StartCoroutine(LoadingCheck());
 		
 		bool check = false;
 		for(int j=0; j<NUM; j++){
@@ -65,6 +80,10 @@ public class ReadArduino : MonoBehaviour {
 		}
 	}
 
+	// ローディング中かどうか取得.
+	public static bool GetNowLoading(){
+		return drawLoadingFlag;
+	}
 	// Pinの値を取得.
 	public static int GetPin () {
 		int n = i;

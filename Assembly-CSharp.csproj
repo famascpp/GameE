@@ -58,6 +58,7 @@
      <Compile Include="Assets\Scripts\ReadArduino.cs" />
      <Compile Include="Assets\Scripts\Title.cs" />
      <Compile Include="Assets\Scripts\TitleMusic.cs" />
+     <Compile Include="Assets\Scripts\UpdateArduino.cs" />
      <Compile Include="Assets\Scripts\test.cs" />
      <Compile Include="Assets\Uniduino\Scripts\Arduino.Firmata.cs" />
      <Compile Include="Assets\Uniduino\Scripts\Arduino.cs" />

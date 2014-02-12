@@ -4,8 +4,19 @@ using System.Collections;
 public class Title : MonoBehaviour {
 	public Texture backgroundTexture; // 背景画像.
 	public Texture userGuideTexture1; // 注意画像.
-	public Texture startTexture; // スタートロゴ画像（未定）.
-	private bool drawUserGuideFlag = false; // true:操作説明画像表示.
+	public Texture startTexture; // スタートロゴ画像.
+	public Texture nameTexture;
+	public Texture teamNameTexture;
+
+	private Texture2D blackTexture;
+	private float blackAlpha = 1;
+	private bool blackFadeFlag = false;
+
+	public Texture[] nowLoadingTexture = new Texture[2];
+	private int nowLoadingNum = 0;
+
+	public static bool drawUserGuideFlag = false; // true:操作説明画像表示.
+
 
 	// ロゴの構造体.
 	struct Logo{
@@ -24,33 +35,38 @@ public class Title : MonoBehaviour {
 		}
 	}
 	void Start () {
+		blackTexture = new Texture2D(32,32,TextureFormat.ARGB32,false);
+		//blackTexture.ReadPixels(new Rect(0,0,32,32),0,0,false);
+		blackTexture.SetPixel(0,0,Color.white);
+		blackTexture.Apply();
 
+		StartCoroutine(NowLoadingTextureChange()); // ローディングのテクスチャ切り替え.
 	}
 
 	void Update () {
-		UserGuide(); // 操作説明に遷移.
 
 		if(Logo.POSITION_Y+10.0f <= Logo.y) Logo.vy = -1.0f;
 		if(Logo.POSITION_Y-10.0f >= Logo.y) Logo.vy = +1.0f;
 		Logo.y += Logo.vy;
 	}
 
-	private void UserGuide () {
+	public static void UserGuideFlag () {
 
-		//if( InputA.GetArduinoState(arduino.GetPin(), InputA.HAND) ){ // 拍手したら.
-		if( InputA.GetHand() ){ // 拍手したら.
-			/*操作説明表示.*/
-			drawUserGuideFlag = true;
-		}
+
+		/*操作説明表示.*/
+		drawUserGuideFlag = true;
+		//Application.LoadLevel(1);
 	}
 
 	void DrawBackground () {
 		// 背景画像貼り付け.
 		if(Event.current.type == EventType.Repaint){
+
 			Graphics.DrawTexture(
 				new Rect(0, 0,
 			         Screen.width, Screen.height),
 				backgroundTexture);
+
 		}
 	}
 
@@ -65,14 +81,14 @@ public class Title : MonoBehaviour {
 	}
 
 	void DrawStartLogo () {
-		// スタートロゴ（未定）貼り付け.
+		// スタートロゴ貼り付け.
 		if(Event.current.type == EventType.Repaint){
-			GUIUtility.RotateAroundPivot(13.5f, new Vector2(Screen.width/2 - startTexture.width/2.8f, Screen.height/2.0f)); // 回転.
+			GUIUtility.RotateAroundPivot(10.5f, new Vector2(Screen.width/2 - startTexture.width/2.8f, Screen.height/2.0f)); // 回転.
 			Graphics.DrawTexture(
-				new Rect(Screen.width/2 - startTexture.width/2.8f, Screen.height/2.5f,
+				new Rect(Screen.width/2 - startTexture.width/3.0f, Screen.height/2.5f,
 			         startTexture.width-300, startTexture.height-600),
 				startTexture);
-			GUIUtility.RotateAroundPivot(-13.5f, new Vector2(Screen.width/2 - startTexture.width/2.8f, Screen.height/2.0f)); // 回転終了.
+			GUIUtility.RotateAroundPivot(-10.5f, new Vector2(Screen.width/2 - startTexture.width/2.8f, Screen.height/2.0f)); // 回転終了.
 		}
 	}
 	void DrawUserGuide () {
@@ -85,12 +101,55 @@ public class Title : MonoBehaviour {
 			}
 		}
 	}
-	void OnGUI () {
-		DrawBackground (); // 背景画像貼り付け.
-		DrawStartLogo ();  // 背景画像貼り付け.
-		DrawTitleLogo ();  // タイトルロゴ貼り付け.
 
-		DrawUserGuide ();  // 操作説明貼り付け.
+	// ローディング画面.
+	void DrawNowLoading(){
+		if(Event.current.type == EventType.Repaint){
+			Graphics.DrawTexture(
+				new Rect(80.0f, 390,
+			         nameTexture.width/1.5f, nameTexture.height/1.5f),
+				nameTexture);
+		
+			Graphics.DrawTexture(
+				new Rect(-20.0f, -30.0f,
+			         teamNameTexture.width, teamNameTexture.height),
+				teamNameTexture);
+		
+			Graphics.DrawTexture(
+				new Rect(Screen.width - nowLoadingTexture[nowLoadingNum].width/1.5f, Screen.height - nowLoadingTexture[nowLoadingNum].height/1.5f,
+			         nowLoadingTexture[nowLoadingNum].width/1.5f, nowLoadingTexture[nowLoadingNum].height/1.5f),
+				nowLoadingTexture[nowLoadingNum]);
+		}
+	}
+	IEnumerator NowLoadingTextureChange(){
+		while(true){
+			yield return new WaitForSeconds(1.0f);
+			if(nowLoadingNum == 0) nowLoadingNum = 1;
+			else  nowLoadingNum = 0;
+		}
+	}
+
+	void OnGUI () {
+
+
+
+		if(!ReadArduino.GetNowLoading()){ // ローディング中じゃない場合.
+			DrawBackground (); // 背景画像貼り付け.
+			DrawStartLogo ();  // 背景画像貼り付け.
+			DrawTitleLogo ();  // タイトルロゴ貼り付け.
+			DrawUserGuide ();  // 操作説明貼り付け.
+
+			blackFadeFlag = true;
+		}
+
+		if( blackFadeFlag && blackAlpha >= 0)
+			blackAlpha-=0.005f;
+		GUI.color = new Color(0,0,0,blackAlpha);
+		GUI.DrawTexture(new Rect(0,0,Screen.width,Screen.height), blackTexture);
+
+		if(ReadArduino.GetNowLoading()){
+			DrawNowLoading (); // ローディング画面貼り付け.
+		}
 	}
 	
 }

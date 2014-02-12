@@ -86,9 +86,8 @@ GameObject:
   - 92: {fileID: 74131099}
   - 124: {fileID: 74131098}
   - 81: {fileID: 74131097}
-  - 114: {fileID: 74131102}
-  - 114: {fileID: 74131096}
   - 114: {fileID: 74131103}
+  - 114: {fileID: 74131096}
   m_Layer: 0
   m_Name: mainCamera
   m_TagString: MainCamera
@@ -110,6 +109,11 @@ MonoBehaviour:
   backgroundTexture: {fileID: 2800000, guid: db93f6298f95afb41a308b6f9584785f, type: 3}
   userGuideTexture1: {fileID: 2800000, guid: 805ed0fcccf827f45b126ce474b92481, type: 3}
   startTexture: {fileID: 2800000, guid: 9a0680b0b3b6b4e4f8743ecc66d9289c, type: 3}
+  nameTexture: {fileID: 2800000, guid: 27a2115e99a34134187929c9b20f430c, type: 3}
+  teamNameTexture: {fileID: 2800000, guid: 0719dae725e63ee4a8dd8199ec6fe779, type: 3}
+  nowLoadingTexture:
+  - {fileID: 2800000, guid: f690f9541cb07964f8e7e70385075710, type: 3}
+  - {fileID: 2800000, guid: dc3455655d57c184a8bbd9dcf39f4c10, type: 3}
 --- !u!81 &74131097
 AudioListener:
   m_ObjectHideFlags: 0
@@ -140,7 +144,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 1
-  m_BackGroundColor: {r: .192156866, g: .301960796, b: .474509805, a: .0196078438}
+  m_BackGroundColor: {r: 0, g: 0, b: 0, a: .0196078438}
   m_NormalizedViewPortRect:
     serializedVersion: 2
     x: 0
@@ -171,18 +175,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
---- !u!114 &74131102
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 74131095}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bdcebfd981ea3d141aeb3b9a0d6027ad, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  arduino: {fileID: 0}
 --- !u!114 &74131103
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -195,6 +187,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   music: {fileID: 8300000, guid: 5f62d17f8a34f334eb1999cbdfe974ce, type: 3}
+  handclap: {fileID: 8300000, guid: f331afa5b6079e146acdd2c8dbc50593, type: 3}
 --- !u!1 &753481460
 GameObject:
   m_ObjectHideFlags: 0
@@ -204,6 +197,8 @@ GameObject:
   m_Component:
   - 4: {fileID: 753481462}
   - 114: {fileID: 753481461}
+  - 114: {fileID: 753481463}
+  - 114: {fileID: 753481464}
   m_Layer: 0
   m_Name: Uniduino
   m_TagString: Untagged
@@ -238,6 +233,29 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
+--- !u!114 &753481463
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 753481460}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bdcebfd981ea3d141aeb3b9a0d6027ad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  arduino: {fileID: 0}
+--- !u!114 &753481464
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 753481460}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bfafc402fdec13745a70236da1203502, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &2025544803
 Prefab:
   m_ObjectHideFlags: 0
