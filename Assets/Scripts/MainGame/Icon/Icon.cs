@@ -28,9 +28,15 @@ public class Icon : MonoBehaviour {
 		return new Vector2(Screen.width / 2.0f + Screen.height * pos.x,-Screen.height  / 2.0f + Screen.height * pos.y );
 	}
 
-	public Rect TexRect()
+	public Vector2 size2D()
 	{
 		Vector2 size = new Vector2( Screen.height * scale , Screen.height * scale);
+		return size;
+	}
+
+	public Rect TexRect()
+	{
+		Vector2 size = size2D();
 		
 		Vector2 pos = pos2D();
 

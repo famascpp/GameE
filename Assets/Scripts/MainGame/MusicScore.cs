@@ -19,6 +19,9 @@ public class MusicScore {
 	public TextAsset musicScore;
 
 	List<List<List<int>>> score;
+	public List<List<List<int>>> Score {
+		get { return score; }
+	}
 
 	public MusicScore(string textPath)
 	{

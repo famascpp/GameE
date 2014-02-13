@@ -17,6 +17,9 @@ public class IconManager : MonoBehaviour {
 	public Icon getIconE( IconEnum ie )
 	{
 		int i = (int)ie;
+		return getIcon(i);
+	}
+	public Icon getIcon(int i){
 		return icon[i];
 	}
 

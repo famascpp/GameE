@@ -83,8 +83,7 @@ public class IconScore {
 
 	public float getNextTotalTime()
 	{
-		return audioMgr.get1MeasureTime() * (float)nextMeasure + 
-			audioMgr.get1MeasureTime() * (1.0f / (float)nextMeasureDivisionNum ) * (float)nextMeasureDivision;
+		return audioMgr.getMeasureBeat(nextMeasure,nextMeasureDivision,nextMeasureDivisionNum);
 	}
 
 

@@ -46,6 +46,13 @@ public class AudioManager : MonoBehaviour {
 		return (int)(audioTime / this.get1MeasureTime());
 	}
 
+	//小節と拍子から時間を出す.
+	public float getMeasureBeat( int measure , int measureDivision , int measureDivisionMax )
+	{
+		return this.get1MeasureTime() * (float)measure + 
+			this.get1MeasureTime() * (1.0f / (float)measureDivisionMax ) * (float)measureDivision;
+	}
+
 	void OnGUI(){
 		GUI.Label(new Rect(0,0,100,100),""+audioTime);
 	}
