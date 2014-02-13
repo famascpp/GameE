@@ -5,19 +5,27 @@ public class AudioManager : MonoBehaviour {
 
 	// 1beat = 60 / bpm
 	// 4/4 measure = beat * 4
-	float bpm;
-	float beat;
+	float bpm = 125;
+	float beat = 4;
 	float measure;
 
 	float audioTime = 0.0f;
+
+	
+	public GameObject gameAudio;
+	
+
 	public float AudioTime{
 		get { return this.audioTime; }
 	}
 
+	void Awake()
+	{
+		Instantiate(gameAudio);
+	}
+
 	// Use this for initialization
 	void Start () {
-		bpm = 120;
-		beat = 4/4;
 	}
 	
 	// Update is called once per frame
@@ -28,7 +36,7 @@ public class AudioManager : MonoBehaviour {
 	//1小節の秒数.
 	public float get1MeasureTime()
 	{
-		float ret = ( bpm  / 60.0f ) * beat;
+		float ret = ( 60.0f / bpm ) * beat;
 		return ret;
 	}
 
@@ -36,5 +44,9 @@ public class AudioManager : MonoBehaviour {
 	public int getMeasure()
 	{
 		return (int)(audioTime / this.get1MeasureTime());
+	}
+
+	void OnGUI(){
+		GUI.Label(new Rect(0,0,100,100),""+audioTime);
 	}
 }
