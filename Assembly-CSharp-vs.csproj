@@ -57,6 +57,7 @@
      <Compile Include="Assets\Scripts\MainGame\Icon\IconScore.cs" />
      <Compile Include="Assets\Scripts\MainGame\MusicScore.cs" />
      <Compile Include="Assets\Scripts\MainGame\ScoreManager.cs" />
+     <Compile Include="Assets\Scripts\MainGame\TimeDestroyObject.cs" />
      <Compile Include="Assets\Scripts\ReadArduino.cs" />
      <Compile Include="Assets\Scripts\Title.cs" />
      <Compile Include="Assets\Scripts\TitleMusic.cs" />

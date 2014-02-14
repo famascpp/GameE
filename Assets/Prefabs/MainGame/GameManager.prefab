@@ -92,6 +92,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   circle: {fileID: 2800000, guid: a897cdc6fe475b94c998d46b5061d95a, type: 3}
+  moveIconTexture: {fileID: 2800000, guid: f2922fbda3812c94d88108cde708d633, type: 3}
+  pushSE: {fileID: 100000, guid: f8591763fc84fba409024bbb4fd86ca4, type: 2}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
