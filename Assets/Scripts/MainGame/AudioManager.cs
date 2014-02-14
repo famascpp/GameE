@@ -9,6 +9,8 @@ public class AudioManager : MonoBehaviour {
 	float beat = 4;
 	float measure;
 
+	float startTime = 0.0f;
+
 	float audioTime = 0.0f;
 
 	
@@ -22,6 +24,7 @@ public class AudioManager : MonoBehaviour {
 	void Awake()
 	{
 		Instantiate(gameAudio);
+		startTime = Time.time;
 	}
 
 	// Use this for initialization
@@ -30,7 +33,7 @@ public class AudioManager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		audioTime += Time.deltaTime;
+		audioTime = Time.time - startTime;
 	}
 
 	//1小節の秒数.
@@ -53,7 +56,4 @@ public class AudioManager : MonoBehaviour {
 			this.get1MeasureTime() * (1.0f / (float)measureDivisionMax ) * (float)measureDivision;
 	}
 
-	void OnGUI(){
-		GUI.Label(new Rect(0,0,100,100),""+audioTime);
-	}
 }
