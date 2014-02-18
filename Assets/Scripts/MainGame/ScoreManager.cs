@@ -83,31 +83,31 @@ public class ScoreManager : MonoBehaviour {
 									switch( (IconEnum)i )
 									{
 									case IconEnum.hand:
-										if( InputA.GetHand() ) push = true;
+										if( InputA.GetHand() ){ push = true; Debug.Log("pushHand");}
 										if( Input.GetKey(KeyCode.Alpha1) ) push = true;
 										break;
 									case IconEnum.lShoulder:
-										if( InputA.GetShoulderL() ) push = true;
+										if( InputA.GetShoulderL() ){ push = true; Debug.Log("pushShoulderL");}
 										if( Input.GetKey(KeyCode.Alpha2) ) push = true;
 										break;
 									case IconEnum.rShoulder:
-										if( InputA.GetShoulderR() ) push = true;
+										if( InputA.GetShoulderR() ){ push = true; Debug.Log("pushShoulderR");}
 										if( Input.GetKey(KeyCode.Alpha3) ) push = true;
 										break;
 									case IconEnum.lHip:
-										if( InputA.GetWaistL() ) push = true;
+										if( InputA.GetWaistL() ){ push = true; Debug.Log("pushWaistL");}
 										if( Input.GetKey(KeyCode.Alpha4) ) push = true;
 										break;
 									case IconEnum.rHip:
-										if( InputA.GetWaistR() ) push = true;
+										if( InputA.GetWaistR() ){ push = true; Debug.Log("pushWaistR");}
 										if( Input.GetKey(KeyCode.Alpha5) ) push = true;
 										break;
 									case IconEnum.lKnee:
-										if( InputA.GetKneeL() ) push = true;
+										if( InputA.GetKneeL() ){ push = true; Debug.Log("pushKneeL");}
 										if( Input.GetKey(KeyCode.Alpha6) ) push = true;
 										break;
 									case IconEnum.rKnee:
-										if( InputA.GetKneeR() ) push = true;
+										if( InputA.GetKneeR() ){ push = true; Debug.Log("pushKneeR");}
 										if( Input.GetKey(KeyCode.Alpha7) ) push = true;
 										break;
 									}
