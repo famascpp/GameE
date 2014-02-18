@@ -45,8 +45,8 @@ public class Title : MonoBehaviour {
 	
 	// ゲームスタート.
 	IEnumerator StartGame(){
-		yield return new WaitForSeconds(4.0f);
-		//Application.LoadLevel(1);
+		yield return new WaitForSeconds(3.0f);
+		Application.LoadLevel(1);
 	}
 
 	void Update () {
