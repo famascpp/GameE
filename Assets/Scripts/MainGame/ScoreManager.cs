@@ -75,15 +75,15 @@ public class ScoreManager : MonoBehaviour {
 		//キーの取得.
 		for( int i = 0 ; i < (int)IconEnum.Max ; i++ )
 		{
-			//if( isUniduino ){
-				if( InputA.GetButton((IconEnum)i) ) inputButton[i]++;
-				else inputButton[i] = 0;
-			//}
 
-
-
-			if( Input.GetKey( (KeyCode)((int)KeyCode.Alpha1 + i) ) ) inputButton[i]++;
+			if(
+				( isUniduino && InputA.GetButton((IconEnum)i) ) ||
+				input.GetKey( (KeyCode)((int)KeyCode.Alpha1 + i) ) 
+			) inputButton[i]++;
 			else inputButton[i] = 0;
+
+
+
 
 		}
 
