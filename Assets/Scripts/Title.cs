@@ -4,6 +4,7 @@ using System.Collections;
 public class Title : MonoBehaviour {
 	public Texture backgroundTexture; // 背景画像.
 	public Texture userGuideTexture1; // 注意画像.
+	public Texture userGuideTexture2; // 注意画像.
 	public Texture startTexture; // スタートロゴ画像.
 	public Texture nameTexture;
 	public Texture teamNameTexture;
@@ -15,7 +16,7 @@ public class Title : MonoBehaviour {
 	public Texture[] nowLoadingTexture = new Texture[2];
 	private int nowLoadingNum = 0;
 
-	public static bool drawUserGuideFlag = false; // true:操作説明画像表示.
+	public static bool drawUserGuideFlag = false, drawUserGuideFlag2 = false; // true:操作説明画像表示.
 
 
 	// ロゴの構造体.
@@ -55,7 +56,7 @@ public class Title : MonoBehaviour {
 		if(Logo.POSITION_Y-10.0f >= Logo.y) Logo.vy = +1.0f;
 		Logo.y += Logo.vy;
 
-		if( drawUserGuideFlag ){ // 一定時間説明画面がでたら遷移.
+		if( drawUserGuideFlag2 ){ // 一定時間説明画面がでたら遷移.
 			StartCoroutine( StartGame() );
 		}
 	}
@@ -81,7 +82,7 @@ public class Title : MonoBehaviour {
 
 	void DrawTitleLogo () {
 		// タイトルロゴ貼り付け.
-		if(Event.current.type == EventType.Repaint){
+		if ( Event.current.type == EventType.Repaint ) {
 			Graphics.DrawTexture(
 				new Rect(Logo.x, Logo.y,
 			         Logo.w, Logo.h),
@@ -91,7 +92,7 @@ public class Title : MonoBehaviour {
 
 	void DrawStartLogo () {
 		// スタートロゴ貼り付け.
-		if(Event.current.type == EventType.Repaint){
+		if ( Event.current.type == EventType.Repaint ) {
 			GUIUtility.RotateAroundPivot(10.5f, new Vector2(Screen.width/2 - startTexture.width/2.8f, Screen.height/2.0f)); // 回転.
 			Graphics.DrawTexture(
 				new Rect(Screen.width/2 - startTexture.width/3.0f, Screen.height/2.5f,
@@ -101,12 +102,28 @@ public class Title : MonoBehaviour {
 		}
 	}
 	void DrawUserGuide () {
-		if(drawUserGuideFlag){
+		if ( drawUserGuideFlag ) {
 			if(Event.current.type == EventType.Repaint){
 				Graphics.DrawTexture(
 					new Rect(0, 0,
 				         Screen.width, Screen.height),
 					userGuideTexture1);
+
+				StartCoroutine( DrawUserGuide2 () ); // 次の説明表示.
+			}
+		}
+	}
+	// ②枚目の説明.
+	IEnumerator DrawUserGuide2 () {
+		while ( true ) {
+			yield return new WaitForSeconds(2.0f);
+			if(Event.current.type == EventType.Repaint){
+				Graphics.DrawTexture(
+					new Rect(0, 0,
+				         Screen.width, Screen.height),
+					userGuideTexture2);
+
+				drawUserGuideFlag2 = true;
 			}
 		}
 	}
@@ -139,9 +156,6 @@ public class Title : MonoBehaviour {
 	}
 
 	void OnGUI () {
-
-
-
 		if(!ReadArduino.GetNowLoading()){ // ローディング中じゃない場合.
 			DrawBackground (); // 背景画像貼り付け.
 			DrawStartLogo ();  // 背景画像貼り付け.
