@@ -11,16 +11,12 @@ public class GameManager : MonoBehaviour {
 	HandCursor rHand;
 
 	public GameObject uniduino;
+	bool isUniduino;
 
 	void Awake()
 	{
 		iconMgr = this.GetComponent<IconManager>();
 		audioMgr = this.GetComponent<AudioManager>();
-
-		GameObject tempUniduino = GameObject.Find("Uniduino");
-		if( tempUniduino == null )
-			Instantiate(uniduino);
-
 
 	}
 

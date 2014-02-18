@@ -28,6 +28,14 @@ public class ScoreManager : MonoBehaviour {
 
 	AudioManager audioManager;
 
+	bool isUniduino = false;
+
+	void Awake()
+	{
+		GameObject tempUniduino = GameObject.Find("Uniduino");
+		if( tempUniduino != null ) isUniduino = true;
+	}
+
 	// Use this for initialization
 	void Start () {
 		MusicScore canonLock = new MusicScore("music/test/test");
@@ -67,7 +75,16 @@ public class ScoreManager : MonoBehaviour {
 		//キーの取得.
 		for( int i = 0 ; i < (int)IconEnum.Max ; i++ )
 		{
-			if( InputA.GetButton((IconEnum)i) ) inputButton[i]++;
+			if( isUniduino ){
+				if( InputA.GetButton((IconEnum)i) ) inputButton[i]++;
+				else inputButton[i] = 0;
+			}
+
+
+
+			if( Input.GetKey( (KeyCode)((int)KeyCode.Alpha1 + i) ) ) inputButton[i]++;
+			else inputButton[i] = 0;
+
 		}
 
 
