@@ -40,6 +40,8 @@ public class ReadArduino : MonoBehaviour {
 		arduino.PortName = "COM4";
 		arduino.Connect();
 		arduino.Setup(arduinoSetup);
+
+		InputA.Init();
 	}
 
 	void arduinoSetup(){
