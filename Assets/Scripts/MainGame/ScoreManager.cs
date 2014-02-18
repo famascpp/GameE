@@ -14,7 +14,7 @@ public class ScoreManager : MonoBehaviour {
 	ScoreSet[][][] ss;
 	int[] ssMin;		//現在の譜面小節場所記憶用.
 
-
+	uint[] inputButton;
 
 	public Texture circle;
 
@@ -57,12 +57,69 @@ public class ScoreManager : MonoBehaviour {
 			}
 		}
 
+		inputButton = new uint[(int)IconEnum.Max];
+		for( int i = 0 ; i < inputButton.Length ; i++ ) inputButton[i] = 0;
 	}
 	
 	// Update is called once per frame
 	void Update () {
+
+		//キーの取得.
+		for( int i = 0 ; i < (int)IconEnum.Max ; i++ )
+		{
+			bool push = false;
+			switch( (IconEnum)i )
+			{
+			case IconEnum.hand:
+				if( InputA.GetHand() || Input.GetKey(KeyCode.Alpha1) )
+					inputButton[i] ++;
+				else
+					inputButton[i] = 0;
+				break;
+			case IconEnum.lShoulder:
+				if( InputA.GetShoulderL() || Input.GetKey(KeyCode.Alpha2) )
+					inputButton[i] ++;
+				else
+					inputButton[i] = 0;
+				break;
+			case IconEnum.rShoulder:
+				if( InputA.GetShoulderR() || Input.GetKey(KeyCode.Alpha3) )
+					inputButton[i] ++;
+				else
+					inputButton[i] = 0;
+				break;
+			case IconEnum.lHip:
+				if( InputA.GetWaistL() || Input.GetKey(KeyCode.Alpha4) )
+					inputButton[i] ++;
+				else
+					inputButton[i] = 0;
+				break;
+			case IconEnum.rHip:
+				if( InputA.GetWaistR() || Input.GetKey(KeyCode.Alpha5) )
+					inputButton[i] ++;
+				else
+					inputButton[i] = 0;
+				break;
+			case IconEnum.lKnee:
+				if( InputA.GetKneeL() || Input.GetKey(KeyCode.Alpha6) )
+					inputButton[i] ++;
+				else
+					inputButton[i] = 0;
+				break;
+			case IconEnum.rKnee:
+				if( InputA.GetKneeR() || Input.GetKey(KeyCode.Alpha7) )
+					inputButton[i] ++;
+				else
+					inputButton[i] = 0;
+				break;
+			}
+		}
+
+
+		//取得する範囲.
 		float min = -2.0f;
 		float max = 2.0f;
+
 		bool colLoop;
 
 		for( int i = 0 ; i < this.ss.Length ; i++ )
@@ -79,40 +136,8 @@ public class ScoreManager : MonoBehaviour {
 							if( min < nextTime ){
 								if( this.ss[i][j][l].score != 0 ){
 
-									bool push = false;
-									switch( (IconEnum)i )
-									{
-									case IconEnum.hand:
-										if( InputA.GetHand() ){ push = true; Debug.Log("pushHand");}
-										if( Input.GetKey(KeyCode.Alpha1) ) push = true;
-										break;
-									case IconEnum.lShoulder:
-										if( InputA.GetShoulderL() ){ push = true; Debug.Log("pushShoulderL");}
-										if( Input.GetKey(KeyCode.Alpha2) ) push = true;
-										break;
-									case IconEnum.rShoulder:
-										if( InputA.GetShoulderR() ){ push = true; Debug.Log("pushShoulderR");}
-										if( Input.GetKey(KeyCode.Alpha3) ) push = true;
-										break;
-									case IconEnum.lHip:
-										if( InputA.GetWaistL() ){ push = true; Debug.Log("pushWaistL");}
-										if( Input.GetKey(KeyCode.Alpha4) ) push = true;
-										break;
-									case IconEnum.rHip:
-										if( InputA.GetWaistR() ){ push = true; Debug.Log("pushWaistR");}
-										if( Input.GetKey(KeyCode.Alpha5) ) push = true;
-										break;
-									case IconEnum.lKnee:
-										if( InputA.GetKneeL() ){ push = true; Debug.Log("pushKneeL");}
-										if( Input.GetKey(KeyCode.Alpha6) ) push = true;
-										break;
-									case IconEnum.rKnee:
-										if( InputA.GetKneeR() ){ push = true; Debug.Log("pushKneeR");}
-										if( Input.GetKey(KeyCode.Alpha7) ) push = true;
-										break;
-									}
-
-									if( push ) this.ss[i][j][l].Pushed = PushScoreIcon(this.ss[i][j][l],nextTime,i,j,l);
+									if( inputButton[i] != 0 )
+										this.ss[i][j][l].Pushed = PushScoreIcon(this.ss[i][j][l],nextTime,i,j,l);
 								}
 							}else{
 								ssMin[i] = j;
@@ -173,6 +198,15 @@ public class ScoreManager : MonoBehaviour {
 				}
 			}
 		}
+
+		string str = "";
+		for( int i = 0 ; i < (int)IconEnum.Max ; i++ )
+		{
+			str += 
+				((IconEnum)i).ToString() + "" + 
+				( inputButton[i] != 0 ) + "\n";
+		}
+		GUI.Label( new Rect( 0,0,100,300 ) , str );
 	}
 
 	void DrawCircle(ScoreSet scoreSet,float nextTime,int col)
