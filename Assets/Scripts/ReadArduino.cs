@@ -13,10 +13,12 @@ public class ReadArduino : MonoBehaviour {
 	private static bool drawLoadingFlag;    // true:ローディング画面.
 
 	public Arduino arduino;
-	private int[] buttonPin = {2,3,4,17,18,19,7};
+	private int[] buttonPin = {7,2,19,3,18,4,17};
 	private int[] buttonState = {1,1,1,1,1,1,1};
+
 	private int analogState = 0;
 	int pinNum0 = 0, pinNum1 = 0; // 格納されているanalogPin.
+	private bool[] inputButton = {false};
 
 	public static ReadArduino instance;
 
@@ -66,7 +68,8 @@ public class ReadArduino : MonoBehaviour {
 		for(int j=0; j<NUM; j++){
 			if( buttonState[j] == bOFF ){
 				//analogState = arduino.analogRead(buttonPin[i]);
-				if(pinNum0 != buttonPin[j] && pinNum1 != buttonPin[j])i = buttonPin[j];
+				//if(pinNum0 != buttonPin[j] && pinNum1 != buttonPin[j])
+					i = buttonPin[j];
 				check = true;
 				if(pinNum0 == 0 && pinNum1 != buttonPin[j])pinNum0 = buttonPin[j];
 				else if(pinNum1 == 0 && pinNum0 != buttonPin[j])pinNum1 = buttonPin[j];
@@ -77,6 +80,14 @@ public class ReadArduino : MonoBehaviour {
 			pinNum0 = 0;
 			pinNum1 = 0;
 		}
+
+		bool[] inbtn = new bool[buttonState.Length];
+		for( int j=0; j < inbtn.Length ; j ++ )
+		{
+			if( buttonState[j] != 0 ) inbtn[j] = true;
+			else inbtn[j] = false;
+		}
+		InputA.SetButton(inbtn);
 	}
 
 	// ローディング中かどうか取得.
@@ -87,7 +98,7 @@ public class ReadArduino : MonoBehaviour {
 	public static int GetPin () {
 		int n = i;
 		i = 0;
-		Debug.Log("GetPin:"+n);
+		//Debug.Log("GetPin:"+n);
 		
 		return n;
 	}

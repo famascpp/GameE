@@ -88,7 +88,6 @@ GameObject:
   - 81: {fileID: 74131097}
   - 114: {fileID: 74131103}
   - 114: {fileID: 74131096}
-  - 114: {fileID: 74131102}
   m_Layer: 0
   m_Name: mainCamera
   m_TagString: MainCamera
@@ -176,17 +175,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
---- !u!114 &74131102
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 74131095}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bfafc402fdec13745a70236da1203502, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &74131103
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -210,6 +198,7 @@ GameObject:
   - 4: {fileID: 753481462}
   - 114: {fileID: 753481461}
   - 114: {fileID: 753481463}
+  - 114: {fileID: 753481464}
   m_Layer: 0
   m_Name: Uniduino
   m_TagString: Untagged
@@ -256,6 +245,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   arduino: {fileID: 0}
+--- !u!114 &753481464
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 753481460}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bfafc402fdec13745a70236da1203502, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &2025544803
 Prefab:
   m_ObjectHideFlags: 0

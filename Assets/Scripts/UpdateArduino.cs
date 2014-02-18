@@ -13,9 +13,25 @@ public class UpdateArduino : MonoBehaviour {
 		if( InputA.GetHand() ){
 			Title.UserGuideFlag();
 			TitleMusic.ClapFlag();
+			Debug.Log("UpadateArduino::GetHand");
+		}
+		if( InputA.GetKneeL() ){
+			Debug.Log("UpadateArduino::GetKneeL");
 		}
 		if( InputA.GetKneeR() ){
-
+			Debug.Log("UpadateArduino::GetKneeR");
+		}
+		if( InputA.GetShoulderL() ){
+			Debug.Log("UpadateArduino::GetKneeL");
+		}
+		if( InputA.GetShoulderR() ){
+			Debug.Log("UpadateArduino::GetKneeR");
+		}
+		if( InputA.GetWaistL() ){
+			Debug.Log("UpadateArduino::GetWaistL");
+		}
+		if( InputA.GetWaistR() ){
+			Debug.Log("UpadateArduino::GetWaistR");
 		}
 	}
 }
