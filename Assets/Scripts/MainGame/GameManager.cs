@@ -10,10 +10,18 @@ public class GameManager : MonoBehaviour {
 	HandCursor lHand;
 	HandCursor rHand;
 
+	public GameObject uniduino;
+
 	void Awake()
 	{
 		iconMgr = this.GetComponent<IconManager>();
 		audioMgr = this.GetComponent<AudioManager>();
+
+		GameObject tempUniduino = GameObject.Find("Uniduino");
+		if( tempUniduino == null )
+			Instantiate(uniduino);
+
+
 	}
 
 	// Use this for initialization
