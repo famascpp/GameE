@@ -47,8 +47,6 @@ public class IconScore {
 
 	public void nextPush()
 	{
-		string str = "";
-
 		int i = nextMeasure;
 		int j = nextMeasureDivision + 1;
 
@@ -61,7 +59,6 @@ public class IconScore {
 				{
 					nextMeasure = i;
 					nextMeasureDivision = j;
-					str += "" + i + ":" + j + "\n";
 					next = true;
 					goto LOOPEND;	//多重ループ脱出用.
 				}
@@ -73,7 +70,6 @@ public class IconScore {
 		next = false;
 
 		LOOPEND:;
-		Debug.Log(str);
 	}
 
 	public float getNextTime()
