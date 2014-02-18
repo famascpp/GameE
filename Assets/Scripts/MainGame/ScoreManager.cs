@@ -78,7 +78,7 @@ public class ScoreManager : MonoBehaviour {
 
 			if(
 				( isUniduino && InputA.GetButton((IconEnum)i) ) ||
-				input.GetKey( (KeyCode)((int)KeyCode.Alpha1 + i) ) 
+				Input.GetKey( (KeyCode)((int)KeyCode.Alpha1 + i) ) 
 			) inputButton[i]++;
 			else inputButton[i] = 0;
 

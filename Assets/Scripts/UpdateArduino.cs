@@ -10,7 +10,7 @@ public class UpdateArduino : MonoBehaviour {
 
 	// Arduinoからの入力を得るためにはこの関数を使用.
 	void Update () {
-		if( InputA.GetButton((IconEnum)0) ) {
+		if( InputA.GetButton((IconEnum)0) || Input.GetKey(KeyCode.Alpha0) ) {
 			Title.UserGuideFlag();
 			TitleMusic.ClapFlag();
 			Debug.Log("UpadateArduino::GetHand");

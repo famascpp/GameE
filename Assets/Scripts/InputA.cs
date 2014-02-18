@@ -3,7 +3,8 @@ using System.Collections;
 
 public static class InputA {
 	private static bool[] inputButton;
-	public static void Init(){
+	private static bool arduino = false;
+	public static void Init () {
 		inputButton = new bool[(int)IconEnum.Max];
 	}
 
@@ -18,5 +19,15 @@ public static class InputA {
 	public static bool GetButton( IconEnum ie )
 	{
 		return inputButton[(int)ie];
+	}
+
+	public static void SetArduino ( bool temp)
+	{
+		arduino = temp;
+	}
+
+	public static bool GetArduino()
+	{
+		return arduino;
 	}
  }

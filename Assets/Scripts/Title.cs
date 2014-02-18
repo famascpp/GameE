@@ -113,18 +113,20 @@ public class Title : MonoBehaviour {
 			}
 		}
 	}
+	
 	// ②枚目の説明.
 	IEnumerator DrawUserGuide2 () {
 		while ( true ) {
-			yield return new WaitForSeconds(2.0f);
-			if(Event.current.type == EventType.Repaint){
-				Graphics.DrawTexture(
-					new Rect(0, 0,
-				         Screen.width, Screen.height),
-					userGuideTexture2);
 
-				drawUserGuideFlag2 = true;
+			if(drawUserGuideFlag2 == true)
+			{
+			Graphics.DrawTexture(
+				new Rect(0, 0,
+			         Screen.width, Screen.height),
+					userGuideTexture2);
 			}
+			yield return new WaitForSeconds(3.0f);
+			drawUserGuideFlag2 = true;
 		}
 	}
 

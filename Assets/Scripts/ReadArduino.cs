@@ -56,11 +56,8 @@ public class ReadArduino : MonoBehaviour {
 		yield return new WaitForSeconds(7.0f);
 
 		drawLoadingFlag = false; // ローディング終了.
-	
-		for(int j=0; j<NUM; j++){
-			buttonState[j] = arduino.digitalRead(buttonPin[j]);
-		}
 	}
+
 	// Update is called once per frame
 	void Update () {
 
@@ -83,10 +80,16 @@ public class ReadArduino : MonoBehaviour {
 			pinNum1 = 0;
 		}
 
+		if( !drawLoadingFlag )
+		{
+			for(int j=0; j<NUM; j++){
+				buttonState[j] = arduino.digitalRead(buttonPin[j]);
+			}
+		}
 		bool[] inbtn = new bool[buttonState.Length];
 		for( int j=0; j < inbtn.Length ; j ++ )
 		{
-			if( buttonState[j] != 0 ) inbtn[j] = true;
+			if( buttonState[j] == 0 ) inbtn[j] = true;
 			else inbtn[j] = false;
 		}
 
