@@ -23,6 +23,7 @@ public class ReadArduino : MonoBehaviour {
 	public static ReadArduino instance;
 
 	void Awake () {
+		InputA.Init();
 		if( instance != null ){
 			GameObject.Destroy( instance );
 			return;
@@ -41,7 +42,6 @@ public class ReadArduino : MonoBehaviour {
 		arduino.Connect();
 		arduino.Setup(arduinoSetup);
 
-		InputA.Init();
 	}
 
 	void arduinoSetup(){
@@ -89,6 +89,7 @@ public class ReadArduino : MonoBehaviour {
 			if( buttonState[j] != 0 ) inbtn[j] = true;
 			else inbtn[j] = false;
 		}
+
 		InputA.SetButton(inbtn);
 	}
 

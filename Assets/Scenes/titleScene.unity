@@ -204,8 +204,8 @@ MonoBehaviour:
 --- !u!1 &753481460
 GameObject:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 100000, guid: 7f79e7ab35c4d4ab4b6ccd9f24ecc815, type: 2}
-  m_PrefabInternal: {fileID: 2025544803}
+  m_PrefabParentObject: {fileID: 100000, guid: abb7af450f14c7a4e8d1dc93cd1a2efe, type: 2}
+  m_PrefabInternal: {fileID: 891993958}
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 753481462}
@@ -221,9 +221,9 @@ GameObject:
 --- !u!114 &753481461
 MonoBehaviour:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 11400000, guid: 7f79e7ab35c4d4ab4b6ccd9f24ecc815,
+  m_PrefabParentObject: {fileID: 11400000, guid: abb7af450f14c7a4e8d1dc93cd1a2efe,
     type: 2}
-  m_PrefabInternal: {fileID: 2025544803}
+  m_PrefabInternal: {fileID: 891993958}
   m_GameObject: {fileID: 753481460}
   m_Enabled: 1
   m_EditorHideFlags: 0
@@ -237,8 +237,8 @@ MonoBehaviour:
 --- !u!4 &753481462
 Transform:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 400000, guid: 7f79e7ab35c4d4ab4b6ccd9f24ecc815, type: 2}
-  m_PrefabInternal: {fileID: 2025544803}
+  m_PrefabParentObject: {fileID: 400000, guid: abb7af450f14c7a4e8d1dc93cd1a2efe, type: 2}
+  m_PrefabInternal: {fileID: 891993958}
   m_GameObject: {fileID: 753481460}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 930.343445, y: 765.480408, z: 682.241882}
@@ -248,8 +248,9 @@ Transform:
 --- !u!114 &753481463
 MonoBehaviour:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
+  m_PrefabParentObject: {fileID: 11400002, guid: abb7af450f14c7a4e8d1dc93cd1a2efe,
+    type: 2}
+  m_PrefabInternal: {fileID: 891993958}
   m_GameObject: {fileID: 753481460}
   m_Enabled: 1
   m_EditorHideFlags: 0
@@ -257,43 +258,43 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   arduino: {fileID: 0}
---- !u!1001 &2025544803
+--- !u!1001 &891993958
 Prefab:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 400000, guid: 7f79e7ab35c4d4ab4b6ccd9f24ecc815, type: 2}
+    - target: {fileID: 400000, guid: abb7af450f14c7a4e8d1dc93cd1a2efe, type: 2}
       propertyPath: m_LocalPosition.x
       value: 930.343445
       objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: 7f79e7ab35c4d4ab4b6ccd9f24ecc815, type: 2}
+    - target: {fileID: 400000, guid: abb7af450f14c7a4e8d1dc93cd1a2efe, type: 2}
       propertyPath: m_LocalPosition.y
       value: 765.480408
       objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: 7f79e7ab35c4d4ab4b6ccd9f24ecc815, type: 2}
+    - target: {fileID: 400000, guid: abb7af450f14c7a4e8d1dc93cd1a2efe, type: 2}
       propertyPath: m_LocalPosition.z
       value: 682.241882
       objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: 7f79e7ab35c4d4ab4b6ccd9f24ecc815, type: 2}
+    - target: {fileID: 400000, guid: abb7af450f14c7a4e8d1dc93cd1a2efe, type: 2}
       propertyPath: m_LocalRotation.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: 7f79e7ab35c4d4ab4b6ccd9f24ecc815, type: 2}
+    - target: {fileID: 400000, guid: abb7af450f14c7a4e8d1dc93cd1a2efe, type: 2}
       propertyPath: m_LocalRotation.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: 7f79e7ab35c4d4ab4b6ccd9f24ecc815, type: 2}
+    - target: {fileID: 400000, guid: abb7af450f14c7a4e8d1dc93cd1a2efe, type: 2}
       propertyPath: m_LocalRotation.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: 7f79e7ab35c4d4ab4b6ccd9f24ecc815, type: 2}
+    - target: {fileID: 400000, guid: abb7af450f14c7a4e8d1dc93cd1a2efe, type: 2}
       propertyPath: m_LocalRotation.w
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-  m_ParentPrefab: {fileID: 100100000, guid: 7f79e7ab35c4d4ab4b6ccd9f24ecc815, type: 2}
+  m_ParentPrefab: {fileID: 100100000, guid: abb7af450f14c7a4e8d1dc93cd1a2efe, type: 2}
   m_RootGameObject: {fileID: 753481460}
   m_IsPrefabParent: 0
   m_IsExploded: 1
