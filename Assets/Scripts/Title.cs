@@ -61,11 +61,8 @@ public class Title : MonoBehaviour {
 	}
 
 	public static void UserGuideFlag () {
-
-
 		/*操作説明表示.*/
 		drawUserGuideFlag = true;
-
 	}
 
 
