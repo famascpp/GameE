@@ -67,52 +67,7 @@ public class ScoreManager : MonoBehaviour {
 		//キーの取得.
 		for( int i = 0 ; i < (int)IconEnum.Max ; i++ )
 		{
-			bool push = false;
-			switch( (IconEnum)i )
-			{
-			case IconEnum.hand:
-				if( InputA.GetHand() || Input.GetKey(KeyCode.Alpha1) )
-					inputButton[i] ++;
-				else
-					inputButton[i] = 0;
-				break;
-			case IconEnum.lShoulder:
-				if( InputA.GetShoulderL() || Input.GetKey(KeyCode.Alpha2) )
-					inputButton[i] ++;
-				else
-					inputButton[i] = 0;
-				break;
-			case IconEnum.rShoulder:
-				if( InputA.GetShoulderR() || Input.GetKey(KeyCode.Alpha3) )
-					inputButton[i] ++;
-				else
-					inputButton[i] = 0;
-				break;
-			case IconEnum.lHip:
-				if( InputA.GetWaistL() || Input.GetKey(KeyCode.Alpha4) )
-					inputButton[i] ++;
-				else
-					inputButton[i] = 0;
-				break;
-			case IconEnum.rHip:
-				if( InputA.GetWaistR() || Input.GetKey(KeyCode.Alpha5) )
-					inputButton[i] ++;
-				else
-					inputButton[i] = 0;
-				break;
-			case IconEnum.lKnee:
-				if( InputA.GetKneeL() || Input.GetKey(KeyCode.Alpha6) )
-					inputButton[i] ++;
-				else
-					inputButton[i] = 0;
-				break;
-			case IconEnum.rKnee:
-				if( InputA.GetKneeR() || Input.GetKey(KeyCode.Alpha7) )
-					inputButton[i] ++;
-				else
-					inputButton[i] = 0;
-				break;
-			}
+			if( InputA.GetButton((IconEnum)i) ) inputButton[i]++;
 		}
 
 
