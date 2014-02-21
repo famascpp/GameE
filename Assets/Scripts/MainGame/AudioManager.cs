@@ -10,7 +10,11 @@ public class AudioManager : MonoBehaviour {
 	float measure;
 
 	float startTime = 0.0f;
-	float startDelayedTime = 1.0f;
+
+	float startDelayedTime = 3.0f;
+	float startMusicDelayedTime = 0.0f;
+
+	bool startedMusic = false;	//音を再生し始めたかどうか.
 
 	float audioTime = 0.0f;
 
@@ -31,12 +35,22 @@ public class AudioManager : MonoBehaviour {
 	void Start () {
 		GameObject gameObj = Instantiate(Resources.Load("Prefabs/BGM/GameMusic01")) as GameObject;
 		gameAudio = gameObj.GetComponent<GameMusicManager>();
-		gameAudio.StartMusic(startTime - Time.time);
 	}
 	
 	// Update is called once per frame
 	void Update () {
 		audioTime = Time.time - startTime;
+
+		if( startedMusic == false )
+		{
+			//残り1秒になったらPlayDelayedを使う.
+			if( audioTime > -1.0f )
+			{
+				startMusicDelayedTime = gameAudio.StartMusic(startTime - Time.time);
+				startedMusic = true;
+			}
+		}
+
 	}
 
 	//1小節の秒数.
@@ -57,6 +71,21 @@ public class AudioManager : MonoBehaviour {
 	{
 		return this.get1MeasureTime() * (float)measure + 
 			this.get1MeasureTime() * (1.0f / (float)measureDivisionMax ) * (float)measureDivision;
+	}
+
+	void OnGUI()
+	{
+		GUIStyle style;
+		style = new GUIStyle();
+
+		string str = "";
+
+		str += "startTime" + "" + startTime + "\n";
+		str += "startDelayedTime" + "" + startDelayedTime + "\n";
+		str += "startMusicDelayedTime" + "" + startMusicDelayedTime + "\n";
+		str += "Time.time" + Time.time + "\n";
+
+		GUI.Label( new Rect(0,0,300,300) , str ,style );
 	}
 
 }

@@ -5,6 +5,7 @@ public class GameMusicManager : MonoBehaviour {
 
 	public float StartMusic(float delayedTime)
 	{
+		//this.audio.PlayScheduled(AudioSettings.dspTime + (double)delayedTime);
 		this.audio.PlayDelayed(delayedTime);
 		return Time.time + delayedTime;
 	}

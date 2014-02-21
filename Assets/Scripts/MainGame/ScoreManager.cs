@@ -75,16 +75,11 @@ public class ScoreManager : MonoBehaviour {
 		//キーの取得.
 		for( int i = 0 ; i < (int)IconEnum.Max ; i++ )
 		{
-
 			if(
 				( isUniduino && InputA.GetButton((IconEnum)i) ) ||
 				Input.GetKey( (KeyCode)((int)KeyCode.Alpha1 + i) ) 
 			) inputButton[i]++;
 			else inputButton[i] = 0;
-
-
-
-
 		}
 
 
@@ -171,14 +166,14 @@ public class ScoreManager : MonoBehaviour {
 			}
 		}
 
-		string str = "";
-		for( int i = 0 ; i < (int)IconEnum.Max ; i++ )
-		{
-			str += 
-				((IconEnum)i).ToString() + "" + 
-				( inputButton[i] != 0 ) + "\n";
-		}
-		GUI.Label( new Rect( 0,0,100,300 ) , str );
+//		string str = "";
+//		for( int i = 0 ; i < (int)IconEnum.Max ; i++ )
+//		{
+//			str += 
+//				((IconEnum)i).ToString() + "" + 
+//				( inputButton[i] != 0 ) + "\n";
+//		}
+//		GUI.Label( new Rect( 0,0,100,300 ) , str );
 	}
 
 	void DrawCircle(ScoreSet scoreSet,float nextTime,int col)
