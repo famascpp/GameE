@@ -10,11 +10,12 @@ public class AudioManager : MonoBehaviour {
 	float measure;
 
 	float startTime = 0.0f;
+	float startDelayedTime = 1.0f;
 
 	float audioTime = 0.0f;
 
 	
-	public GameObject gameAudio;
+	GameMusicManager gameAudio;
 	
 
 	public float AudioTime{
@@ -23,12 +24,14 @@ public class AudioManager : MonoBehaviour {
 
 	void Awake()
 	{
-		Instantiate(gameAudio);
-		startTime = Time.time;
+		startTime = Time.time + startDelayedTime;
 	}
 
 	// Use this for initialization
 	void Start () {
+		GameObject gameObj = Instantiate(Resources.Load("Prefabs/BGM/GameMusic01")) as GameObject;
+		gameAudio = gameObj.GetComponent<GameMusicManager>();
+		gameAudio.StartMusic(startTime - Time.time);
 	}
 	
 	// Update is called once per frame

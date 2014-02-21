@@ -23,14 +23,6 @@ public class IconManager : MonoBehaviour {
 		return icon[i];
 	}
 
-	public const int cursorMax = 2;
-	public Texture[] cursorTexBack = new Texture[cursorMax];
-	public Texture[] cursorTexForward = new Texture[cursorMax];
-	Icon[] cursor = new Icon[cursorMax];
-	public Icon getCursor( int i ){
-		return cursor[i];
-	}
-
 	// Use this for initialization
 	void Awake () {
 		GUI.depth = 1;
@@ -66,31 +58,6 @@ public class IconManager : MonoBehaviour {
 			icon[i].scale = scale;
 			icon[i].gameObject.name = strname;
 			icon[i].depthLayer = 1;
-		}
-
-		for( int i = 0 ; i < cursorMax ; i++ )
-		{
-			//カーソル作成.
-			obj = Instantiate(
-				iconHandPrefab,
-				new Vector3(-0.1f + 0.2f*(float)i,0.0f,0.0f),
-				Quaternion.identity
-				) as GameObject;
-			
-			cursor[i] = obj.GetComponent<Icon>();
-
-			IconHand iHand = cursor[i].GetComponent<IconHand>();
-			if( iHand )
-			{
-				iHand.texBack = cursorTexBack[i];
-				iHand.texForward = cursorTexForward[i];
-				iHand.depthLayer = -10;
-				iHand.setIcon();
-			}
-
-			cursor[i].scale = scale;
-			cursor[i].gameObject.name = "cursor" + i;
-
 		}
 
 	}
