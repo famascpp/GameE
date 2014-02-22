@@ -39,16 +39,17 @@
 	<Reference Include="System.Core" />
 	<Reference Include="System.Xml.Linq" />
 	<Reference Include="UnityEngine">
-	  <HintPath>D:/Program Files (x86)/Unity/Editor/Data/Managed/UnityEngine.dll</HintPath>
+	  <HintPath>C:/Program Files (x86)/Unity/Editor/Data/Managed/UnityEngine.dll</HintPath>
 	</Reference>
 	<Reference Include="UnityEditor">
-	  <HintPath>D:/Program Files (x86)/Unity/Editor/Data/Managed/UnityEditor.dll</HintPath>
+	  <HintPath>C:/Program Files (x86)/Unity/Editor/Data/Managed/UnityEditor.dll</HintPath>
 	</Reference>
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\Scripts\InputA.cs" />
      <Compile Include="Assets\Scripts\MainGame\AudioManager.cs" />
      <Compile Include="Assets\Scripts\MainGame\BackgroundImage.cs" />
+     <Compile Include="Assets\Scripts\MainGame\CamSetting.cs" />
      <Compile Include="Assets\Scripts\MainGame\GameManager.cs" />
      <Compile Include="Assets\Scripts\MainGame\GameMusicManager.cs" />
      <Compile Include="Assets\Scripts\MainGame\Icon\Icon.cs" />
