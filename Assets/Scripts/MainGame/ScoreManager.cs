@@ -163,7 +163,7 @@ public class ScoreManager : MonoBehaviour {
 
 						if( nextTime < max ){
 							if( min < nextTime ){
-								DrawCircle(this.ss[i][j][l],nextTime,i);
+								//DrawCircle(this.ss[i][j][l],nextTime,i);
 								DrwaMoveIcon(this.ss[i][j][l],nextTime,i);
 							}
 						}else{
@@ -221,7 +221,7 @@ public class ScoreManager : MonoBehaviour {
 					Vector2 center = Icon.pos2D(Vector2.zero);
 					Vector2 iconPos = icon.pos2D();
 					Vector2 iconSize = icon.size2D();
-					Vector2 pos = ( iconPos - center ) * (1.0f - nextTime / max) + center - iconSize/2.0f;
+					Vector2 pos = ( center - iconPos ) * (1.0f - nextTime / max) + iconPos - iconSize/2.0f;
 
 
 					GUI.DrawTexture( new Rect( pos.x,pos.y,iconSize.x,iconSize.y ) ,moveIconTexture);
