@@ -30,6 +30,9 @@ public class ScoreManager : MonoBehaviour {
 
 	bool isUniduino = false;
 
+	bool end = false;
+	public bool isEnd{ get { return end; } }
+
 	void Awake()
 	{
 		GameObject tempUniduino = GameObject.Find("Uniduino");
@@ -96,21 +99,26 @@ public class ScoreManager : MonoBehaviour {
 			{
 				for( int l = 0 ; l < this.ss[i][j].Length && colLoop ; l++ )
 				{
-					float nextTime = this.ss[i][j][l].PushTime - audioManager.AudioTime;
+					//入ってるかな？.
+					if( this.ss[i][j][l].score != 0 )
+					{
+						float nextTime = this.ss[i][j][l].PushTime - audioManager.AudioTime;
+						if( (int)IconEnum.Max == i )
+						{
+							end = true;
+						}
 
-					if( this.ss[i][j][l].Pushed == false ){
-						if( nextTime < max ){
-							if( min < nextTime ){
-								if( this.ss[i][j][l].score != 0 ){
-
+						if( this.ss[i][j][l].Pushed == false ){
+							if( nextTime < max ){
+								if( min < nextTime ){
 									if( inputButton[i] != 0 )
 										this.ss[i][j][l].Pushed = PushScoreIcon(this.ss[i][j][l],nextTime,i,j,l);
+								}else{
+									ssMin[i] = j;
 								}
 							}else{
-								ssMin[i] = j;
+								colLoop = false;
 							}
-						}else{
-							colLoop = false;
 						}
 					}
 				}
@@ -166,14 +174,6 @@ public class ScoreManager : MonoBehaviour {
 			}
 		}
 
-//		string str = "";
-//		for( int i = 0 ; i < (int)IconEnum.Max ; i++ )
-//		{
-//			str += 
-//				((IconEnum)i).ToString() + "" + 
-//				( inputButton[i] != 0 ) + "\n";
-//		}
-//		GUI.Label( new Rect( 0,0,100,300 ) , str );
 	}
 
 	void DrawCircle(ScoreSet scoreSet,float nextTime,int col)

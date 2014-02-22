@@ -7,6 +7,8 @@ public class GameManager : MonoBehaviour {
 
 	AudioManager audioMgr;
 
+	ScoreManager scoreMgr;
+
 	public GameObject uniduino;
 	bool isUniduino;
 
@@ -14,15 +16,27 @@ public class GameManager : MonoBehaviour {
 	{
 		iconMgr = this.GetComponent<IconManager>();
 		audioMgr = this.GetComponent<AudioManager>();
+		scoreMgr = this.GetComponent<ScoreManager>();
 	}
 
 	// Use this for initialization
 	void Start () {
 		MusicScore canonLock = new MusicScore("music/test/test");
+
 	}
 
 	// Update is called once per frame
 	void Update () {
+		if( this.scoreMgr.isEnd )
+		{
+			//Application.LoadLevel("Scenes/titleScene");
+		}
+
+	}
+
+	void FixedUpdate()
+	{
+		//Time.timeScale = 10;
 	}
 
 	void OnGUI()
