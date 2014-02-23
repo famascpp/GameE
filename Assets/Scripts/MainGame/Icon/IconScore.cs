@@ -41,7 +41,7 @@ public class IconScore {
 
 	// Update is called once per frame
 	void Update () {
-		//if( getNextTime() < 0.0f ) nextPush();
+		if( getNextTime() < 0.0f ) nextPush();
 	}
 
 
