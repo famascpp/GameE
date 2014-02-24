@@ -8,8 +8,7 @@ public class ReadArduino : MonoBehaviour {
 	const int bON = 1;
 	const int bOFF = 0;
 	const int NUM = 7;
-
-	private static int i;
+	
 	private static bool drawLoadingFlag;    // true:ローディング画面.
 
 	public Arduino arduino;
@@ -34,7 +33,6 @@ public class ReadArduino : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 
-		i = 0;
 		drawLoadingFlag = true;
 
 		arduino = Arduino.global;
@@ -66,16 +64,13 @@ public class ReadArduino : MonoBehaviour {
 		bool check = false;
 		for(int j=0; j<NUM; j++){
 			if( buttonState[j] == bOFF ){
-				//analogState = arduino.analogRead(buttonPin[i]);
-				//if(pinNum0 != buttonPin[j] && pinNum1 != buttonPin[j])
-					i = buttonPin[j];
+					
 				check = true;
 				if(pinNum0 == 0 && pinNum1 != buttonPin[j])pinNum0 = buttonPin[j];
 				else if(pinNum1 == 0 && pinNum0 != buttonPin[j])pinNum1 = buttonPin[j];
 			}
 		}
 		if( !check ){
-			i = 0;
 			pinNum0 = 0;
 			pinNum1 = 0;
 		}
@@ -93,19 +88,12 @@ public class ReadArduino : MonoBehaviour {
 			else inbtn[j] = false;
 		}
 
-		InputA.SetButton(inbtn);
+		// arduinoに繋がっている場合のみ値を送る.
+		if( arduino.enabled ) InputA.SetButton(inbtn);
 	}
 
 	// ローディング中かどうか取得.
 	public static bool GetNowLoading(){
 		return drawLoadingFlag;
-	}
-	// Pinの値を取得.
-	public static int GetPin () {
-		int n = i;
-		i = 0;
-		//Debug.Log("GetPin:"+n);
-		
-		return n;
 	}
 }

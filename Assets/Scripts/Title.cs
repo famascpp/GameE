@@ -16,7 +16,7 @@ public class Title : MonoBehaviour {
 	public Texture[] nowLoadingTexture = new Texture[2];
 	private int nowLoadingNum = 0;
 
-	public static bool drawUserGuideFlag = false, drawUserGuideFlag2 = false; // true:操作説明画像表示.
+	public static bool drawWarningFlag = false, drawUserGuideFlag = false; // true:操作説明画像表示.
 
 
 	// ロゴの構造体.
@@ -56,16 +56,20 @@ public class Title : MonoBehaviour {
 		if(Logo.POSITION_Y-10.0f >= Logo.y) Logo.vy = +1.0f;
 		Logo.y += Logo.vy;
 
-		if( drawUserGuideFlag2 ){ // 一定時間説明画面がでたら遷移.
+		if( drawUserGuideFlag ){ // 一定時間説明画面がでたら遷移.
+			// ↓かた、こし、ひざ、を叩いたらゲームスタート.
 			StartCoroutine( StartGame() );
 		}
 	}
 
-	public static void UserGuideFlag () {
+	// 操作説明を表示するフラグをセット.
+	public static void SetDrawUserGuideFlag (bool flg) {
 		/*操作説明表示.*/
-		drawUserGuideFlag = true;
+		drawUserGuideFlag = flg;
 	}
-
+	public static bool GetDrawWarningFlag () {
+		return drawWarningFlag;
+	}
 
 
 	void DrawBackground () {
@@ -101,32 +105,27 @@ public class Title : MonoBehaviour {
 			GUIUtility.RotateAroundPivot(-10.5f, new Vector2(Screen.width/2 - startTexture.width/2.8f, Screen.height/2.0f)); // 回転終了.
 		}
 	}
-	void DrawUserGuide () {
-		if ( drawUserGuideFlag ) {
+	void DrawWarning () {
+		if ( drawWarningFlag ) {
 			if(Event.current.type == EventType.Repaint){
 				Graphics.DrawTexture(
 					new Rect(0, 0,
 				         Screen.width, Screen.height),
 					userGuideTexture1);
 
-				StartCoroutine( DrawUserGuide2 () ); // 次の説明表示.
+				StartCoroutine( TitleTextureChange () ); // タイトル表示.
 			}
 		}
 	}
 	
-	// ②枚目の説明.
-	IEnumerator DrawUserGuide2 () {
-		while ( true ) {
-
-			if(drawUserGuideFlag2 == true)
-			{
-			Graphics.DrawTexture(
-				new Rect(0, 0,
-			         Screen.width, Screen.height),
-					userGuideTexture2);
-			}
-			yield return new WaitForSeconds(3.0f);
-			drawUserGuideFlag2 = true;
+	// 操作説明.
+	void DrawUserGuide () {
+		if(drawUserGuideFlag == true)
+		{
+		Graphics.DrawTexture(
+			new Rect(0, 0,
+		         Screen.width, Screen.height),
+				userGuideTexture2);
 		}
 	}
 
@@ -147,6 +146,17 @@ public class Title : MonoBehaviour {
 				new Rect(Screen.width - nowLoadingTexture[nowLoadingNum].width/1.5f, Screen.height - nowLoadingTexture[nowLoadingNum].height/1.5f,
 			         nowLoadingTexture[nowLoadingNum].width/1.5f, nowLoadingTexture[nowLoadingNum].height/1.5f),
 				nowLoadingTexture[nowLoadingNum]);
+
+			drawWarningFlag = true;
+
+		}
+	}
+
+	// タイトル画面に1秒後変える.
+	IEnumerator TitleTextureChange(){
+		while(true){
+			yield return new WaitForSeconds(3.0f);
+			drawWarningFlag = false;
 		}
 	}
 	IEnumerator NowLoadingTextureChange(){
@@ -157,21 +167,32 @@ public class Title : MonoBehaviour {
 		}
 	}
 
-	void OnGUI () {
-		if(!ReadArduino.GetNowLoading()){ // ローディング中じゃない場合.
+	// タイトル描画.
+	void DrawTitle () {
+		if ( !drawWarningFlag ){
 			DrawBackground (); // 背景画像貼り付け.
-			DrawStartLogo ();  // 背景画像貼り付け.
+			DrawStartLogo ();  // スタートロゴ貼り付け.
 			DrawTitleLogo ();  // タイトルロゴ貼り付け.
-			DrawUserGuide ();  // 操作説明貼り付け.
+		}
+	}
 
+	// 画像表示.
+	void OnGUI () {
+
+		if(!ReadArduino.GetNowLoading()){ // ローディング中じゃない場合.
+			DrawTitle ();
+			DrawWarning ();  // 操作説明貼り付け.
+			DrawUserGuide ();
 			blackFadeFlag = true;
 		}
 
+		// フェード処理.
 		if( blackFadeFlag && blackAlpha >= 0)
 			blackAlpha-=0.005f;
 		GUI.color = new Color(0,0,0,blackAlpha);
 		GUI.DrawTexture(new Rect(0,0,Screen.width,Screen.height), blackTexture);
 
+		// ローディング画面.
 		if(ReadArduino.GetNowLoading()){
 			DrawNowLoading (); // ローディング画面貼り付け.
 		}
