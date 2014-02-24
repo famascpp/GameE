@@ -27,7 +27,8 @@ public class MusicScore {
 	{
 		score = new List<List<List<int>>>();
 
-		musicScore = Resources.Load(textPath) as TextAsset;
+		object obj = Resources.Load(textPath);
+		musicScore = (TextAsset)obj;
 
 		char[] split = {'\n'};
 
