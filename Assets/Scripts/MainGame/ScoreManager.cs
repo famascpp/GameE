@@ -10,9 +10,8 @@ struct ScoreSet {
 
 public class ScoreManager : MonoBehaviour {
 
-
 	ScoreSet[][][] ss;
-	int[] ssMin;		//現在の譜面小節場所記憶用.
+	int[] ssMin;		//now Measure array.
 
 	uint[] inputButton;
 
@@ -41,11 +40,12 @@ public class ScoreManager : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		MusicScore canonLock = new MusicScore("music/test/test");
 
 		audioManager = this.GetComponent<AudioManager>();
 		gameMgr = this.GetComponent<GameManager>();
 		iconMgr = this.GetComponent<IconManager>();
+
+		MusicScore canonLock = new MusicScore("music/test/test.bms");
 
 		List<List<List<int>>> score = canonLock.Score;
 
@@ -75,18 +75,16 @@ public class ScoreManager : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-		//キーの取得.
+		//key input
 		for( int i = 0 ; i < (int)IconEnum.Max ; i++ )
 		{
-			if(
-				( isUniduino && InputA.GetButton((IconEnum)i) ) ||
-				Input.GetKey( (KeyCode)((int)KeyCode.Alpha1 + i) ) 
+			if( ( isUniduino && InputA.GetButton((IconEnum)i) ) ||
+				Input.GetKey( (KeyCode)((int)KeyCode.Alpha1 + i) )
 			) inputButton[i]++;
 			else inputButton[i] = 0;
 		}
 
-
-		//取得する範囲.
+		//get scope
 		float min = -2.0f;
 		float max = 2.0f;
 
@@ -99,7 +97,7 @@ public class ScoreManager : MonoBehaviour {
 			{
 				for( int l = 0 ; l < this.ss[i][j].Length && colLoop ; l++ )
 				{
-					//入ってるかな？.
+					//in string?.
 					if( this.ss[i][j][l].score != 0 )
 					{
 						float nextTime = this.ss[i][j][l].PushTime - audioManager.AudioTime;
@@ -144,8 +142,7 @@ public class ScoreManager : MonoBehaviour {
 	{
 		GUI.depth = -10;
 
-		bool colLoop;	//nextTimeがn以上超えていたら次からはそれ以上の値しか出ないので打ち切り用変数.
-
+		bool colLoop;	//nextTime n over not loop
 
 		for( int i = 0 ; i < this.ss.Length ; i++ )
 		{
@@ -173,7 +170,6 @@ public class ScoreManager : MonoBehaviour {
 				}
 			}
 		}
-
 	}
 
 	void DrawCircle(ScoreSet scoreSet,float nextTime,int col)
@@ -223,9 +219,7 @@ public class ScoreManager : MonoBehaviour {
 					Vector2 iconSize = icon.size2D();
 					Vector2 pos = ( center - iconPos ) * (1.0f - nextTime / max) + iconPos - iconSize/2.0f;
 
-
 					GUI.DrawTexture( new Rect( pos.x,pos.y,iconSize.x,iconSize.y ) ,moveIconTexture);
-
 				}
 			}
 		}

@@ -1,6 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO; //System.IO.FileInfo, System.IO.StreamReader, System.IO.StreamWriter
+using System; //Exception
+using System.Text; //Encoding
 
 public enum IconEnum
 {
@@ -16,8 +19,6 @@ public enum IconEnum
 
 public class MusicScore {
 
-	public TextAsset musicScore;
-
 	List<List<List<int>>> score;
 	public List<List<List<int>>> Score {
 		get { return score; }
@@ -25,32 +26,33 @@ public class MusicScore {
 
 	public MusicScore(string textPath)
 	{
-		score = new List<List<List<int>>>();
+		string musicScore = ReadFile(textPath);
 
-		object obj = Resources.Load(textPath);
-		musicScore = (TextAsset)obj;
+		score = new List<List<List<int>>>();
 
 		char[] split = {'\n'};
 
-		//改行でわける.
-		string[] ms = musicScore.text.Split(split);
+		//split line
+		string[] ms = musicScore.Split(split);
 
-		int msNumCol = 0;	//小節列カウント.
-		int measureNum = 0;	//小節比較用.
+		int msNumCol = 0;	//Measure count.
+		int measureNum = 0;	//Measure comparison.
 
 		foreach( string mst in ms )
 		{
-			//6未満なら違うもの
+			//
 			if( mst.Length < 6 ) continue;
-			//先頭が#じゃないなら.
+
+			//
 			if( mst[0] != '#' ) continue;
 
-			//01以外なら違う.
+			//
 			if( ( mst[4] +""+ mst[5] ) != "01" ) continue;
 
 			string measureNumStr = mst[1] +""+ mst[2] +""+ mst[3];
 
 			int tMeasureNum = 0;
+
 			try
 			{
 				tMeasureNum = int.Parse( measureNumStr );
@@ -59,13 +61,14 @@ public class MusicScore {
 			{
 				continue;
 			}
-			//次の小節に移ったら列を初期化.
+
+			//next measure
 			if( measureNum != tMeasureNum ) msNumCol = 0;
 
-			//列が足りなければ増やす.
+			//col not enough
 			while( score.Count <= msNumCol ) score.Add( new List<List<int>>() );
 
-			//小節が足りなければ増やす.
+			//col add
 			while( score[msNumCol].Count <= tMeasureNum ) score[msNumCol].Add( new List<int>() );
 
 			for( int i = 7 ; mst[i] != '\r' ; i+=2 )
@@ -83,10 +86,9 @@ public class MusicScore {
 			msNumCol++;
 			measureNum = tMeasureNum;
 		}
-
 	}
 
-	//譜面を列で返す.
+	//return col
 	public List<List<int>> getScoreCol(IconEnum iconE )
 	{
 		return getScoreCol((int)iconE);
@@ -97,6 +99,20 @@ public class MusicScore {
 		return score[i];
 	}
 
-	
+	string ReadFile( string textPath )
+	{
+		string score = "";
 
+		textPath = Application.dataPath + "/" + textPath;
+
+		FileInfo fi = new FileInfo( textPath );
+
+		StreamReader sr = new StreamReader(fi.OpenRead());
+		score = sr.ReadToEnd();
+
+		sr.Close();
+
+		return score;
+	}
+	
 }

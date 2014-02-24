@@ -3,7 +3,7 @@ using System.Collections;
 
 public static class MyGUI {
 
-	//高さに合わせて画像を拡縮,xとyは0~1,サイズも0~1.
+	//y scaling, and x is 0 to 1, 0 to 1 the size of the image to fit he height.
 	public static void DrawTexture( Rect rect , Texture tex )
 	{
 		GUI.DrawTexture( RectHeightZeroToOne(rect) , tex );

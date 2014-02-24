@@ -21,8 +21,6 @@ public class GameManager : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		MusicScore canonLock = new MusicScore("music/test/test");
-
 	}
 
 	// Update is called once per frame

@@ -49,7 +49,6 @@
      <Compile Include="Assets\Scripts\InputA.cs" />
      <Compile Include="Assets\Scripts\MainGame\AudioManager.cs" />
      <Compile Include="Assets\Scripts\MainGame\BackgroundImage.cs" />
-     <Compile Include="Assets\Scripts\MainGame\CamSetting.cs" />
      <Compile Include="Assets\Scripts\MainGame\GameManager.cs" />
      <Compile Include="Assets\Scripts\MainGame\GameMusicManager.cs" />
      <Compile Include="Assets\Scripts\MainGame\Icon\Icon.cs" />

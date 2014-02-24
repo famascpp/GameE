@@ -22,7 +22,7 @@ public class Icon : MonoBehaviour {
 
 	public static Vector2 pos2D(Vector2 pos)
 	{
-		pos.y = 1-pos.y;	//yの上下反転.
+		pos.y = 1-pos.y;	//y upside down
 		
 		return new Vector2(Screen.width / 2.0f + Screen.height * pos.x,-Screen.height  / 2.0f + Screen.height * pos.y );
 	}

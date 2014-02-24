@@ -49,7 +49,7 @@ public class IconManager : MonoBehaviour {
 			icon[dispos[i]] = obj.GetComponent<Icon>();
 		}
 
-		//テクスチャ貼り付けとその他設定.
+		//texture and etc setting
 		for( int i = 0 ; i < iconMax ; i++ )
 		{
 			string strname = "icon"+i+""+((IconEnum)i).ToString();

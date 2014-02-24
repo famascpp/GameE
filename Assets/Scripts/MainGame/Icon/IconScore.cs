@@ -7,19 +7,19 @@ public class IconScore {
 	//譜面.
 	int[][] score;
 
-	//次のアイコンがあるかどうか.
+	//next icon 
 	bool next = false;
 	public bool Next{
 		get { return next; }
 	}
 	
-	//オーディオ.
+	//audio
 	public AudioManager audioMgr;
 	
-	//次にアイコンを押す配列.
+	//next icon array
 	int nextMeasure;
 	int nextMeasureDivision;
-	int nextMeasureDivisionNum;	//１小節になんこある?.
+	int nextMeasureDivisionNum;	//1 measure how many
 
 	public void setScore(List<List<int>> score)
 	{
@@ -60,13 +60,13 @@ public class IconScore {
 					nextMeasure = i;
 					nextMeasureDivision = j;
 					next = true;
-					goto LOOPEND;	//多重ループ脱出用.
+					goto LOOPEND;	//Multiple loop escape
 				}
 			}
 			j = 0;
 		}
 
-		//譜面がもうありません.
+		//no more is score
 		next = false;
 
 		LOOPEND:;

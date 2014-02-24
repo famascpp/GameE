@@ -14,7 +14,7 @@ public class AudioManager : MonoBehaviour {
 	float startDelayedTime = 3.0f;
 	float startMusicDelayedTime = 0.0f;
 
-	bool startedMusic = false;	//音を再生し始めたかどうか.
+	bool startedMusic = false;	// Began music?
 
 	float audioTime = 0.0f;
 
@@ -43,7 +43,7 @@ public class AudioManager : MonoBehaviour {
 
 		if( startedMusic == false )
 		{
-			//残り1秒になったらPlayDelayedを使う.
+			//Use PlayDelayed Once at 1 second remaining.
 			if( audioTime > -1.0f )
 			{
 				startMusicDelayedTime = gameAudio.StartMusic(startTime - Time.time);
@@ -53,20 +53,20 @@ public class AudioManager : MonoBehaviour {
 
 	}
 
-	//1小節の秒数.
+	//1 measure time
 	public float get1MeasureTime()
 	{
 		float ret = ( 60.0f / bpm ) * beat;
 		return ret;
 	}
 
-	//今何小節目？.
+	//what measure now?
 	public int getMeasure()
 	{
 		return (int)(audioTime / this.get1MeasureTime());
 	}
 
-	//小節と拍子から時間を出す.
+	//i put the time frome measure and beat
 	public float getMeasureBeat( int measure , int measureDivision , int measureDivisionMax )
 	{
 		return this.get1MeasureTime() * (float)measure + 
