@@ -16,8 +16,8 @@ public class Title : MonoBehaviour {
 	public Texture[] nowLoadingTexture = new Texture[2];
 	private int nowLoadingNum = 0;
 
-	public static bool drawWarningFlag = false, drawUserGuideFlag = false; // true:操作説明画像表示.
-
+	private static bool drawWarningFlag = false, drawUserGuideFlag = false; // true:操作説明画像表示.
+	private static bool startFlag = false;
 
 	// ロゴの構造体.
 	struct Logo{
@@ -46,7 +46,7 @@ public class Title : MonoBehaviour {
 	
 	// ゲームスタート.
 	IEnumerator StartGame(){
-		yield return new WaitForSeconds(3.0f);
+		yield return new WaitForSeconds(1.0f);
 		Application.LoadLevel(1);
 	}
 
@@ -56,19 +56,26 @@ public class Title : MonoBehaviour {
 		if(Logo.POSITION_Y-10.0f >= Logo.y) Logo.vy = +1.0f;
 		Logo.y += Logo.vy;
 
-		if( drawUserGuideFlag ){ // 一定時間説明画面がでたら遷移.
+		if( drawUserGuideFlag && startFlag ){ // 一定時間説明画面がでたら遷移.
 			// ↓かた、こし、ひざ、を叩いたらゲームスタート.
 			StartCoroutine( StartGame() );
 		}
 	}
 
 	// 操作説明を表示するフラグをセット.
-	public static void SetDrawUserGuideFlag (bool flg) {
+	public static void SetDrawUserGuideFlag ( bool flg ) {
 		/*操作説明表示.*/
 		drawUserGuideFlag = flg;
 	}
+	// スタートシーンに遷移するか.
+	public static void SetStartFlag ( bool flg ) {
+		startFlag = flg;
+	}
 	public static bool GetDrawWarningFlag () {
 		return drawWarningFlag;
+	}
+	public static bool GetDrawUserGuideFlag () {
+		return drawUserGuideFlag;
 	}
 
 
@@ -122,10 +129,11 @@ public class Title : MonoBehaviour {
 	void DrawUserGuide () {
 		if(drawUserGuideFlag == true)
 		{
-		Graphics.DrawTexture(
-			new Rect(0, 0,
-		         Screen.width, Screen.height),
-				userGuideTexture2);
+			Graphics.DrawTexture(
+				new Rect(0, 0,
+			         Screen.width, Screen.height),
+					userGuideTexture2);
+			DrawStartLogo ();
 		}
 	}
 
