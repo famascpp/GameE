@@ -9,6 +9,9 @@ public class Title : MonoBehaviour {
 	public Texture nameTexture;
 	public Texture teamNameTexture;
 
+	public Texture2D shoulderTexture ,hipTexture ,kneeTexture;
+	public static float shoulderAlpha = .0f, hipAlpha = .0f, kneeAlpha = .0f;
+
 	private Texture2D blackTexture;
 	private float blackAlpha = 1;
 	private bool blackFadeFlag = false;
@@ -41,11 +44,15 @@ public class Title : MonoBehaviour {
 		blackTexture.SetPixel(0,0,Color.white);
 		blackTexture.Apply();
 
+//		hipTexture = new Texture2D(32,32,TextureFormat.ARGB32,false);
+//		hipTexture.SetPixel(0,0,Color.white);
+//		hipTexture.Apply();
+
 		StartCoroutine(NowLoadingTextureChange()); // ローディングのテクスチャ切り替え.
 	}
 	
 	// ゲームスタート.
-	IEnumerator StartGame(){
+	public static IEnumerator StartGame(){
 		yield return new WaitForSeconds(1.0f);
 		Application.LoadLevel(1);
 	}
@@ -55,11 +62,6 @@ public class Title : MonoBehaviour {
 		if(Logo.POSITION_Y+10.0f <= Logo.y) Logo.vy = -1.0f;
 		if(Logo.POSITION_Y-10.0f >= Logo.y) Logo.vy = +1.0f;
 		Logo.y += Logo.vy;
-
-		if( drawUserGuideFlag && startFlag ){ // 一定時間説明画面がでたら遷移.
-			// ↓かた、こし、ひざ、を叩いたらゲームスタート.
-			StartCoroutine( StartGame() );
-		}
 	}
 
 	// 操作説明を表示するフラグをセット.
@@ -68,8 +70,17 @@ public class Title : MonoBehaviour {
 		drawUserGuideFlag = flg;
 	}
 	// スタートシーンに遷移するか.
-	public static void SetStartFlag ( bool flg ) {
-		startFlag = flg;
+	public static bool GetStartFlag () {
+		return startFlag;
+	}
+	public static void SetShoulderAlpha( float alpha ){
+		shoulderAlpha = alpha;
+	}
+	public static void SetHipAlpha( float alpha ){
+		hipAlpha = alpha;
+	}
+	public static void SetKneeAlpha( float alpha ){
+		kneeAlpha = alpha;
 	}
 	public static bool GetDrawWarningFlag () {
 		return drawWarningFlag;
@@ -87,7 +98,6 @@ public class Title : MonoBehaviour {
 				new Rect(0, 0,
 			         Screen.width, Screen.height),
 				backgroundTexture);
-
 		}
 	}
 
@@ -127,13 +137,49 @@ public class Title : MonoBehaviour {
 	
 	// 操作説明.
 	void DrawUserGuide () {
+		Color normalColor; // 通常時の色 半透明ではない.
+		normalColor = GUI.color;
+
 		if(drawUserGuideFlag == true)
 		{
-			Graphics.DrawTexture(
-				new Rect(0, 0,
-			         Screen.width, Screen.height),
-					userGuideTexture2);
-			DrawStartLogo ();
+			Graphics.DrawTexture( // 操作説明.
+			    new Rect(0, 0,
+			        Screen.width, Screen.height),
+			        userGuideTexture2);
+
+			GUI.color = normalColor;
+			if( shoulderAlpha > .0f){
+				GUI.color -= new Color(0,0,0,shoulderAlpha);
+			}
+			GUI.DrawTexture( // 肩タッチ.
+				new Rect(Screen.width/1.5f, Screen.height/3,
+		        shoulderTexture.width/3, shoulderTexture.height/3),
+     			shoulderTexture);
+
+			GUI.color = normalColor;
+			if( hipAlpha > .0f){
+				GUI.color -= new Color(0,0,0,hipAlpha);
+			}
+			GUI.DrawTexture(
+				new Rect(Screen.width/1.5f, Screen.height/3+100,
+		        hipTexture.width/3, hipTexture.height/3),
+        		hipTexture);
+
+			GUI.color = normalColor;
+			if( kneeAlpha > .0f){
+				GUI.color -= new Color(0,0,0,kneeAlpha);
+			}
+
+			GUI.DrawTexture( // 膝タッチ.
+                new Rect(Screen.width/1.5f, Screen.height/3+200,
+		        kneeTexture.width/3, kneeTexture.height/3),
+                kneeTexture);
+
+			GUI.color = normalColor;
+			if( shoulderAlpha > .0f && hipAlpha > .0f && kneeAlpha > .0f ){
+				DrawStartLogo (); // 肩、腰、膝を押したら表示するように設定する.
+				startFlag = true;
+			}
 		}
 	}
 

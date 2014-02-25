@@ -113,6 +113,9 @@ MonoBehaviour:
   startTexture: {fileID: 2800000, guid: 9a0680b0b3b6b4e4f8743ecc66d9289c, type: 3}
   nameTexture: {fileID: 2800000, guid: 27a2115e99a34134187929c9b20f430c, type: 3}
   teamNameTexture: {fileID: 2800000, guid: 0719dae725e63ee4a8dd8199ec6fe779, type: 3}
+  shoulderTexture: {fileID: 2800000, guid: 395d84382b315a945bf31e0c7e237860, type: 3}
+  hipTexture: {fileID: 2800000, guid: 68692104e8f766f4d941e8a9bcbb18a8, type: 3}
+  kneeTexture: {fileID: 2800000, guid: 1b577d810198ea04ea410504e7812ea5, type: 3}
   nowLoadingTexture:
   - {fileID: 2800000, guid: f690f9541cb07964f8e7e70385075710, type: 3}
   - {fileID: 2800000, guid: dc3455655d57c184a8bbd9dcf39f4c10, type: 3}
@@ -188,6 +191,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bfafc402fdec13745a70236da1203502, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  shoulder: 0
+  hip: 0
+  knee: 0
 --- !u!114 &74131103
 MonoBehaviour:
   m_ObjectHideFlags: 0
