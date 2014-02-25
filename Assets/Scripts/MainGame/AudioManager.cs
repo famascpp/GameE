@@ -75,17 +75,6 @@ public class AudioManager : MonoBehaviour {
 
 	void OnGUI()
 	{
-		GUIStyle style;
-		style = new GUIStyle();
-
-		string str = "";
-
-		str += "startTime" + "" + startTime + "\n";
-		str += "startDelayedTime" + "" + startDelayedTime + "\n";
-		str += "startMusicDelayedTime" + "" + startMusicDelayedTime + "\n";
-		str += "Time.time" + Time.time + "\n";
-
-		GUI.Label( new Rect(0,0,300,300) , str ,style );
 	}
 
 }

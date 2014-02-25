@@ -13,6 +13,8 @@ public class IconManager : MonoBehaviour {
 	public Icon[] receiveIcon = new Icon[iconMax];
 	public Icon[] sendIcon = new Icon[iconMax];
 
+	public static float SendToReceiveTime = 3.0f;
+
 	public Icon GetReceiveIconE( IconEnum ie )
 	{
 		int i = (int)ie;
@@ -45,11 +47,11 @@ public class IconManager : MonoBehaviour {
 		for( int i = 0 ; i < iconMax ; i++ )
 		{
 			float x,y;
-			float height = 0.5f - blank - ( ( 1.0f - blank * 2.0f ) / (float)( iconCnt - 1 ) ) * dispos[i];
+			float height = - 0.5f + blank + ( ( 1.0f - blank * 2.0f ) / (float)( iconCnt - 1 ) ) * dispos[i];
 
 			if( receiveIcon[i] == null )
 			{
-				x = -0.7f;
+				x = -0.4f;
 				y = height;
 
 				obj = Instantiate(
@@ -70,7 +72,7 @@ public class IconManager : MonoBehaviour {
 
 			if( sendIcon[i] == null )
 			{
-				x = 0.7f;
+				x = 1.33f;
 				y = height;
 
 				obj = Instantiate(
@@ -83,7 +85,6 @@ public class IconManager : MonoBehaviour {
 				
 				string strname = "SendIcon"+i+""+((IconEnum)i).ToString();
 				
-				sendIcon[i].icon = iconTex[i];
 				sendIcon[i].scale = scale;
 				sendIcon[i].gameObject.name = strname;
 				sendIcon[i].depthLayer = 1;

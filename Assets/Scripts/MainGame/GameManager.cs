@@ -9,9 +9,6 @@ public class GameManager : MonoBehaviour {
 
 	ScoreManager scoreMgr;
 
-	public GameObject uniduino;
-	bool isUniduino;
-
 	void Awake()
 	{
 		iconMgr = this.GetComponent<IconManager>();
@@ -39,6 +36,13 @@ public class GameManager : MonoBehaviour {
 
 	void OnGUI()
 	{
+		GUIStyle style;
+		style = new GUIStyle();
+		
+		string str = "" + Points.GetPoints();
+		
+
+		GUI.Label( new Rect(0,0,300,300) , str ,style );
 	}
 
 

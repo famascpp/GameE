@@ -2,85 +2,130 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class IconScore {
+public enum IconStates 
+{
+	move,
+	pushed,
+}
 
-	//譜面.
-	int[][] score;
+public class IconScore : MonoBehaviour {
 
-	//next icon 
-	bool next = false;
-	public bool Next{
-		get { return next; }
-	}
-	
-	//audio
-	public AudioManager audioMgr;
-	
-	//next icon array
-	int nextMeasure;
-	int nextMeasureDivision;
-	int nextMeasureDivisionNum;	//1 measure how many
+	Vector2 sendPos;
+	float sendSize;
 
-	public void setScore(List<List<int>> score)
+	Vector2 receivePos;
+
+	float startTime;
+
+	float nextTime;
+
+	Texture tex;
+
+	IconStates states;
+
+	int col;	//hand shoulder leg...
+	public int Col(){ return col; }
+
+	bool lrDistribution = false;
+	public bool LRDistribution(){ return this.lrDistribution; }
+
+	public void Init( Vector2 sendPos,float sendSize,Vector2 receivePos,float nextTime , int col , bool lrDistribution )
 	{
-		this.score = new int[score.Count][];
-		for( int i = 0 ; i < score.Count ; i++ )
+		this.sendPos = sendPos;
+		this.sendSize = sendSize;
+		this.receivePos = receivePos;
+		this.nextTime = nextTime;
+		this.col = col;
+		this.lrDistribution = lrDistribution;
+
+		if( this.lrDistribution )
 		{
-			this.score[i] = new int[score[i].Count];
-			for( int j = 0 ; j < score[i].Count ; j++ )
-			{
-				this.score[i][j] = score[i][j];
-			}
+			if( col == 0 ) this.tex = Resources.Load<Texture>("Textures/Icon/icon_0");
+			else if( col % 2 == 1 ) this.tex = Resources.Load<Texture>("Textures/Icon/icon_l3");
+			else this.tex = Resources.Load<Texture>("Textures/Icon/icon_r3");
 		}
+		else
+		{
+			this.tex = Resources.Load<Texture>("Textures/Icon/icon_0");
+		}
+
+		startTime = Time.time;
+
+		states = IconStates.move;
+
+	}
+
+	void Start()
+	{
+	}
+
+	void Update()
+	{
+		this.transform.position = new Vector3( TexPos().x,TexPos().y,0.0f);
+	}
+
+	public bool Push()
+	{
+		bool ret = false;
+		float length = 0.3f;
+
+		if( Mathf.Abs( AtNextTime() ) < length )
+		{
+			float addPt = 1.0f - Mathf.Abs( AtNextTime() ) / length;
+
+			Points.AddPoints( addPt * 10.0f );
+
+			YesEnum yes;
+			if( addPt > 0.7f ) yes = YesEnum.yeah;
+			else if( addPt > 0.4f ) yes = YesEnum.yes;
+			else yes = YesEnum.oh;
+
+			GameObject gmYes =  new GameObject("" + yes.ToString());
+			gmYes.transform.position = this.transform.position;
+
+			YesIcon gmYesIcon = gmYes.AddComponent<YesIcon>();
+			gmYesIcon.Init( yes );
+
+			this.states = IconStates.pushed;
+
+			ret = true;
+		}
+
+		return ret;
+	}
+
+	void OnGUI()
+	{
+		GUI.depth = -10;
+		switch( this.states )
+		{
+		case IconStates.move:
+			DrawMoveIcon();
+			break;
+		case IconStates.pushed:
+			break;
+		}
+	}
+
+
+	void DrawMoveIcon()
+	{
+		MyGUI.DrawTexture( new Rect( TexPos().x,TexPos().y,sendSize,sendSize ) ,this.tex);
+	}
+
+	float AtNextTime()
+	{
+		return nextTime - ( Time.time - startTime );
+	}
+
+	Vector2 TexPos()
+	{
+		float min = -2.5f;
+		float max = IconManager.SendToReceiveTime;
 		
-		nextPush();
+		Vector2 pos = ( receivePos - sendPos ) * (1.0f - AtNextTime() / max) + sendPos;
 
-		GameObject obj = GameObject.Find("GameManager");
-		audioMgr = obj.GetComponent<AudioManager>();
+		return pos;
 	}
-
-	// Update is called once per frame
-	void Update () {
-		if( getNextTime() < 0.0f ) nextPush();
-	}
-
-
-	public void nextPush()
-	{
-		int i = nextMeasure;
-		int j = nextMeasureDivision + 1;
-
-		for(  ; i < this.score.Length ; i++ )
-		{
-			for( ; j < this.score[i].Length ; j++ )
-			{
-				nextMeasureDivisionNum = this.score[i].Length;
-				if( this.score[i][j] != 0 )
-				{
-					nextMeasure = i;
-					nextMeasureDivision = j;
-					next = true;
-					goto LOOPEND;	//Multiple loop escape
-				}
-			}
-			j = 0;
-		}
-
-		//no more is score
-		next = false;
-
-		LOOPEND:;
-	}
-
-	public float getNextTime()
-	{
-		return getNextTotalTime() - audioMgr.AudioTime;
-	}
-
-	public float getNextTotalTime()
-	{
-		return audioMgr.getMeasureBeat(nextMeasure,nextMeasureDivision,nextMeasureDivisionNum);
-	}
-
 
 }

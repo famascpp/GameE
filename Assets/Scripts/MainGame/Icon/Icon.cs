@@ -20,45 +20,30 @@ public class Icon : MonoBehaviour {
 	void Update () {
 	}
 
-	public static Vector2 pos2D(Vector2 pos)
+	public Vector2 pos()
 	{
-		pos.y = 1-pos.y;	//y upside down
-		
-		return new Vector2(Screen.width / 2.0f + Screen.height * pos.x,-Screen.height  / 2.0f + Screen.height * pos.y );
+		return this.transform.position;
+	}
+	
+	public float size()
+	{
+		return scale;
 	}
 
-	public Vector2 pos2D()
-	{
-		return pos2D(this.transform.position);
-	}
-
-	public Vector2 size2D()
-	{
-		Vector2 size = new Vector2( Screen.height * scale , Screen.height * scale);
-		return size;
-	}
-
-	public Rect TexRect()
-	{
-		Vector2 size = size2D();
-		
-		Vector2 pos = pos2D();
-
-		Rect texRect = new Rect(
-			pos.x - size.x / 2.0f, 
-			pos.y - size.y / 2.0f,
-			size.x,
-			size.y
-			);
-		return texRect;
-	}
 
 	void OnGUI()
 	{
 		GUI.depth = depthLayer;
 		if( icon )
 		{
-			GUI.DrawTexture(TexRect(),icon);
+			MyGUI.DrawTexture(
+				new Rect( 
+			         this.transform.position.x ,
+			         this.transform.position.y ,
+			         this.scale , this.scale
+			         ) , 
+				this.icon
+				);
 		}
 	}
 

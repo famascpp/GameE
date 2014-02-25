@@ -49,13 +49,16 @@
      <Compile Include="Assets\Scripts\InputA.cs" />
      <Compile Include="Assets\Scripts\MainGame\AudioManager.cs" />
      <Compile Include="Assets\Scripts\MainGame\BackgroundImage.cs" />
+     <Compile Include="Assets\Scripts\MainGame\CopyModel.cs" />
      <Compile Include="Assets\Scripts\MainGame\GameManager.cs" />
      <Compile Include="Assets\Scripts\MainGame\GameMusicManager.cs" />
      <Compile Include="Assets\Scripts\MainGame\Icon\Icon.cs" />
      <Compile Include="Assets\Scripts\MainGame\Icon\IconManager.cs" />
      <Compile Include="Assets\Scripts\MainGame\Icon\IconScore.cs" />
      <Compile Include="Assets\Scripts\MainGame\Icon\IconScoreMono.cs" />
+     <Compile Include="Assets\Scripts\MainGame\Icon\YesIcon.cs" />
      <Compile Include="Assets\Scripts\MainGame\MusicScore.cs" />
+     <Compile Include="Assets\Scripts\MainGame\Points.cs" />
      <Compile Include="Assets\Scripts\MainGame\ScoreManager.cs" />
      <Compile Include="Assets\Scripts\MainGame\TimeDestroyObject.cs" />
      <Compile Include="Assets\Scripts\MyGUI.cs" />

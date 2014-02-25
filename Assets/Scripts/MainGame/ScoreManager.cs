@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 struct ScoreSet {
 	public int score;
-	public bool Pushed;
+	public bool Instantiated;
 	public float PushTime;
 }
 
@@ -17,9 +17,9 @@ public class ScoreManager : MonoBehaviour {
 
 	public Texture circle;
 
-	public Texture moveIconTexture;
-
 	public GameObject pushSE;
+
+	public GameObject icon;
 
 	GameManager gameMgr;
 
@@ -32,7 +32,9 @@ public class ScoreManager : MonoBehaviour {
 	bool end = false;
 	public bool isEnd{ get { return end; } }
 
-	bool lrDistribution = false;	//Left and right distribution.
+	bool lrDistribution = true;	//Left and right distribution.
+
+	List<IconScore> listIconScore;
 
 	void Awake()
 	{
@@ -65,7 +67,7 @@ public class ScoreManager : MonoBehaviour {
 				for( int l = 0 ; l < this.ss[i][j].Length ; l++ )
 				{
 					this.ss[i][j][l].score = score[i][j][l];
-					this.ss[i][j][l].Pushed = false;
+					this.ss[i][j][l].Instantiated = false;
 					this.ss[i][j][l].PushTime = audioManager.getMeasureBeat(j,l,this.ss[i][j].Length);
 				}
 			}
@@ -73,6 +75,8 @@ public class ScoreManager : MonoBehaviour {
 
 		inputButton = new uint[(int)IconEnum.Max];
 		for( int i = 0 ; i < inputButton.Length ; i++ ) inputButton[i] = 0;
+
+		listIconScore = new List<IconScore>();
 	}
 	
 	// Update is called once per frame
@@ -80,9 +84,17 @@ public class ScoreManager : MonoBehaviour {
 
 		InputUpdate();
 
+		for (int i = listIconScore.Count - 1; i >= 0; i--)
+		{
+			if( InputCheck( listIconScore[i].Col(),listIconScore[i].LRDistribution() )   )
+			{
+				if( listIconScore[i].Push() ) listIconScore.RemoveAt(i);
+			}
+		}
+
 		//get scope
 		float min = -2.0f;
-		float max = 2.0f;
+		float max = IconManager.SendToReceiveTime;
 
 		bool colLoop;
 
@@ -97,16 +109,18 @@ public class ScoreManager : MonoBehaviour {
 					if( this.ss[i][j][l].score != 0 )
 					{
 						float nextTime = this.ss[i][j][l].PushTime - audioManager.AudioTime;
-						if( (int)IconEnum.Max == i )
-						{
-							end = true;
-						}
 
-						if( this.ss[i][j][l].Pushed == false ){
+						// Score end?
+						if( (int)IconEnum.Max == i ) end = true;
+
+						// Score Icon 
+						if( this.ss[i][j][l].Instantiated == false ){
 							if( nextTime < max ){
+								InstantiateIcon(nextTime,i,this.ss[i][j][l]);
+								
+								this.ss[i][j][l].Instantiated = true;
+
 								if( min < nextTime ){
-									if( inputButton[i] == 2 )
-										this.ss[i][j][l].Pushed = PushScoreIcon(this.ss[i][j][l],nextTime,i,j,l);
 								}else{
 									ssMin[i] = j;
 								}
@@ -120,123 +134,67 @@ public class ScoreManager : MonoBehaviour {
 		}
 	}
 
+	void InstantiateIcon(float nextTime,int col,ScoreSet scoreSet)
+	{
+		GameObject gameObj = Instantiate( icon ) as GameObject;
+
+		IconScore iconScore = gameObj.AddComponent<IconScore>();
+		iconScore.Init(
+			iconMgr.GetSendIcon(col).pos() ,
+			iconMgr.GetSendIcon(col).size() ,
+			iconMgr.GetReceiveIcon(col).pos() ,
+			nextTime,
+			col,
+			this.lrDistribution
+			);
+
+		listIconScore.Add( iconScore );
+
+
+	}
+
 	void InputUpdate()
 	{
 		//key input
 		for( int i = 0 ; i < (int)IconEnum.Max ; i++ )
 		{
-			//Left and right distribution
-			if( lrDistribution )
+			if( ( isUniduino && InputA.GetButton((IconEnum)i) ) ||
+			   Input.GetKey( (KeyCode)((int)KeyCode.Alpha1 + i) )
+			   ) inputButton[i]++;
+			else inputButton[i] = 0;
+		}
+	}
+
+	bool InputCheck( int col , bool lrDistribution )
+	{
+		int checkNum = 2;
+		bool ret = false;
+		if( lrDistribution )
+		{
+			if( this.inputButton[col] == checkNum ) ret = true;
+		}
+		else
+		{
+			if( col == 0 )
 			{
-				if( ( isUniduino && InputA.GetButton((IconEnum)i) ) ||
-				   Input.GetKey( (KeyCode)((int)KeyCode.Alpha1 + i) )
-				   ) inputButton[i]++;
-				else inputButton[i] = 0;
+				if( this.inputButton[col] == checkNum ) ret = true;
+			}
+			else
+			{
+				if( col % 2 == 1 )
+				{
+					if( this.inputButton[col] == checkNum ) ret = true;
+					if( this.inputButton[col+1] == checkNum ) ret = true;
+				}
+				else
+				{
+					if( this.inputButton[col] == checkNum ) ret = true;
+					if( this.inputButton[col-1] == checkNum ) ret = true;
+				}
 			}
 		}
 
-	}
-
-	bool PushScoreIcon(ScoreSet scoreSet,float nextTime,int i,int j,int l)
-	{
-		bool ret = false;
-
-		float max = 0.2f;
-		float min = -0.2f;
-		if( min < nextTime && nextTime < max )
-		{
-			ret = true;
-			Instantiate(pushSE);
-		}
 		return ret;
 	}
 
-	void OnGUI()
-	{
-		GUI.depth = -10;
-
-		bool colLoop;	//nextTime n over not loop
-
-		for( int i = 0 ; i < this.ss.Length ; i++ )
-		{
-			colLoop = true;
-			for( int j = ssMin[i] ; j < this.ss[i].Length && colLoop ; j++ )
-			{
-				for( int l = 0 ; l < this.ss[i][j].Length && colLoop ; l++ )
-				{
-					if( this.ss[i][j][l].Pushed == false )
-					{
-						float min = -2.0f;
-						float max = 2.0f;
-						
-						float nextTime = this.ss[i][j][l].PushTime - audioManager.AudioTime;
-
-						if( nextTime < max ){
-							if( min < nextTime ){
-								//DrawCircle(this.ss[i][j][l],nextTime,i);
-								DrwaMoveIcon(this.ss[i][j][l],nextTime,i);
-							}
-						}else{
-							colLoop = false;
-						}
-					}
-				}
-			}
-		}
-	}
-
-	void DrawCircle(ScoreSet scoreSet,float nextTime,int col)
-	{
-		float min = -2.5f;
-		float max = 2.0f;
-
-		if( nextTime < max ){
-			if( min < nextTime ){
-				if( scoreSet.score != 0 ){
-					Icon icon = iconMgr.GetReceiveIcon(col);
-					Rect circleRect = new Rect();
-					circleRect.x = icon.pos2D().x;
-					circleRect.y = icon.pos2D().y;
-					circleRect.width = icon.size2D().x;
-					circleRect.height = icon.size2D().y;
-					
-					float scaleCircle = 1.0f + nextTime * 2.0f;
-					
-					if( 0.0f < scaleCircle )
-					{
-						circleRect.width *= scaleCircle;
-						circleRect.height *= scaleCircle;
-						
-						circleRect.x -= circleRect.width / 2.0f;
-						circleRect.y -= circleRect.height / 2.0f;
-						
-						GUI.DrawTexture( circleRect ,circle);
-					}
-				}
-			}
-		}
-	}
-
-	void DrwaMoveIcon(ScoreSet scoreSet,float nextTime,int col)
-	{
-		float min = -2.5f;
-		float max = 2.0f;
-		
-		if( nextTime < max ){
-			if( min < nextTime ){
-				if( scoreSet.score != 0 ){
-					Icon icon = iconMgr.GetReceiveIcon(col);
-
-					Icon sendIcon = iconMgr.GetSendIcon(col);
-					Vector2 center = sendIcon.pos2D();
-
-					Vector2 iconPos = icon.pos2D();
-					Vector2 iconSize = icon.size2D();
-					Vector2 pos = ( iconPos - center ) * (1.0f - nextTime / max) + center - iconSize/2.0f;
-
-					GUI.DrawTexture( new Rect( pos.x,pos.y,iconSize.x,iconSize.y ) ,moveIconTexture);
-				}
-			}
-		}
-	}
 }
