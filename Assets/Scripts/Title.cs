@@ -21,6 +21,7 @@ public class Title : MonoBehaviour {
 
 	private static bool drawWarningFlag = false, drawUserGuideFlag = false; // true:操作説明画像表示.
 	private static bool startFlag = false;
+	private bool[] seBeatFlag = {true, true, true};
 
 	// ロゴの構造体.
 	struct Logo{
@@ -150,6 +151,10 @@ public class Title : MonoBehaviour {
 			GUI.color = normalColor;
 			if( shoulderAlpha > .0f){
 				GUI.color -= new Color(0,0,0,shoulderAlpha);
+				if( seBeatFlag[0] ){
+					TitleMusic.SetBeatFlag( true ); // 叩く音.
+				}
+				seBeatFlag[0] = false;
 			}
 			GUI.DrawTexture( // 肩タッチ.
 				new Rect(Screen.width/1.5f, Screen.height/3,
@@ -159,6 +164,10 @@ public class Title : MonoBehaviour {
 			GUI.color = normalColor;
 			if( hipAlpha > .0f){
 				GUI.color -= new Color(0,0,0,hipAlpha);
+				if( seBeatFlag[1] ){
+					TitleMusic.SetBeatFlag( true ); // 叩く音.
+				}
+				seBeatFlag[1] = false;
 			}
 			GUI.DrawTexture(
 				new Rect(Screen.width/1.5f, Screen.height/3+120,
@@ -168,6 +177,10 @@ public class Title : MonoBehaviour {
 			GUI.color = normalColor;
 			if( kneeAlpha > .0f){
 				GUI.color -= new Color(0,0,0,kneeAlpha);
+				if( seBeatFlag[2] ){
+					TitleMusic.SetBeatFlag( true ); // 叩く音.
+				}
+				seBeatFlag[2] = false;
 			}
 
 			GUI.DrawTexture( // 膝タッチ.

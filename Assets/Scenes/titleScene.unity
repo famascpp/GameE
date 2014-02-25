@@ -207,6 +207,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   music: {fileID: 8300000, guid: 5f62d17f8a34f334eb1999cbdfe974ce, type: 3}
   handclap: {fileID: 8300000, guid: f331afa5b6079e146acdd2c8dbc50593, type: 3}
+  beat: {fileID: 8300000, guid: de40f7d9b6842054692e7e7bc13ccc7f, type: 3}
 --- !u!1 &753481460
 GameObject:
   m_ObjectHideFlags: 0
