@@ -32,6 +32,8 @@ public class ScoreManager : MonoBehaviour {
 	bool end = false;
 	public bool isEnd{ get { return end; } }
 
+	bool lrDistribution = false;	//Left and right distribution.
+
 	void Awake()
 	{
 		GameObject tempUniduino = GameObject.Find("Uniduino");
@@ -52,6 +54,7 @@ public class ScoreManager : MonoBehaviour {
 		this.ssMin = new int[score.Count];
 		for( int i = 0 ; i < ssMin.Length ; i++ ) ssMin[i] = 0;
 
+		//　Add to array a score file you have loaded
 		this.ss = new ScoreSet[score.Count][][];
 		for( int i = 0 ; i < this.ss.Length ; i++ )
 		{
@@ -75,14 +78,7 @@ public class ScoreManager : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-		//key input
-		for( int i = 0 ; i < (int)IconEnum.Max ; i++ )
-		{
-			if( ( isUniduino && InputA.GetButton((IconEnum)i) ) ||
-				Input.GetKey( (KeyCode)((int)KeyCode.Alpha1 + i) )
-			) inputButton[i]++;
-			else inputButton[i] = 0;
-		}
+		InputUpdate();
 
 		//get scope
 		float min = -2.0f;
@@ -109,7 +105,7 @@ public class ScoreManager : MonoBehaviour {
 						if( this.ss[i][j][l].Pushed == false ){
 							if( nextTime < max ){
 								if( min < nextTime ){
-									if( inputButton[i] != 0 )
+									if( inputButton[i] == 2 )
 										this.ss[i][j][l].Pushed = PushScoreIcon(this.ss[i][j][l],nextTime,i,j,l);
 								}else{
 									ssMin[i] = j;
@@ -122,6 +118,23 @@ public class ScoreManager : MonoBehaviour {
 				}
 			}
 		}
+	}
+
+	void InputUpdate()
+	{
+		//key input
+		for( int i = 0 ; i < (int)IconEnum.Max ; i++ )
+		{
+			//Left and right distribution
+			if( lrDistribution )
+			{
+				if( ( isUniduino && InputA.GetButton((IconEnum)i) ) ||
+				   Input.GetKey( (KeyCode)((int)KeyCode.Alpha1 + i) )
+				   ) inputButton[i]++;
+				else inputButton[i] = 0;
+			}
+		}
+
 	}
 
 	bool PushScoreIcon(ScoreSet scoreSet,float nextTime,int i,int j,int l)
@@ -180,7 +193,7 @@ public class ScoreManager : MonoBehaviour {
 		if( nextTime < max ){
 			if( min < nextTime ){
 				if( scoreSet.score != 0 ){
-					Icon icon = iconMgr.getIcon(col);
+					Icon icon = iconMgr.GetReceiveIcon(col);
 					Rect circleRect = new Rect();
 					circleRect.x = icon.pos2D().x;
 					circleRect.y = icon.pos2D().y;
@@ -212,12 +225,14 @@ public class ScoreManager : MonoBehaviour {
 		if( nextTime < max ){
 			if( min < nextTime ){
 				if( scoreSet.score != 0 ){
-					Icon icon = iconMgr.getIcon(col);
+					Icon icon = iconMgr.GetReceiveIcon(col);
 
-					Vector2 center = Icon.pos2D(Vector2.zero);
+					Icon sendIcon = iconMgr.GetSendIcon(col);
+					Vector2 center = sendIcon.pos2D();
+
 					Vector2 iconPos = icon.pos2D();
 					Vector2 iconSize = icon.size2D();
-					Vector2 pos = ( center - iconPos ) * (1.0f - nextTime / max) + iconPos - iconSize/2.0f;
+					Vector2 pos = ( iconPos - center ) * (1.0f - nextTime / max) + center - iconSize/2.0f;
 
 					GUI.DrawTexture( new Rect( pos.x,pos.y,iconSize.x,iconSize.y ) ,moveIconTexture);
 				}
