@@ -16,7 +16,7 @@ public class UpdateArduino : MonoBehaviour {
 			// 拍手判定.
 			if( InputA.GetButton((IconEnum)0) || Input.GetKey(KeyCode.Alpha0) ) {
 				Title.SetDrawUserGuideFlag( true );
-				TitleMusic.ClapFlag ();
+				TitleMusic.SetClapFlag ( true );
 				Debug.Log("UpadateArduino::GetHand");
 			}
 

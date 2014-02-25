@@ -38,8 +38,8 @@ public class TitleMusic : MonoBehaviour {
 		}
 	}
 
-	public static void ClapFlag(){
-		clapFlag = true;
+	public static void SetClapFlag( bool flg ){
+		clapFlag = flg;
 	}
 
 }

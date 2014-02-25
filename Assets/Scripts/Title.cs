@@ -161,7 +161,7 @@ public class Title : MonoBehaviour {
 				GUI.color -= new Color(0,0,0,hipAlpha);
 			}
 			GUI.DrawTexture(
-				new Rect(Screen.width/1.5f, Screen.height/3+100,
+				new Rect(Screen.width/1.5f, Screen.height/3+120,
 		        hipTexture.width/3, hipTexture.height/3),
         		hipTexture);
 
@@ -171,7 +171,7 @@ public class Title : MonoBehaviour {
 			}
 
 			GUI.DrawTexture( // 膝タッチ.
-                new Rect(Screen.width/1.5f, Screen.height/3+200,
+                new Rect(Screen.width/1.5f, Screen.height/3+240,
 		        kneeTexture.width/3, kneeTexture.height/3),
                 kneeTexture);
 
