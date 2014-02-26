@@ -109,7 +109,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   backgroundTexture: {fileID: 2800000, guid: db93f6298f95afb41a308b6f9584785f, type: 3}
   userGuideTexture1: {fileID: 2800000, guid: 805ed0fcccf827f45b126ce474b92481, type: 3}
-  userGuideTexture2: {fileID: 2800000, guid: b86b77dd19d657940b542130108e9b69, type: 3}
+  userGuideTexture2: {fileID: 2800000, guid: d2b4e5d72303ba44ebeb8c68c0139afa, type: 3}
+  sousahouhouTexture: {fileID: 2800000, guid: 5da9fca38eaef4b42b5d76b00fe2546b, type: 3}
+  sousasetumeiTexture: {fileID: 2800000, guid: 111a0a30e7186714e8c57c445da656bf, type: 3}
   startTexture: {fileID: 2800000, guid: 9a0680b0b3b6b4e4f8743ecc66d9289c, type: 3}
   nameTexture: {fileID: 2800000, guid: 27a2115e99a34134187929c9b20f430c, type: 3}
   teamNameTexture: {fileID: 2800000, guid: 0719dae725e63ee4a8dd8199ec6fe779, type: 3}

@@ -5,6 +5,8 @@ public class Title : MonoBehaviour {
 	public Texture backgroundTexture; // 背景画像.
 	public Texture userGuideTexture1; // 注意画像.
 	public Texture userGuideTexture2; // 注意画像.
+	public Texture sousahouhouTexture;
+	public Texture sousasetumeiTexture;
 	public Texture startTexture; // スタートロゴ画像.
 	public Texture nameTexture;
 	public Texture teamNameTexture;
@@ -12,7 +14,7 @@ public class Title : MonoBehaviour {
 	public Texture2D shoulderTexture ,hipTexture ,kneeTexture;
 	public static float shoulderAlpha = .0f, hipAlpha = .0f, kneeAlpha = .0f;
 
-	private Texture2D blackTexture;
+	private Texture2D blackTexture, blackTexture2;
 	private float blackAlpha = 1;
 	private bool blackFadeFlag = false;
 
@@ -44,6 +46,10 @@ public class Title : MonoBehaviour {
 		//blackTexture.ReadPixels(new Rect(0,0,32,32),0,0,false);
 		blackTexture.SetPixel(0,0,Color.white);
 		blackTexture.Apply();
+
+		blackTexture2 = new Texture2D(Screen.width,Screen.height,TextureFormat.ARGB32,true);
+		blackTexture2.SetPixel(0,0,Color.black);
+		blackTexture2.Apply();
 
 //		hipTexture = new Texture2D(32,32,TextureFormat.ARGB32,false);
 //		hipTexture.SetPixel(0,0,Color.white);
@@ -144,10 +150,21 @@ public class Title : MonoBehaviour {
 		if(drawUserGuideFlag == true)
 		{
 			Graphics.DrawTexture( // 操作説明.
-			    new Rect(0, 0,
-			        Screen.width, Screen.height),
+                     new Rect(0, 0,
+			         Screen.width, Screen.height),
+                     blackTexture2);
+			Graphics.DrawTexture( // 操作説明.
+			    new Rect(-100, 0,
+			        Screen.width/2, Screen.height),
 			        userGuideTexture2);
-
+			Graphics.DrawTexture( // 操作方法.
+			                     new Rect(Screen.width/4, 0,
+			         sousahouhouTexture.width/2, sousahouhouTexture.height/2),
+			         sousahouhouTexture);
+			Graphics.DrawTexture( // 操作説明.
+			                     new Rect(Screen.width/4, -150,
+			         sousasetumeiTexture.width/2, sousasetumeiTexture.height/2),
+                     sousasetumeiTexture);
 			GUI.color = normalColor;
 			if( shoulderAlpha > .0f){
 				GUI.color -= new Color(0,0,0,shoulderAlpha);
@@ -157,7 +174,7 @@ public class Title : MonoBehaviour {
 				seBeatFlag[0] = false;
 			}
 			GUI.DrawTexture( // 肩タッチ.
-				new Rect(Screen.width/1.5f, Screen.height/6,
+				new Rect(Screen.width/1.8f, Screen.height/6,
 		        shoulderTexture.width/3, shoulderTexture.height/3),
      			shoulderTexture);
 
@@ -170,7 +187,7 @@ public class Title : MonoBehaviour {
 				seBeatFlag[1] = false;
 			}
 			GUI.DrawTexture(
-				new Rect(Screen.width/1.5f, Screen.height/6+120,
+				new Rect(Screen.width/1.8f, Screen.height/6+120,
 		        hipTexture.width/3, hipTexture.height/3),
         		hipTexture);
 
@@ -184,7 +201,7 @@ public class Title : MonoBehaviour {
 			}
 
 			GUI.DrawTexture( // 膝タッチ.
-                new Rect(Screen.width/1.5f, Screen.height/6+240,
+                new Rect(Screen.width/1.8f, Screen.height/6+240,
 		        kneeTexture.width/3, kneeTexture.height/3),
                 kneeTexture);
 
