@@ -73,12 +73,27 @@ public class IconScore : MonoBehaviour {
 		{
 			float addPt = 1.0f - Mathf.Abs( AtNextTime() ) / length;
 
-			Points.AddPoints( addPt * 10.0f );
-
 			YesEnum yes;
-			if( addPt > 0.7f ) yes = YesEnum.yeah;
-			else if( addPt > 0.4f ) yes = YesEnum.yes;
+			if( addPt > 0.9f ) yes = YesEnum.yeah;
+			else if( addPt > 0.6f ) yes = YesEnum.yes;
 			else yes = YesEnum.oh;
+
+
+			float tAddPt = addPt;
+			switch( yes )
+			{
+			case YesEnum.yeah:
+				tAddPt *= 2.0f;
+				break;
+			case YesEnum.yes:
+				tAddPt *= 1.0f;
+				break;
+			case YesEnum.oh:
+				tAddPt *= 0.0f;
+				break;
+			}
+
+			Points.AddPoints( tAddPt );
 
 			GameObject gmYes =  new GameObject("" + yes.ToString());
 			gmYes.transform.position = this.transform.position;

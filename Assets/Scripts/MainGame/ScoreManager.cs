@@ -1,6 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO; //System.IO.FileInfo, System.IO.StreamReader, System.IO.StreamWriter
+using System; //Exception
+using System.Text; //Encoding
 
 struct ScoreSet {
 	public int score;
@@ -14,6 +17,8 @@ public class ScoreManager : MonoBehaviour {
 	int[] ssMin;		//now Measure array.
 
 	uint[] inputButton;
+
+	List<uint[]> listInputButton;
 
 	public Texture circle;
 
@@ -76,6 +81,8 @@ public class ScoreManager : MonoBehaviour {
 		inputButton = new uint[(int)IconEnum.Max];
 		for( int i = 0 ; i < inputButton.Length ; i++ ) inputButton[i] = 0;
 
+		listInputButton = new List<uint[]>();
+
 		listIconScore = new List<IconScore>();
 	}
 	
@@ -84,11 +91,34 @@ public class ScoreManager : MonoBehaviour {
 
 		InputUpdate();
 
+		bool[] inputPushed = new bool[(int)IconEnum.Max];
+		for( int i = 0 ; i < inputPushed.Length ; i++ ) inputPushed[i] = true;
+
+		List<int> deleteList = new List<int>();
+
+		for( int i = 0 ; i < listIconScore.Count ; i++ )
+		{
+			if( inputPushed[listIconScore[i].Col()]){
+				if( InputCheck( listIconScore[i].Col(),listIconScore[i].LRDistribution() )   )
+				{
+					if( listIconScore[i].Push() ){
+						deleteList.Add(i);
+						inputPushed[listIconScore[i].Col()] = false;
+					}
+				}
+			}
+		}
+
+		//pushed icon delete
 		for (int i = listIconScore.Count - 1; i >= 0; i--)
 		{
-			if( InputCheck( listIconScore[i].Col(),listIconScore[i].LRDistribution() )   )
+			for( int j = 0 ; j < deleteList.Count ; j++ )
 			{
-				if( listIconScore[i].Push() ) listIconScore.RemoveAt(i);
+				if( deleteList[j] == i )
+				{
+					listIconScore.RemoveAt(i);
+					break;
+				}
 			}
 		}
 
@@ -98,34 +128,41 @@ public class ScoreManager : MonoBehaviour {
 
 		bool colLoop;
 
-		for( int i = 0 ; i < this.ss.Length ; i++ )
-		{
-			colLoop = true;
-			for( int j = ssMin[i] ; j < this.ss[i].Length && colLoop ; j++ )
+		if( end == false ){
+			for( int i = 0 ; i < this.ss.Length ; i++ )
 			{
-				for( int l = 0 ; l < this.ss[i][j].Length && colLoop ; l++ )
+				colLoop = true;
+				for( int j = ssMin[i] ; j < this.ss[i].Length && colLoop ; j++ )
 				{
-					//in string?.
-					if( this.ss[i][j][l].score != 0 )
+					for( int l = 0 ; l < this.ss[i][j].Length && colLoop ; l++ )
 					{
-						float nextTime = this.ss[i][j][l].PushTime - audioManager.AudioTime;
+						//in string?.
+						if( this.ss[i][j][l].score != 0 )
+						{
+							float nextTime = this.ss[i][j][l].PushTime - audioManager.AudioTime;
 
-						// Score end?
-						if( (int)IconEnum.Max == i ) end = true;
-
-						// Score Icon 
-						if( this.ss[i][j][l].Instantiated == false ){
-							if( nextTime < max ){
-								InstantiateIcon(nextTime,i,this.ss[i][j][l]);
-								
-								this.ss[i][j][l].Instantiated = true;
-
-								if( min < nextTime ){
-								}else{
-									ssMin[i] = j;
-								}
-							}else{
+							// Score end?
+							if( (int)IconEnum.Max == i && nextTime < 0.0f ){
+								end = true;
+								OutPutInputButton();
 								colLoop = false;
+								break;
+							}
+
+							// Score Icon 
+							if( this.ss[i][j][l].Instantiated == false && i < (int)IconEnum.Max ){
+								if( nextTime < max ){
+									InstantiateIcon(nextTime,i,this.ss[i][j][l]);
+									
+									this.ss[i][j][l].Instantiated = true;
+
+									if( min < nextTime ){
+									}else{
+										ssMin[i] = j;
+									}
+								}else{
+									colLoop = false;
+								}
 							}
 						}
 					}
@@ -163,6 +200,8 @@ public class ScoreManager : MonoBehaviour {
 			   ) inputButton[i]++;
 			else inputButton[i] = 0;
 		}
+
+		listInputButton.Add((uint[])inputButton.Clone());
 	}
 
 	bool InputCheck( int col , bool lrDistribution )
@@ -195,6 +234,39 @@ public class ScoreManager : MonoBehaviour {
 		}
 
 		return ret;
+	}
+
+	void OutPutInputButton()
+	{
+		string dateTime = DateTime.Now.Day + "" + DateTime.Now.Hour + "" + DateTime.Now.Minute + "" + DateTime.Now.Second;
+		string fileName = "" + dateTime + ".txt";
+		string fileNamePath = Application.dataPath + "/InputController/" + fileName;
+
+		FileStream fs = new FileStream(
+			fileNamePath,
+			FileMode.Create,
+			FileAccess.ReadWrite
+			);
+		fs.Close();
+
+		FileInfo fi = new FileInfo(fileNamePath);
+		StreamWriter sw = fi.AppendText();
+
+		string str = "";
+		for( int i = 0 ; i < listInputButton.Count ; i++ )
+		{
+			for( int j = 0 ; j < listInputButton[i].Length ; j++ )
+			{
+				str += "" + listInputButton[i][j] + ",";
+			}
+
+			sw.WriteLine(str);
+			str = "";
+		}
+
+		sw.Close();
+
+		Debug.Log(str);
 	}
 
 }
