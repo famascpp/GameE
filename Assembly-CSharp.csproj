@@ -55,13 +55,14 @@
      <Compile Include="Assets\Scripts\MainGame\Icon\Icon.cs" />
      <Compile Include="Assets\Scripts\MainGame\Icon\IconManager.cs" />
      <Compile Include="Assets\Scripts\MainGame\Icon\IconScore.cs" />
-     <Compile Include="Assets\Scripts\MainGame\Icon\IconScoreMono.cs" />
      <Compile Include="Assets\Scripts\MainGame\Icon\YesIcon.cs" />
      <Compile Include="Assets\Scripts\MainGame\MusicScore.cs" />
      <Compile Include="Assets\Scripts\MainGame\Points.cs" />
      <Compile Include="Assets\Scripts\MainGame\ScoreManager.cs" />
+     <Compile Include="Assets\Scripts\MainGame\SpankingEffect.cs" />
      <Compile Include="Assets\Scripts\MainGame\TimeDestroyObject.cs" />
      <Compile Include="Assets\Scripts\MyGUI.cs" />
+     <Compile Include="Assets\Scripts\PointsScene\PointsMain.cs" />
      <Compile Include="Assets\Scripts\ReadArduino.cs" />
      <Compile Include="Assets\Scripts\Title.cs" />
      <Compile Include="Assets\Scripts\TitleMusic.cs" />
@@ -79,6 +80,9 @@
      <Compile Include="Assets\Uniduino\Tutorials\Servo\Servo.cs" />
      <Compile Include="Assets\Uniduino\Tutorials\Servo\ServoSlideControl.cs" />
      <Compile Include="Assets\Uniduino\UniduinoTestPanel\UniduinoTestPanel.cs" />
+     <None Include="Assets\InputController\261207.txt" />
+     <None Include="Assets\InputController\2612237.txt" />
+     <None Include="Assets\InputController\2612357.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

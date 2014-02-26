@@ -58,6 +58,7 @@ public class CopyModel : MonoBehaviour {
 				go.transform.position = new Vector3( vec2.x , vec2.y ,0.0f);
 				go.AddComponent<SpankingEffect>();
 
+				Instantiate( Resources.Load("Prefabs/SE/Push") );
 			}
 		}
 	}
