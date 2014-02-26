@@ -31,7 +31,7 @@ public class GameManager : MonoBehaviour {
 
 	void FixedUpdate()
 	{
-		Time.timeScale = 30;
+		//Time.timeScale = 30;
 	}
 
 	void OnGUI()
