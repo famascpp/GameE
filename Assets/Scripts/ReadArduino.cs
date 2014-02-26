@@ -17,7 +17,7 @@ public class ReadArduino : MonoBehaviour {
 
 	private int analogState = 0;
 	int pinNum0 = 0, pinNum1 = 0; // 格納されているanalogPin.
-	private bool[] inputButton = {false};
+	private bool[] inputButton = {true};
 
 	public static ReadArduino instance;
 
@@ -89,7 +89,8 @@ public class ReadArduino : MonoBehaviour {
 		}
 
 		// arduinoに繋がっている場合のみ値を送る.
-		if( arduino.enabled ) InputA.SetButton(inbtn);
+		//if( !arduino.enabled )
+			InputA.SetButton(inbtn);
 	}
 
 	// ローディング中かどうか取得.

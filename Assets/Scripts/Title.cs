@@ -70,7 +70,7 @@ public class Title : MonoBehaviour {
 		/*操作説明表示.*/
 		drawUserGuideFlag = flg;
 	}
-	// スタートシーンに遷移するか.
+	// シーン遷移出来る状況か.
 	public static bool GetStartFlag () {
 		return startFlag;
 	}
@@ -157,7 +157,7 @@ public class Title : MonoBehaviour {
 				seBeatFlag[0] = false;
 			}
 			GUI.DrawTexture( // 肩タッチ.
-				new Rect(Screen.width/1.5f, Screen.height/3,
+				new Rect(Screen.width/1.5f, Screen.height/6,
 		        shoulderTexture.width/3, shoulderTexture.height/3),
      			shoulderTexture);
 
@@ -170,7 +170,7 @@ public class Title : MonoBehaviour {
 				seBeatFlag[1] = false;
 			}
 			GUI.DrawTexture(
-				new Rect(Screen.width/1.5f, Screen.height/3+120,
+				new Rect(Screen.width/1.5f, Screen.height/6+120,
 		        hipTexture.width/3, hipTexture.height/3),
         		hipTexture);
 
@@ -184,7 +184,7 @@ public class Title : MonoBehaviour {
 			}
 
 			GUI.DrawTexture( // 膝タッチ.
-                new Rect(Screen.width/1.5f, Screen.height/3+240,
+                new Rect(Screen.width/1.5f, Screen.height/6+240,
 		        kneeTexture.width/3, kneeTexture.height/3),
                 kneeTexture);
 
@@ -264,5 +264,4 @@ public class Title : MonoBehaviour {
 			DrawNowLoading (); // ローディング画面貼り付け.
 		}
 	}
-	
 }

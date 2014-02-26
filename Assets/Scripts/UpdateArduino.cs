@@ -14,7 +14,7 @@ public class UpdateArduino : MonoBehaviour {
 	void Update () {
 		if( !ReadArduino.GetNowLoading() && !Title.GetDrawWarningFlag() ){
 			// 拍手判定.
-			if( InputA.GetButton((IconEnum)0) || Input.GetKey(KeyCode.Alpha0) ) {
+			if( InputA.GetButton((IconEnum)0) || Input.GetKeyDown(KeyCode.Alpha0) ) {
 				Title.SetDrawUserGuideFlag( true );
 				TitleMusic.SetClapFlag ( true );
 				Debug.Log("UpadateArduino::GetHand");
