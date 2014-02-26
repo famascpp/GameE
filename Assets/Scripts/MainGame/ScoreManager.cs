@@ -54,7 +54,8 @@ public class ScoreManager : MonoBehaviour {
 		gameMgr = this.GetComponent<GameManager>();
 		iconMgr = this.GetComponent<IconManager>();
 
-		MusicScore canonLock = new MusicScore("music/test/test.bms");
+		MusicScore canonLock;
+		canonLock = new MusicScore("test",true);
 
 		List<List<List<int>>> score = canonLock.Score;
 

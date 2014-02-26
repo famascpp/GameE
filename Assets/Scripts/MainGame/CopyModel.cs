@@ -77,7 +77,7 @@ public class CopyModel : MonoBehaviour {
 
 	void OnGUI()
 	{
-		GUI.depth = -50;
+		GUI.depth = -0;
 
 		Vector2 pos = new Vector2(this.transform.position.x,this.transform.position.y);
 

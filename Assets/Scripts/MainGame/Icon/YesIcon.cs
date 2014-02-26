@@ -32,14 +32,14 @@ public class YesIcon : MonoBehaviour {
 			str += "yes";
 			break;
 		case YesEnum.yeah:
-			str += "year";
+			str += "yeah";
 			break;
 		}
 
 		tex = Resources.Load<Texture>(str);
 
 
-		endPos = this.transform.position + Vector3.down * 0.1f;
+		endPos = this.transform.position + Vector3.left * 0.2f;
 	}
 
 	// Use this for initialization

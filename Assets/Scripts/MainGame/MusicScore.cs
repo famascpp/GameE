@@ -19,13 +19,17 @@ public enum IconEnum
 
 public class MusicScore {
 
+	public bool scoreTextAsset = true;
+
 	List<List<List<int>>> score;
 	public List<List<List<int>>> Score {
 		get { return score; }
 	}
 
-	public MusicScore(string textPath)
+	public MusicScore(string textPath, bool scoreTextAsset)
 	{
+		this.scoreTextAsset = scoreTextAsset;
+
 		string musicScore = ReadFile(textPath);
 
 		score = new List<List<List<int>>>();
@@ -103,16 +107,30 @@ public class MusicScore {
 	{
 		string score = "";
 
-		textPath = Application.dataPath + "/" + textPath;
+		textPath = "Scores/" + textPath;
 
-		FileInfo fi = new FileInfo( textPath );
+		if( scoreTextAsset )
+		{
+			TextAsset ta = Resources.Load<TextAsset>( textPath);
+			score = ta.text;
+		}
+		else
+		{
 
-		StreamReader sr = new StreamReader(fi.OpenRead());
-		score = sr.ReadToEnd();
 
-		sr.Close();
+			textPath = Application.dataPath + "/Resources/" + textPath + ".bms";
 
+			FileInfo fi = new FileInfo( textPath );
+
+			StreamReader sr = new StreamReader(fi.OpenRead());
+			score = sr.ReadToEnd();
+
+			sr.Close();
+
+		}
+	
 		return score;
+
 	}
 	
 }
