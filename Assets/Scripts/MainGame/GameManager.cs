@@ -24,14 +24,14 @@ public class GameManager : MonoBehaviour {
 	void Update () {
 		if( this.scoreMgr.isEnd )
 		{
-			//Application.LoadLevel("Scenes/titleScene");
+			Application.LoadLevel("PointsScene");
 		}
 
 	}
 
 	void FixedUpdate()
 	{
-		//Time.timeScale = 30;
+		Time.timeScale = 30;
 	}
 
 	void OnGUI()
