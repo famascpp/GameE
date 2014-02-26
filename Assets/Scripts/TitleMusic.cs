@@ -21,7 +21,6 @@ public class TitleMusic : MonoBehaviour {
 		musicSource.loop = true;
 		handclapSource.loop = false;
 		beatSource.loop = false;
-		beatSource.volume = 100;
 
 		musicSource.Stop();
 		handclapSource.Stop();
