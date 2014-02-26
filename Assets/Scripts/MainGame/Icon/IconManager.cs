@@ -37,10 +37,10 @@ public class IconManager : MonoBehaviour {
 
 	// Use this for initialization
 	void Awake () {
-		int[] dispos = {0,1,1,2,2,3,3};
-		int iconCnt = 4;
+		int[] dispos = {0,1,2,3,4,5,6};
+		int iconCnt = 7;
 		float blank = 0.2f;
-		float scale = 0.2f;
+		float scale = 0.1f;
 		GameObject obj;
 
 		//texture and etc setting
@@ -51,7 +51,7 @@ public class IconManager : MonoBehaviour {
 
 			if( receiveIcon[i] == null )
 			{
-				x = -0.4f;
+				x = -0.2f;
 				y = height;
 
 				obj = Instantiate(

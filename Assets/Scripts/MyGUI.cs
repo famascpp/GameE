@@ -22,11 +22,11 @@ public static class MyGUI {
 
 	public static Rect RectHeightZeroToOne(Rect rect,float aspect)
 	{
-
+		rect.width *= aspect;
 		rect.x = Screen.width / 2.0f + Screen.height * ( rect.x - rect.width / 2.0f  );
 		rect.y = Screen.height / 2.0f + Screen.height * ( rect.y - rect.height / 2.0f );
 		rect.height = Screen.height * ( rect.height );
-		rect.width = Screen.height * ( rect.width ) * aspect;
+		rect.width = Screen.height * ( rect.width );
 
 		return rect;
 	}

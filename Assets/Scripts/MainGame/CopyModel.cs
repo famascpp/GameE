@@ -14,6 +14,8 @@ public class CopyModel : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+		this.transform.position = new Vector3(-0.5f,0f,0f);
+
 		GameObject tempUniduino = GameObject.Find("Uniduino");
 		if( tempUniduino != null ) isUniduino = true;
 
@@ -31,13 +33,33 @@ public class CopyModel : MonoBehaviour {
 		partPos[ii++] = new Vector2(450,632);
 		partPos[ii++] = new Vector2(599,735);
 		partPos[ii++] = new Vector2(478,750);
-		for( int i = 0 ; i < inputButton.Length ; i++ ) partPos[i] /= model.height;
+		for( int i = 0 ; i < inputButton.Length ; i++ ){
+			partPos[i] -= new Vector2(1280.0f/2.0f,1024.0f/2.0f);
+			partPos[i].x /= model.height;
+			partPos[i].y /= model.height;
+		}
 
 	}
 	
 	// Update is called once per frame
 	void Update () {
 		InputUpdate();
+		Vector2 pos = new Vector2(this.transform.position.x,this.transform.position.y);
+
+		for( int i = 0 ; i < (int)IconEnum.Max ; i++ )
+		{
+			if( inputButton[i] == 2 )
+			{
+				GameObject go = new GameObject();
+				go.name = "spanking effect";
+
+				Vector3 vec2 = pos + partPos[i];
+
+				go.transform.position = new Vector3( vec2.x , vec2.y ,0.0f);
+				go.AddComponent<SpankingEffect>();
+
+			}
+		}
 	}
 
 	void InputUpdate()
@@ -54,7 +76,11 @@ public class CopyModel : MonoBehaviour {
 
 	void OnGUI()
 	{
-		MyGUI.DrawTextureAspect( new Rect(0,0,1.0f,1.0f) , this.model , 1280.0f / 1024.0f );
+		GUI.depth = -50;
+
+		Vector2 pos = new Vector2(this.transform.position.x,this.transform.position.y);
+
+		MyGUI.DrawTextureAspect( new Rect(0+pos.x,0+pos.y,1.0f,1.0f) , this.model , 1280.0f / 1024.0f );
 	}
 
 }

@@ -54,13 +54,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   iconTex:
-  - {fileID: 2800000, guid: 2a2ebe8b33cbf9844937590c48015efc, type: 3}
-  - {fileID: 2800000, guid: e754e26aa360ff14db5b6d5309eda8f3, type: 3}
-  - {fileID: 2800000, guid: e754e26aa360ff14db5b6d5309eda8f3, type: 3}
-  - {fileID: 2800000, guid: c30611c92b9ffc84cbab67e191fa0aa2, type: 3}
-  - {fileID: 2800000, guid: c30611c92b9ffc84cbab67e191fa0aa2, type: 3}
-  - {fileID: 2800000, guid: 22f3c5225c7d30140a0fe5e7b28b7335, type: 3}
-  - {fileID: 2800000, guid: 22f3c5225c7d30140a0fe5e7b28b7335, type: 3}
+  - {fileID: 2800000, guid: e71a9f514d77c094891ccaa67ceec098, type: 3}
+  - {fileID: 2800000, guid: 5eb5dbe7a6315b14b9cb86b36eaa12e9, type: 3}
+  - {fileID: 2800000, guid: 5eb5dbe7a6315b14b9cb86b36eaa12e9, type: 3}
+  - {fileID: 2800000, guid: 10a0c361499d4cc42a3a8fefba2b7f7e, type: 3}
+  - {fileID: 2800000, guid: 10a0c361499d4cc42a3a8fefba2b7f7e, type: 3}
+  - {fileID: 2800000, guid: e5288b902a4d2b449b25ff22cb2e3b20, type: 3}
+  - {fileID: 2800000, guid: e5288b902a4d2b449b25ff22cb2e3b20, type: 3}
   iconPrefab: {fileID: 100000, guid: abbfcb0eb7c2f134cb5f10dfa97d6694, type: 2}
   iconHandPrefab: {fileID: 100004, guid: ed2b0b6fbd1b4bb4daacbb632196f719, type: 2}
   receiveIcon:
