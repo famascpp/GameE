@@ -82,6 +82,8 @@
      <Compile Include="Assets\Uniduino\UniduinoTestPanel\UniduinoTestPanel.cs" />
      <None Include="Assets\InputController\261207.txt" />
      <None Include="Assets\InputController\2612237.txt" />
+     <None Include="Assets\InputController\2612420.txt" />
+     <None Include="Assets\InputController\2612448.txt" />
      <None Include="Assets\InputController\2612357.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

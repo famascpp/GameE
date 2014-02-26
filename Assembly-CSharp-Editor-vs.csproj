@@ -50,6 +50,8 @@
      <Compile Include="Assets\Uniduino\Editor\UniduinoSetup.cs" />
      <None Include="Assets\InputController\261207.txt" />
      <None Include="Assets\InputController\2612237.txt" />
+     <None Include="Assets\InputController\2612420.txt" />
+     <None Include="Assets\InputController\2612448.txt" />
      <None Include="Assets\InputController\2612357.txt" />
  <Reference Include="UnityEditor.Graphs">
  <HintPath>C:\Program Files (x86)\Unity\Editor\Data\Managed\UnityEditor.Graphs.dll</HintPath>
