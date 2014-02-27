@@ -154,8 +154,8 @@ public class Title : MonoBehaviour {
 			         Screen.width, Screen.height),
                      blackTexture2);
 			Graphics.DrawTexture( // 操作説明.
-			    new Rect(-100, 0,
-			        Screen.width/2, Screen.height),
+			    new Rect(0, 0,
+			        Screen.width/3, Screen.height),
 			        userGuideTexture2);
 			Graphics.DrawTexture( // 操作方法.
 			                     new Rect(Screen.width/4, 0,

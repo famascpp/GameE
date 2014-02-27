@@ -39,10 +39,10 @@
 	<Reference Include="System.Core" />
 	<Reference Include="System.Xml.Linq" />
 	<Reference Include="UnityEngine">
-	  <HintPath>D:/Program Files (x86)/Unity/Editor/Data/Managed/UnityEngine.dll</HintPath>
+	  <HintPath>C:/Program Files (x86)/Unity/Editor/Data/Managed/UnityEngine.dll</HintPath>
 	</Reference>
 	<Reference Include="UnityEditor">
-	  <HintPath>D:/Program Files (x86)/Unity/Editor/Data/Managed/UnityEditor.dll</HintPath>
+	  <HintPath>C:/Program Files (x86)/Unity/Editor/Data/Managed/UnityEditor.dll</HintPath>
 	</Reference>
   </ItemGroup>
   <ItemGroup>
@@ -84,6 +84,7 @@
      <None Include="Assets\Resources\Scores\test.txt" />
      <None Include="Assets\InputController\2612237.txt" />
      <None Include="Assets\InputController\2612420.txt" />
+     <None Include="Assets\Resources\Scores\test backup.txt" />
      <None Include="Assets\InputController\2612448.txt" />
      <None Include="Assets\InputController\2612357.txt" />
   </ItemGroup>

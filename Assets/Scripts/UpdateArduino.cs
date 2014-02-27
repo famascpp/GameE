@@ -20,6 +20,12 @@ public class UpdateArduino : MonoBehaviour {
 				Debug.Log("UpadateArduino::GetHand");
 			}
 
+			// どこ叩いても拍手音がなる.
+			for(int i=1; i< (int)IconEnum.Max; i++){
+				if( InputA.GetButtonDown((IconEnum)i))
+					TitleMusic.SetClapFlag ( true );
+			}
+
 			// ↓かた、こし、ひざのタッチ判定.
 			if( Title.GetDrawUserGuideFlag() ) {
 				if( InputA.GetButton((IconEnum)1) || InputA.GetButton((IconEnum)2) || Input.GetKey(KeyCode.Alpha1) ) {
