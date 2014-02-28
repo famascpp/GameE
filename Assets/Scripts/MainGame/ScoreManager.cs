@@ -13,6 +13,8 @@ struct ScoreSet {
 
 public class ScoreManager : MonoBehaviour {
 
+	public bool scoreTextAsset = true;
+
 	ScoreSet[][][] ss;
 	int[] ssMin;		//now Measure array.
 
@@ -55,7 +57,7 @@ public class ScoreManager : MonoBehaviour {
 		iconMgr = this.GetComponent<IconManager>();
 
 		MusicScore canonLock;
-		canonLock = new MusicScore("test",true);
+		canonLock = new MusicScore("test",scoreTextAsset);
 
 		List<List<List<int>>> score = canonLock.Score;
 

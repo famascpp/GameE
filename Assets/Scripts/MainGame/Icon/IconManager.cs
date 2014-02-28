@@ -1,7 +1,14 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+public enum IconShape{
+	VerticalOneRow,
+	Circle,
+}
+
 public class IconManager : MonoBehaviour {
+
+	public IconShape shape = IconShape.Circle;
 
 	public const int iconMax = (int)IconEnum.Max;
 
@@ -37,23 +44,37 @@ public class IconManager : MonoBehaviour {
 
 	// Use this for initialization
 	void Awake () {
+		switch(shape)
+		{
+		case IconShape.Circle:
+			SetIconCircle();
+			break;
+		case IconShape.VerticalOneRow:
+			SetIconCol();
+			break;
+		}
+		
+	}
+
+	void SetIconCol()
+	{
 		int[] dispos = {0,1,2,3,4,5,6};
 		int iconCnt = 7;
 		float blank = 0.2f;
 		float scale = 0.1f;
 		GameObject obj;
-
+		
 		//texture and etc setting
 		for( int i = 0 ; i < iconMax ; i++ )
 		{
 			float x,y;
 			float height = - 0.5f + blank + ( ( 1.0f - blank * 2.0f ) / (float)( iconCnt - 1 ) ) * dispos[i];
-
+			
 			if( receiveIcon[i] == null )
 			{
 				x = -0.2f;
 				y = height;
-
+				
 				obj = Instantiate(
 					iconPrefab,
 					new Vector3(x,y,0.0f),
@@ -61,20 +82,20 @@ public class IconManager : MonoBehaviour {
 					) as GameObject;
 				
 				receiveIcon[i] = obj.GetComponent<Icon>();
-
+				
 				string strname = "ReceiveIcon"+i+""+((IconEnum)i).ToString();
-
+				
 				receiveIcon[i].icon = iconTex[i];
 				receiveIcon[i].scale = scale;
 				receiveIcon[i].gameObject.name = strname;
 				receiveIcon[i].depthLayer = 1;
 			}
-
+			
 			if( sendIcon[i] == null )
 			{
 				x = 1.33f;
 				y = height;
-
+				
 				obj = Instantiate(
 					iconPrefab,
 					new Vector3(x,y,0.0f),
@@ -90,7 +111,63 @@ public class IconManager : MonoBehaviour {
 				sendIcon[i].depthLayer = 1;
 			}
 		}
+	}
 
+	void SetIconCircle()
+	{
+		int[] dispos =  {0,6,1,5,1,4,3};
+		int iconCnt = 7;
+		float length = 0.4f;
+		float scale = 0.1f;
+		GameObject obj;
+		
+		//texture and etc setting
+		for( int i = 0 ; i < iconMax ; i++ )
+		{
+			float x,y;
+			float ang = ( ( Mathf.PI * 2.0f ) / (float)iconMax ) * (float)dispos[i] - Mathf.PI / 2.0f;
+			x = Mathf.Cos( ang ) * length;
+			y = Mathf.Sin( ang ) * length;
+
+			if( receiveIcon[i] == null )
+			{
+
+				obj = Instantiate(
+					iconPrefab,
+					new Vector3(x,y,0.0f),
+					Quaternion.identity
+					) as GameObject;
+				
+				receiveIcon[i] = obj.GetComponent<Icon>();
+				
+				string strname = "ReceiveIcon"+i+""+((IconEnum)i).ToString();
+				
+				receiveIcon[i].icon = iconTex[i];
+				receiveIcon[i].scale = scale;
+				receiveIcon[i].gameObject.name = strname;
+				receiveIcon[i].depthLayer = 1;
+			}
+			
+			if( sendIcon[i] == null )
+			{
+				x = 0.0f;
+				y = 0.0f;
+				
+				obj = Instantiate(
+					iconPrefab,
+					new Vector3(x,y,0.0f),
+					Quaternion.identity
+					) as GameObject;
+				
+				sendIcon[i] = obj.GetComponent<Icon>();
+				
+				string strname = "SendIcon"+i+""+((IconEnum)i).ToString();
+				
+				sendIcon[i].scale = scale;
+				sendIcon[i].gameObject.name = strname;
+				sendIcon[i].depthLayer = 1;
+			}
+		}
 	}
 	
 }

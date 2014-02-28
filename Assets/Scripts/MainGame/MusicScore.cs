@@ -19,7 +19,7 @@ public enum IconEnum
 
 public class MusicScore {
 
-	public bool scoreTextAsset = true;
+	bool scoreTextAsset = true;
 
 	List<List<List<int>>> score;
 	public List<List<List<int>>> Score {
