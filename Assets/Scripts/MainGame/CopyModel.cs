@@ -7,9 +7,14 @@ public class CopyModel : MonoBehaviour {
 
 	Vector2[] partPos;
 
-	Texture model = null;
+	Texture[] model = null;
+	int modelMax = 0;
 
 	bool isUniduino = false;
+
+	Vector2 texSize = Vector2.zero;
+
+	AudioManager audioMgr;
 
 
 	// Use this for initialization
@@ -19,25 +24,33 @@ public class CopyModel : MonoBehaviour {
 		GameObject tempUniduino = GameObject.Find("Uniduino");
 		if( tempUniduino != null ) isUniduino = true;
 
-		model = Resources.Load<Texture>("Textures/otehon");
+		modelMax = 3;
+		model = new Texture[modelMax];
+		model[0] = Resources.Load<Texture>("Textures/anime/anime01");
+		model[1] = Resources.Load<Texture>("Textures/anime/anime02");
+		model[2] = Resources.Load<Texture>("Textures/anime/anime03");
+
+		texSize = new Vector2(512,1024);
 
 		inputButton = new uint[(int)IconEnum.Max];
 		for( int i = 0 ; i < inputButton.Length ; i++ ) inputButton[i] = 0;
 
 		int ii = 0;
 		partPos = new Vector2[(int)IconEnum.Max];
-		partPos[ii++] = new Vector2(517,120);
-		partPos[ii++] = new Vector2(552,434);
-		partPos[ii++] = new Vector2(485,434);
-		partPos[ii++] = new Vector2(593,624);
-		partPos[ii++] = new Vector2(450,632);
-		partPos[ii++] = new Vector2(599,735);
-		partPos[ii++] = new Vector2(478,750);
+		partPos[ii++] = new Vector2(256,96);
+		partPos[ii++] = new Vector2(221,423);
+		partPos[ii++] = new Vector2(289,419);
+		partPos[ii++] = new Vector2(190,625);
+		partPos[ii++] = new Vector2(327,617);
+		partPos[ii++] = new Vector2(216,736);
+		partPos[ii++] = new Vector2(335,730);
 		for( int i = 0 ; i < inputButton.Length ; i++ ){
-			partPos[i] -= new Vector2(1280.0f/2.0f,1024.0f/2.0f);
-			partPos[i].x /= model.height;
-			partPos[i].y /= model.height;
+			partPos[i] -= new Vector2(texSize.x/2.0f,texSize.y/2.0f);
+			partPos[i].x /= texSize.y;
+			partPos[i].y /= texSize.y;
 		}
+
+		audioMgr = this.GetComponent<AudioManager>();
 
 	}
 	
@@ -81,7 +94,11 @@ public class CopyModel : MonoBehaviour {
 
 		Vector2 pos = new Vector2(this.transform.position.x,this.transform.position.y);
 
-		MyGUI.DrawTextureAspect( new Rect(0+pos.x,0+pos.y,1.0f,1.0f) , this.model , 1280.0f / 1024.0f );
+		int nowModel = Mathf.Abs( audioMgr.getNowBeat() + audioMgr.getNowMeasure() * (int)audioMgr.getBeat() );
+
+
+
+		MyGUI.DrawTextureAspect( new Rect(0+pos.x,0+pos.y,1.0f,1.0f) , this.model[nowModel%2 + 1] , texSize.x / texSize.y );
 	}
 
 }

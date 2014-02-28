@@ -2,7 +2,8 @@
 using System.Collections;
 
 public enum IconShape{
-	VerticalOneRow,
+	VerticalOneRow7,
+	VerticalOneRow4,
 	Circle,
 }
 
@@ -49,20 +50,37 @@ public class IconManager : MonoBehaviour {
 		case IconShape.Circle:
 			SetIconCircle();
 			break;
-		case IconShape.VerticalOneRow:
-			SetIconCol();
+		case IconShape.VerticalOneRow7:
+			SetIconCol(7);
+			break;
+		case IconShape.VerticalOneRow4:
+			SetIconCol(4);
 			break;
 		}
-		
 	}
 
-	void SetIconCol()
+	void SetIconCol(int row)
 	{
-		int[] dispos = {0,1,2,3,4,5,6};
-		int iconCnt = 7;
+		int[] dispos;
+		int iconCnt = row;
 		float blank = 0.2f;
 		float scale = 0.1f;
 		GameObject obj;
+
+		switch( row )
+		{
+		case 7:
+			dispos = new int[] {0,1,2,3,4,5,6};
+			scale = 0.1f;
+			break;
+		case 4:
+			dispos = new int[] {0,1,1,2,2,3,3};
+			scale = 0.2f;
+			break;
+		default:
+			return;
+			break;
+		}
 		
 		//texture and etc setting
 		for( int i = 0 ; i < iconMax ; i++ )
@@ -115,7 +133,7 @@ public class IconManager : MonoBehaviour {
 
 	void SetIconCircle()
 	{
-		int[] dispos =  {0,6,1,5,1,4,3};
+		int[] dispos =  {0,6,1,5,2,4,3};
 		int iconCnt = 7;
 		float length = 0.4f;
 		float scale = 0.1f;

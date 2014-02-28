@@ -61,10 +61,22 @@ public class AudioManager : MonoBehaviour {
 	}
 
 	//what measure now?
-	public int getMeasure()
+	public int getNowMeasure()
 	{
 		return (int)(audioTime / this.get1MeasureTime());
 	}
+
+	//wat beat now?
+	public int getNowBeat()
+	{
+		return (int)( (audioTime - this.get1MeasureTime() * this.getNowMeasure()) / (this.get1MeasureTime() / beat) );
+	}
+
+	public float getBeat()
+	{
+		return this.beat;
+	}
+	
 
 	//i put the time frome measure and beat
 	public float getMeasureBeat( int measure , int measureDivision , int measureDivisionMax )

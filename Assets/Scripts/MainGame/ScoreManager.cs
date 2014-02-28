@@ -11,6 +11,12 @@ struct ScoreSet {
 	public float PushTime;
 }
 
+public enum PushMode
+{
+	SeparateLeftAndRight,
+	TaikoNoTatsujin,
+}
+
 public class ScoreManager : MonoBehaviour {
 
 	public bool scoreTextAsset = true;
@@ -39,7 +45,7 @@ public class ScoreManager : MonoBehaviour {
 	bool end = false;
 	public bool isEnd{ get { return end; } }
 
-	bool lrDistribution = true;	//Left and right distribution.
+	public PushMode pushMode = PushMode.TaikoNoTatsujin;
 
 	List<IconScore> listIconScore;
 
@@ -94,21 +100,13 @@ public class ScoreManager : MonoBehaviour {
 
 		InputUpdate();
 
-		bool[] inputPushed = new bool[(int)IconEnum.Max];
-		for( int i = 0 ; i < inputPushed.Length ; i++ ) inputPushed[i] = true;
-
 		List<int> deleteList = new List<int>();
 
+		//icon Push
 		for( int i = 0 ; i < listIconScore.Count ; i++ )
 		{
-			if( inputPushed[listIconScore[i].Col()]){
-				if( InputCheck( listIconScore[i].Col(),listIconScore[i].LRDistribution() )   )
-				{
-					if( listIconScore[i].Push() ){
-						deleteList.Add(i);
-						inputPushed[listIconScore[i].Col()] = false;
-					}
-				}
+			if( listIconScore[i].Push(inputButton) ){
+				deleteList.Add(i);
 			}
 		}
 
@@ -155,9 +153,7 @@ public class ScoreManager : MonoBehaviour {
 							// Score Icon 
 							if( this.ss[i][j][l].Instantiated == false && i < (int)IconEnum.Max ){
 								if( nextTime < max ){
-									InstantiateIcon(nextTime,i,this.ss[i][j][l]);
-									
-									this.ss[i][j][l].Instantiated = true;
+									InstantiateIcon(nextTime,i,i,j,l);
 
 									if( min < nextTime ){
 									}else{
@@ -174,8 +170,102 @@ public class ScoreManager : MonoBehaviour {
 		}
 	}
 
-	void InstantiateIcon(float nextTime,int col,ScoreSet scoreSet)
+	void InstantiateIcon(float nextTime,int col,int ii,int jj,int ll)
 	{
+		this.ss[ii][jj][ll].Instantiated = true;
+
+		bool doublePush = false;
+		if( pushMode == PushMode.TaikoNoTatsujin ){
+
+			if( col != 0  )
+			{
+				int col2;
+				if( col % 2 == 1 )
+				{
+					col2 = col+1;
+				}
+				else
+				{
+					col2 = col-1;
+				}
+
+
+
+				if( this.ss[col2][jj].Length != 0 )
+				{
+					if(
+						( this.ss[col][jj].Length % this.ss[col2][jj].Length == 0 ) &&
+						( ll % ( this.ss[col][jj].Length / this.ss[col2][jj].Length ) == 0 )
+					   )
+					{
+						int ll2 = ll / ( this.ss[col][jj].Length / this.ss[col2][jj].Length );
+						if( this.ss[col2][jj][ll2].score != 0 )
+						{
+							doublePush = true;
+							this.ss[col2][jj][ll2].Instantiated = true;
+						}
+					}
+				}
+			}
+		}
+		
+
+		IconEnum[][] buttonToReact;
+		switch( pushMode )
+		{
+		case PushMode.SeparateLeftAndRight:
+			buttonToReact = new IconEnum[1][];
+			buttonToReact[0] = new IconEnum[1];
+			buttonToReact[0][0] = (IconEnum)col;
+			break;
+		case PushMode.TaikoNoTatsujin:
+		{
+			if( col == 0 )
+			{
+				buttonToReact = new IconEnum[1][];
+				buttonToReact[0] = new IconEnum[1];
+				buttonToReact[0][0] = (IconEnum)col;
+			}
+			else
+			{
+				int col2;
+				if( col % 2 == 1 )
+				{
+					col2 = col+1;
+				}
+				else
+				{
+					col2 = col-1;
+				}
+
+				if( doublePush )
+				{
+					buttonToReact = new IconEnum[1][];
+					buttonToReact[0] = new IconEnum[2];
+
+					buttonToReact[0][0] = (IconEnum)(col);
+					buttonToReact[0][1] = (IconEnum)(col2);
+				}
+				else
+				{
+					buttonToReact = new IconEnum[2][];
+					buttonToReact[0] = new IconEnum[1];
+					buttonToReact[1] = new IconEnum[1];
+
+					buttonToReact[1][0] = (IconEnum)(col);
+					buttonToReact[0][0] = (IconEnum)(col2);
+				}
+			}
+
+			break;
+		}
+		default:
+			buttonToReact = new IconEnum[0][];
+			break;
+		}
+
+		ScoreSet scoreSet = this.ss[ii][jj][ll];
+
 		GameObject gameObj = Instantiate( icon ) as GameObject;
 
 		IconScore iconScore = gameObj.AddComponent<IconScore>();
@@ -185,7 +275,8 @@ public class ScoreManager : MonoBehaviour {
 			iconMgr.GetReceiveIcon(col).pos() ,
 			nextTime,
 			col,
-			this.lrDistribution
+			pushMode,
+			buttonToReact
 			);
 
 		listIconScore.Add( iconScore );
@@ -207,37 +298,6 @@ public class ScoreManager : MonoBehaviour {
 		listInputButton.Add((uint[])inputButton.Clone());
 	}
 
-	bool InputCheck( int col , bool lrDistribution )
-	{
-		int checkNum = 2;
-		bool ret = false;
-		if( lrDistribution )
-		{
-			if( this.inputButton[col] == checkNum ) ret = true;
-		}
-		else
-		{
-			if( col == 0 )
-			{
-				if( this.inputButton[col] == checkNum ) ret = true;
-			}
-			else
-			{
-				if( col % 2 == 1 )
-				{
-					if( this.inputButton[col] == checkNum ) ret = true;
-					if( this.inputButton[col+1] == checkNum ) ret = true;
-				}
-				else
-				{
-					if( this.inputButton[col] == checkNum ) ret = true;
-					if( this.inputButton[col-1] == checkNum ) ret = true;
-				}
-			}
-		}
-
-		return ret;
-	}
 
 	void OutPutInputButton()
 	{
