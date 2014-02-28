@@ -49,6 +49,8 @@
      <Compile Include="Assets\Uniduino\Editor\UniduinoAutorun.cs" />
      <Compile Include="Assets\Uniduino\Editor\UniduinoSetup.cs" />
      <None Include="Assets\InputController\261207.txt" />
+     <None Include="Assets\InputController\162912.txt" />
+     <None Include="Assets\InputController\162234.txt" />
      <None Include="Assets\Resources\Scores\test.txt" />
      <None Include="Assets\InputController\2612237.txt" />
      <None Include="Assets\InputController\2612420.txt" />

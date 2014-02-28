@@ -18,11 +18,12 @@ public class GameManager : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+		Points.Init();
 	}
 
 	// Update is called once per frame
 	void Update () {
-		if( this.scoreMgr.isEnd )
+		if( this.scoreMgr.isEnd || Input.GetKey(KeyCode.Escape) )
 		{
 			Application.LoadLevel("PointsScene");
 		}
@@ -36,13 +37,18 @@ public class GameManager : MonoBehaviour {
 
 	void OnGUI()
 	{
+		GUI.depth = -100;
 		GUIStyle style;
 		style = new GUIStyle();
+		style.fontSize = (int)(Screen.height / 10.0f);
 		
-		string str = "" + Points.GetPoints();
-		
+		string str = "";
+		str += Points.GetPoints().ToString("00000") + " point\n";
 
-		GUI.Label( new Rect(0,0,300,300) , str ,style );
+		str += Points.GetCombo().ToString("   0") + " combo!\n";
+
+
+		GUI.Label( new Rect(0,0,Screen.width,Screen.height) , str ,style );
 	}
 
 

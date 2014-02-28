@@ -145,53 +145,56 @@ public class IconScore : MonoBehaviour {
 			}
 		}
 		   
-		if( input ) {
+		float length = 0.3f;
 
-			float length = 0.3f;
 
-			if( Mathf.Abs( AtNextTime() ) < length )
+		if( ( input && Mathf.Abs( AtNextTime() ) < length ) || AtNextTime() < -length )
+		{
+			float addPt = 1.0f - Mathf.Abs( AtNextTime() ) / length;
+
+			YesEnum yes;
+			if( addPt > 0.9f ) yes = YesEnum.yeah;
+			else if( addPt > 0.6f ) yes = YesEnum.yes;
+			else yes = YesEnum.oh;
+
+			//combo
+			if( yes == YesEnum.oh ) Points.ResetCombo();
+			else Points.AddCombo();
+
+			//point
+			float tAddPt = addPt;
+			switch( yes )
 			{
-				float addPt = 1.0f - Mathf.Abs( AtNextTime() ) / length;
+			case YesEnum.yeah:
+				tAddPt *= 2.0f;
+				break;
+			case YesEnum.yes:
+				tAddPt *= 1.0f;
+				break;
+			case YesEnum.oh:
+				tAddPt *= 0.0f;
+				break;
+			}
 
-				YesEnum yes;
-				if( addPt > 0.9f ) yes = YesEnum.yeah;
-				else if( addPt > 0.6f ) yes = YesEnum.yes;
-				else yes = YesEnum.oh;
+			Points.AddPoints( tAddPt * (float)(Points.GetCombo()/10+1) );
 
 
-				float tAddPt = addPt;
-				switch( yes )
+			GameObject gmYes =  new GameObject("" + yes.ToString());
+			gmYes.transform.position = this.transform.position;
+
+			YesIcon gmYesIcon = gmYes.AddComponent<YesIcon>();
+			gmYesIcon.Init( yes );
+
+			this.states = IconStates.pushed;
+
+			ret = true;
+
+			for( int i = 0 ; i < buttonToReact.Length ; i++ )
+			{
+				for( int j = 0 ; j < buttonToReact[i].Length ; j++ )
 				{
-				case YesEnum.yeah:
-					tAddPt *= 2.0f;
-					break;
-				case YesEnum.yes:
-					tAddPt *= 1.0f;
-					break;
-				case YesEnum.oh:
-					tAddPt *= 0.0f;
-					break;
-				}
-
-				Points.AddPoints( tAddPt );
-
-				GameObject gmYes =  new GameObject("" + yes.ToString());
-				gmYes.transform.position = this.transform.position;
-
-				YesIcon gmYesIcon = gmYes.AddComponent<YesIcon>();
-				gmYesIcon.Init( yes );
-
-				this.states = IconStates.pushed;
-
-				ret = true;
-
-				for( int i = 0 ; i < buttonToReact.Length ; i++ )
-				{
-					for( int j = 0 ; j < buttonToReact[i].Length ; j++ )
-					{
-						int ii = (int)buttonToReact[i][j];
-						inputButton[ii] += 10;
-					}
+					int ii = (int)buttonToReact[i][j];
+					inputButton[ii] += 10;
 				}
 			}
 		}
