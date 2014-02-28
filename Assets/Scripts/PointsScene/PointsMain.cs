@@ -34,7 +34,7 @@ public class PointsMain : MonoBehaviour {
 		string str = "";
 		str += Points.GetPoints().ToString("0") + " point\n";
 		
-		str += "" + Points.GetMaximumCombo().ToString("0") + "combo maximum!!\n";
+		str += "" + Points.GetMaximumCombo().ToString("0") + " combo maximum!!\n";
 		
 		
 		GUI.Label( new Rect( Screen.width / 2.0f - 960.0f/640.0f * Screen.height / 2.0f ,0 ,Screen.width,Screen.height) , str ,style );
