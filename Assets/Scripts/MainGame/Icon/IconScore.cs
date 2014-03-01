@@ -88,7 +88,7 @@ public class IconScore : MonoBehaviour {
 				if( rButton && lButton )
 					this.tex = Resources.Load<Texture>("Textures/Icon/hand_6");
 				else
-					this.tex = Resources.Load<Texture>("Textures/Icon/hand_7");
+					this.tex = Resources.Load<Texture>("Textures/Icon/hand_3");
 			}
 			break;
 		}

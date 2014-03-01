@@ -14,14 +14,16 @@ public class CopyModel : MonoBehaviour {
 
 	Vector2 texSize = Vector2.zero;
 
+	float scale = 0.8f;
+
 	AudioManager audioMgr;
 
 
 	// Use this for initialization
 	void Start () {
-		this.transform.position = new Vector3(-0.5f,0f,0f);
+		this.transform.position = new Vector3(-0.6f,0.1f,0f);
 
-		GameObject tempUniduino = GameObject.Find("Uniduino");
+		GameObject tempUniduino = GameObject.FindGameObjectWithTag("Uniduino");
 		if( tempUniduino != null ) isUniduino = true;
 
 		modelMax = 3;
@@ -48,6 +50,7 @@ public class CopyModel : MonoBehaviour {
 			partPos[i] -= new Vector2(texSize.x/2.0f,texSize.y/2.0f);
 			partPos[i].x /= texSize.y;
 			partPos[i].y /= texSize.y;
+			partPos[i] *= scale;
 		}
 
 		audioMgr = this.GetComponent<AudioManager>();
@@ -98,7 +101,7 @@ public class CopyModel : MonoBehaviour {
 
 
 
-		MyGUI.DrawTextureAspect( new Rect(0+pos.x,0+pos.y,1.0f,1.0f) , this.model[nowModel%2 + 1] , texSize.x / texSize.y );
+		MyGUI.DrawTextureAspect( new Rect(0+pos.x,0+pos.y,scale,scale) , this.model[nowModel%2 + 1] , texSize.x / texSize.y );
 	}
 
 }

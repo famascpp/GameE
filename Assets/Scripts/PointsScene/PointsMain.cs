@@ -18,6 +18,11 @@ public class PointsMain : MonoBehaviour {
 	void Update () {
 		if( Time.time - startTime > 10.0f || Input.GetKey(KeyCode.Escape) )
 		{
+//			GameObject uniduino = GameObject.Find("Uniduino");
+//			if( uniduino != null )
+//			{
+//				Destroy(uniduino);
+//			}
 			Application.LoadLevel("titleScene");
 		}
 	}

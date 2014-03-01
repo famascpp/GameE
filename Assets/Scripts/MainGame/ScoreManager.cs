@@ -51,7 +51,7 @@ public class ScoreManager : MonoBehaviour {
 
 	void Awake()
 	{
-		GameObject tempUniduino = GameObject.Find("Uniduino");
+		GameObject tempUniduino = GameObject.FindGameObjectWithTag("Uniduino");
 		if( tempUniduino != null ) isUniduino = true;
 	}
 

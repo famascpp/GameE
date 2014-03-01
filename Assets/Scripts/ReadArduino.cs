@@ -9,7 +9,7 @@ public class ReadArduino : MonoBehaviour {
 	const int bOFF = 0;
 	const int NUM = 7;
 	
-	private static bool drawLoadingFlag;    // true:ローディング画面.
+	public static bool drawLoadingFlag;    // true:ローディング画面.
 
 	public Arduino arduino;
 	private int[] buttonPin = {7,2,19,3,18,4,17};
@@ -19,16 +19,8 @@ public class ReadArduino : MonoBehaviour {
 	int pinNum0 = 0, pinNum1 = 0; // 格納されているanalogPin.
 	private bool[] inputButton = {true};
 
-	public static ReadArduino instance;
-
 	void Awake () {
 		InputA.Init();
-		if( instance != null ){
-			GameObject.Destroy( instance );
-			return;
-		}
-		DontDestroyOnLoad( gameObject );
-		instance = this;
 	}
 	// Use this for initialization
 	void Start () {

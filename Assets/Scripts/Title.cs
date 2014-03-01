@@ -11,6 +11,8 @@ public class Title : MonoBehaviour {
 	public Texture nameTexture;
 	public Texture teamNameTexture;
 
+	public GameObject uniduino;
+
 	public Texture2D shoulderTexture ,hipTexture ,kneeTexture;
 	public static float shoulderAlpha = .0f, hipAlpha = .0f, kneeAlpha = .0f;
 
@@ -41,6 +43,17 @@ public class Title : MonoBehaviour {
 			Logo.vy = 1.0f;
 		}
 	}
+
+	void Awake()
+	{
+		Title.Init();
+		if( GameObject.FindGameObjectWithTag("Uniduino") == null)
+		{
+			ReadArduino.drawLoadingFlag = true;
+			Instantiate(this.uniduino);
+		}
+	}
+
 	void Start () {
 		blackTexture = new Texture2D(32,32,TextureFormat.ARGB32,false);
 		//blackTexture.ReadPixels(new Rect(0,0,32,32),0,0,false);
@@ -56,6 +69,16 @@ public class Title : MonoBehaviour {
 //		hipTexture.Apply();
 
 		StartCoroutine(NowLoadingTextureChange()); // ローディングのテクスチャ切り替え.
+	}
+
+	public static void Init()
+	{
+		Title.shoulderAlpha = .0f;
+		Title.hipAlpha = .0f;
+		Title.kneeAlpha = .0f;
+		Title.drawWarningFlag = false;
+		Title.drawUserGuideFlag = false;
+		Title.startFlag = false;
 	}
 	
 	// ゲームスタート.
@@ -147,16 +170,19 @@ public class Title : MonoBehaviour {
 		Color normalColor; // 通常時の色 半透明ではない.
 		normalColor = GUI.color;
 
+		float userGuideTexture2Size = 0.7f;
+
 		if(drawUserGuideFlag == true)
 		{
 			Graphics.DrawTexture( // 操作説明.
                      new Rect(0, 0,
 			         Screen.width, Screen.height),
                      blackTexture2);
-			Graphics.DrawTexture( // 操作説明.
-			    new Rect(0, 0,
-			        Screen.width/3, Screen.height),
-			        userGuideTexture2);
+//			//Graphics.DrawTexture( // 操作説明.
+//			    new Rect(-100, 0,
+//			        1280f*userGuideTexture2Size, 1024f*userGuideTexture2Size),
+//			        userGuideTexture2);
+			MyGUI.DrawTextureAspect( new Rect(-0.5f,0.0f,1.0f,1.0f) , userGuideTexture2 , 1280f/1024f );
 			Graphics.DrawTexture( // 操作方法.
 			                     new Rect(Screen.width/4, 0,
 			         sousahouhouTexture.width/2, sousahouhouTexture.height/2),
