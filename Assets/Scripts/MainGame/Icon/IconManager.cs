@@ -86,7 +86,7 @@ public class IconManager : MonoBehaviour {
 		for( int i = 0 ; i < iconMax ; i++ )
 		{
 			float x,y;
-			float height = - 0.5f + blank + ( ( 1.0f - blank * 2.0f ) / (float)( iconCnt - 1 ) ) * dispos[i];
+			float height = - 0.45f + blank + ( ( 1.0f - blank * 2.0f ) / (float)( iconCnt - 1 ) ) * dispos[i];
 			
 			if( receiveIcon[i] == null )
 			{

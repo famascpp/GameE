@@ -9,11 +9,22 @@ public class GameManager : MonoBehaviour {
 
 	ScoreManager scoreMgr;
 
+	Texture[] numTex;
+	Texture scoreTex;
+
 	void Awake()
 	{
 		iconMgr = this.GetComponent<IconManager>();
 		audioMgr = this.GetComponent<AudioManager>();
 		scoreMgr = this.GetComponent<ScoreManager>();
+
+
+		numTex = new Texture[10];
+		for( int i = 0 ; i < 10; i++)
+		{
+			numTex[i] = Resources.Load<Texture>("Textures/Score/"+i);
+		}
+		scoreTex = Resources.Load<Texture>("Textures/Score/score");
 	}
 
 	// Use this for initialization
@@ -38,17 +49,24 @@ public class GameManager : MonoBehaviour {
 	void OnGUI()
 	{
 		GUI.depth = -100;
-		GUIStyle style;
-		style = new GUIStyle();
-		style.fontSize = (int)(Screen.height / 10.0f);
+
+		MyGUI.DrawTexture(new Rect(-0.7f,-0.43f,0.5f,0.5f),scoreTex);
+
+		int point = (int)Points.GetPoints();
+		for( int i = 0 ; i < 5 ; i++ )
+		{
+			MyGUI.DrawTexture(new Rect(-0.4f*((float)i/4.0f),-0.43f,0.3f,0.3f),numTex[point%10]);
+			point /= 10;
+		}
+
+		int combo = (int)Points.GetCombo();
+		for( int i = 0 ; i < 3 ; i++ )
+		{
+			MyGUI.DrawTexture(new Rect(-0.5f - ((float)i/10.0f),0.1f,0.3f,0.3f),numTex[combo%10]);
+			combo /= 10;
+		}
 		
-		string str = "";
-		str += Points.GetPoints().ToString("00000") + " point\n";
 
-		str += Points.GetCombo().ToString("   0") + " combo!\n";
-
-
-		GUI.Label( new Rect(0,0,Screen.width,Screen.height) , str ,style );
 	}
 
 
