@@ -46,7 +46,8 @@ public class Title : MonoBehaviour {
 
 	void Awake()
 	{
-		Title.Init();
+		ReadArduino.drawLoadingFlag = true;
+
 		if( GameObject.FindGameObjectWithTag("Uniduino") == null)
 		{
 			ReadArduino.drawLoadingFlag = true;
@@ -55,6 +56,8 @@ public class Title : MonoBehaviour {
 	}
 
 	void Start () {
+		Title.Init();
+
 		blackTexture = new Texture2D(32,32,TextureFormat.ARGB32,false);
 		//blackTexture.ReadPixels(new Rect(0,0,32,32),0,0,false);
 		blackTexture.SetPixel(0,0,Color.white);

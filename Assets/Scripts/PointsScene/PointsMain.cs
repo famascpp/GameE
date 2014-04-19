@@ -53,7 +53,7 @@ public class PointsMain : MonoBehaviour {
 			point /= 10;
 		}
 		
-		int combo = (int)Points.GetCombo();
+		int combo = (int)Points.GetMaximumCombo();
 		for( int i = 0 ; i < 3 ; i++ )
 		{
 			MyGUI.DrawTexture(new Rect(-0.2f - ((float)i/10.0f),-0.05f,0.3f,0.3f),numTex[combo%10]);

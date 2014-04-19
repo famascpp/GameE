@@ -50,11 +50,12 @@
      <Compile Include="Assets\Uniduino\Editor\UniduinoSetup.cs" />
      <None Include="Assets\InputController\261207.txt" />
      <None Include="Assets\InputController\162912.txt" />
+     <None Include="Assets\InputController\19151646.txt" />
+     <None Include="Assets\InputController\1915946.txt" />
      <None Include="Assets\InputController\162234.txt" />
-     <None Include="Assets\Resources\Scores\test.txt" />
      <None Include="Assets\InputController\2612237.txt" />
      <None Include="Assets\InputController\2612420.txt" />
-     <None Include="Assets\Resources\Scores\test backup.txt" />
+     <None Include="Assets\Resources\Scores\test.txt" />
      <None Include="Assets\InputController\2612448.txt" />
      <None Include="Assets\InputController\2612357.txt" />
  <Reference Include="UnityEditor.Graphs">

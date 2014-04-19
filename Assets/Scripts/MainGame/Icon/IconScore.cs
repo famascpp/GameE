@@ -85,10 +85,15 @@ public class IconScore : MonoBehaviour {
 			break;
 		case PushMode.TaikoNoTatsujin:
 			{
+			int ii = 0;
+			if( this.col != 0 ){
+				ii = ( this.col - 1) / 2 + 1;
+			}
+
 				if( rButton && lButton )
-					this.tex = Resources.Load<Texture>("Textures/Icon/hand_6");
+				this.tex = Resources.Load<Texture>("Textures/Icon/Hand/hand_2_"+ii);
 				else
-					this.tex = Resources.Load<Texture>("Textures/Icon/hand_3");
+				this.tex = Resources.Load<Texture>("Textures/Icon/Hand/hand_1_"+ii);
 			}
 			break;
 		}
@@ -145,7 +150,7 @@ public class IconScore : MonoBehaviour {
 			}
 		}
 		   
-		float length = 0.3f;
+		float length = 0.5f;
 
 
 		if( ( input && Mathf.Abs( AtNextTime() ) < length ) || AtNextTime() < -length )
@@ -153,8 +158,8 @@ public class IconScore : MonoBehaviour {
 			float addPt = 1.0f - Mathf.Abs( AtNextTime() ) / length;
 
 			YesEnum yes;
-			if( addPt > 0.9f ) yes = YesEnum.yeah;
-			else if( addPt > 0.6f ) yes = YesEnum.yes;
+			if( addPt > 0.8f ) yes = YesEnum.yeah;
+			else if( addPt > 0.2f ) yes = YesEnum.yes;
 			else yes = YesEnum.oh;
 
 			//combo
