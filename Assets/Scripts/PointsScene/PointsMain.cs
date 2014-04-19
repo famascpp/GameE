@@ -7,6 +7,18 @@ public class PointsMain : MonoBehaviour {
 
 	Texture bgt;
 
+	Texture[] numTex;
+	Texture scoreTex;
+
+	void Awake(){
+		numTex = new Texture[10];
+		for( int i = 0 ; i < 10; i++)
+		{
+			numTex[i] = Resources.Load<Texture>("Textures/Score/"+i);
+		}
+		scoreTex = Resources.Load<Texture>("Textures/Score/score");
+	}
+
 	// Use this for initialization
 	void Start () {
 		startTime = Time.time;
@@ -32,17 +44,22 @@ public class PointsMain : MonoBehaviour {
 		MyGUI.DrawTextureAspect(new Rect(0,0,1,1),bgt,960.0f/640.0f);
 
 		GUI.depth = -100;
-		GUIStyle style;
-		style = new GUIStyle();
-		style.fontSize = (int)(Screen.height / 10.0f);
+		MyGUI.DrawTexture(new Rect(-0.5f,-0.43f,0.5f,0.5f),scoreTex);
 		
-		string str = "";
-		str += Points.GetPoints().ToString("0") + " point\n";
+		int point = (int)Points.GetPoints();
+		for( int i = 0 ; i < 5 ; i++ )
+		{
+			MyGUI.DrawTexture(new Rect(-0.1f - ((float)i/10.0f),-0.3f,0.3f,0.3f),numTex[point%10]);
+			point /= 10;
+		}
 		
-		str += "" + Points.GetMaximumCombo().ToString("0") + " combo maximum!!\n";
-		
-		
-		GUI.Label( new Rect( Screen.width / 2.0f - 960.0f/640.0f * Screen.height / 2.0f ,0 ,Screen.width,Screen.height) , str ,style );
+		int combo = (int)Points.GetCombo();
+		for( int i = 0 ; i < 3 ; i++ )
+		{
+			MyGUI.DrawTexture(new Rect(-0.2f - ((float)i/10.0f),-0.05f,0.3f,0.3f),numTex[combo%10]);
+			combo /= 10;
+		}
+
 
 	}
 }
